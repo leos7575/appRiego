@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.riego.app',
-  appName: 'proyectoRiego2',
+  appName: 'Aqua Control',
   webDir: 'www'
 };
 
