@@ -1,192 +1,116 @@
-
-
-ion-card {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    box-shadow: none;
-    border-radius: 12px;
+/* --- Global Typography & Background --- */
+.dark-background {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    --background: #0b0f19; /* Deep midnight blue */
 }
 
-.forgot-container {
-    margin: 1rem 0 1rem 0;
+/* --- Centered Layout Container --- */
+.centered-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-
-
-}
-a {
-    text-decoration: underline;
-    color: black;
+    min-height: 100vh;
+    padding: 24px;
+    box-sizing: border-box;
 }
 
-  
-.title-card {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-ion-card-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-ion-card-subtitle {
-    text-align: center;
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-ion-card-content {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-ion-input {
-    margin-bottom: 15px;
-}
-
-ion-button {
-    margin-top: 20px;
-    color: white;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.container {
-    margin: 1.8% auto;
-    background: none;
-    color: black;
-}
-ion-text {
-    text-decoration: underline;
-
-}
-img {
-    width: 10rem;
-}
-.label-registrar {
-    margin-left: 10%;
-}
-.maT{
-    margin-top: 120px;
-}
-.img-logo {
-    border-radius: 50%;
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5); 
-}
-.fondo{
-    --background: #ffffff;
-}
-.card {
-    border: none;
-}
-.head{
-    --background: #38A1D2;
-    font-family: "Tektur", sans-serif;
-    font-weight: 900;
-    height: 4.5rem;
-}
-.title{
-   text-align: center;
-   font-weight: 900;
-//    margin-top: 1.4rem;
-   font-size: 1.6rem;
-}
-
-.input1 {
+/* --- Premium Glass/Dark Card --- */
+.premium-card {
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 12px; /* Bordes redondeados */
-    background-color: #f2f4f7; /* Color de fondo similar al de la imagen */
-    border: none; /* Sin borde */
-    box-shadow: none; /* Sin sombra por defecto */
-    color: #6c757d; /* Color del texto */
-    text-indent: 10px; 
-    outline: none;
-}
-  
-  
-.input1::placeholder {
-    color: #a0a5a8; /* Color del placeholder similar al de la imagen */
-    text-indent: 1000px; 
-}
-  
-  .input1:focus {
-    outline: none; /* Eliminar borde al hacer clic */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Suave sombra al enfocar */
-  }
-
-.login-button {
-    // --background: #74E59C;
-    --border-radius: 30px;
-    width: 90%;
-    padding: 12px;
-    // border: solid 2px #000000;
-    margin-left: 5%;
-    color: black;
-    --box-shadow: 0 4px 5px 2px rgba(0.1, 0.1, 0.1, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    background: #131a26; /* Slightly lighter dark shade for contrast */
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                0 0 50px rgba(6, 182, 212, 0.03); /* Subtle aqua ambient glow */
+    border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.ojo{
-    --color: #74E59C;
+/* --- Typography & Header --- */
+.clean-header {
+    text-align: center;
+    padding-bottom: 16px;
 }
 
-@media (min-width: 768px) {
-
-    .container {
-        margin: 2.5% auto;
-        color: black;
-    }
-    ion-card {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        box-shadow: 0 4px 10px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-    }
-}
-ion-button {
-    --background: #74E59C;
-    --background-hover: #9ce0be;
-    --background-activated: #88f4be;
-    --background-focused: #88f4be;
-  
-    --color: blue;
-  
-    --border-radius: 0;
-    --border-color: #000;
-    --border-style: solid;
-    --border-width: 1px;
-  
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-  
-    --ripple-color: deeppink;
-  
-    --padding-top: 15px;
-    --padding-bottom: 15px;
+.main-title {
+    font-size: 2.4rem;
     font-weight: 800;
-}
-.sombra{
-    --box-shadow: 2px 2px 6px 5px rgb(1, 1, 1, 0.25);
-}
-.forgot-container p {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del párrafo */
-}
-  
-  .forgot-container a {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del enlace */
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+    /* Cyan to Aqua Gradient */
+    background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+.dark-subtitle {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 500;
+}
 
-  
+/* --- Modern Input Fields --- */
+.premium-input {
+    --background: #1e293b; /* Sleek integrated input backdrop */
+    --color: #f8fafc; /* Crisp white text */
+    --placeholder-color: #475569;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    border-radius: 16px;
+    margin-bottom: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.25s ease-in-out;
+}
 
-  
+/* Interactive Input Focus State */
+.premium-input.ion-focused {
+    border: 1px solid #06b6d4;
+    --background: #131a26;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25); /* Focused glow effect */
+}
+
+.neon-eye {
+    --color: #06b6d4;
+}
+
+/* --- Action Button --- */
+.neon-btn {
+    --background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    --color: #0b0f19; /* High-contrast dark text on bright background */
+    --border-radius: 16px;
+    --box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35);
+    margin: 12px 0 24px 0;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    height: 52px;
+}
+
+/* --- Footer Link Section --- */
+.forgot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+.text-secondary {
+    color: #64748b;
+}
+
+.neon-link {
+    color: #38bdf8;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.neon-link:hover {
+    color: #06b6d4;
+    text-decoration: underline;
+}
