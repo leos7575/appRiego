@@ -44,7 +44,7 @@ export class Tab1Page {
   
   // enviarConfiguracion() {
   //   // Obtener la configuración desde la API
-  //   this.http.get<any>('https://apiriego.onrender.com/config1/67bb6f2e85118d10af317f79').subscribe(
+  //   this.http.get<any>('https://api-riego-i0yt0iifo-leonardos-projects-2f92a5fc.vercel.app/config1/67bb6f2e85118d10af317f79').subscribe(
   //     (config) => {
   //       console.log('Configuración obtenida:', config);
 
@@ -60,12 +60,11 @@ export class Tab1Page {
   toggleEstado1() {
     this.estado1 = !this.estado1; // Alternar estado
 
-    const endpoint = this.estado1
-      ? 'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79'
-      : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb6f2e85118d10af317f79';
+    const peticion = this.estado1
+      ? this.bd.actualizarEstado('67bb6f2e85118d10af317f79')
+      : this.bd.actualizarEstadoFalse('67bb6f2e85118d10af317f79');
 
-    this.http.put(endpoint, { headers: { 'Content-Type': 'application/json' } })
-      .subscribe(response => {
+    peticion.subscribe(response => {
           console.log('Estado actualizado:', response);
           this.mostrarAlerta('Estado actualizado', `El sistema está ${this.estado1 ? 'Activado' : 'Desactivado'}.`);
         }, error => {
@@ -76,12 +75,11 @@ export class Tab1Page {
   toggleEstado2() {
     this.estado2 = !this.estado2; // Alternar estado
 
-    const endpoint = this.estado2
-      ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
-      : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb79ac1c82e9d42d445882';
+    const peticion = this.estado2
+      ? this.bd.actualizarEstado('67bb79ac1c82e9d42d445882')
+      : this.bd.actualizarEstadoFalse('67bb79ac1c82e9d42d445882');
 
-    this.http.put(endpoint, { headers: { 'Content-Type': 'application/json' } })
-      .subscribe(response => {
+    peticion.subscribe(response => {
           console.log('Estado actualizado:', response);
           this.mostrarAlerta('Estado actualizado', `El sistema está ${this.estado2 ? 'Activado' : 'Desactivado'}.`);
         }, error => {
@@ -91,9 +89,7 @@ export class Tab1Page {
   }
 
   stateConfiguracion() {
-    this.http.put(`https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79`,{
-      headers: { 'Content-Type': 'application/json' }
-    }).subscribe(response => {
+    this.bd.actualizarEstado('67bb6f2e85118d10af317f79').subscribe(response => {
         console.log('Estado actualizado:', response);
         this.mostrarAlerta('Estado actualizado', 'Se ha actualizado el estado de la configuración.');
       }, error => {
@@ -102,9 +98,7 @@ export class Tab1Page {
       });
   }
   stateConfiguracion2() {
-    this.http.put(`https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882`,{
-      headers: { 'Content-Type': 'application/json' }
-    }).subscribe(response => {
+    this.bd.actualizarEstado('67bb79ac1c82e9d42d445882').subscribe(response => {
         console.log('Estado actualizado:', response);
         this.mostrarAlerta('Estado actualizado', 'Se ha actualizado el estado de la configuración.');
       }, error => {

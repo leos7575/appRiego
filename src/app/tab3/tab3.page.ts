@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
 import { HttpClient } from '@angular/common/http';
+import { UsuariosService } from '../services/usuarios.service';
 
 declare var google: any;
 
@@ -15,7 +16,7 @@ export class Tab3Page implements AfterViewInit {
   // Esta variable almacenará los datos obtenidos de la API
   riegos: { fechaInicio: string; fechaFin: string; duracion: number; dias: string[]; sector: string; estadoValvula: boolean; }[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private usuariosService: UsuariosService) {}
   ngOnInit() {
     
   }
@@ -26,7 +27,7 @@ export class Tab3Page implements AfterViewInit {
 
   // Función para obtener los datos de la API
   getHistorialRiego() {
-    this.http.get<any>('https://apiriego.onrender.com/historial').subscribe(
+    this.usuariosService.getHistorialRiego().subscribe(
       (response) => {
         if (response.Respuesta && Array.isArray(response.Respuesta)) {
           // Mapeo seguro de los registros
