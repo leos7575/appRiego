@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonImg,IonButton } from '@ionic/angular/standalone';
+import { Component, OnInit } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonImg, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../services/usuarios.service';
 
+import { addIcons } from 'ionicons';
+import { water } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, CommonModule, FormsModule,],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon, CommonModule, FormsModule],
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
 
-  estado1:any;
-  estado2:any;
+  estado1: any;
+  estado2: any;
 
-  constructor(private http: HttpClient, private bd:UsuariosService) {}
+  constructor(private http: HttpClient, private bd: UsuariosService) {
+    addIcons({ water });
+  }
+
   ngOnInit() {
     this.bd.getEstadoValvula('67bb6f2e85118d10af317f79').subscribe((res: any) => {
       console.log('Respuesta completa estado1:', res); 
@@ -41,24 +46,8 @@ export class Tab1Page {
     });
   }
   
-  
-  // enviarConfiguracion() {
-  //   // Obtener la configuración desde la API
-  //   this.http.get<any>('https://apiriego.onrender.com/config1/67bb6f2e85118d10af317f79').subscribe(
-  //     (config) => {
-  //       console.log('Configuración obtenida:', config);
-
-  //       // Enviar la configuración al ESP32
-  //       this.http.post('http://192.168.118.231/configurar', config).subscribe(
-  //         (res) => console.log('Configuración enviada al ESP32:', res),
-  //         (error) => console.error('Error al enviar configuración:', error)
-  //       );
-  //     },
-  //     (error) => console.error('Error al obtener configuración:', error)
-  //   );
-  // }
   toggleEstado1() {
-    this.estado1 = !this.estado1; // Alternar estado
+    this.estado1 = !this.estado1;
 
     const endpoint = this.estado1
       ? 'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79'
@@ -73,8 +62,9 @@ export class Tab1Page {
           this.mostrarAlerta('Error', 'Hubo un problema al actualizar el estado.');
         });
   }
+
   toggleEstado2() {
-    this.estado2 = !this.estado2; // Alternar estado
+    this.estado2 = !this.estado2;
 
     const endpoint = this.estado2
       ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
@@ -91,7 +81,7 @@ export class Tab1Page {
   }
 
   stateConfiguracion() {
-    this.http.put(`https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79`,{
+    this.http.put(`https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79`, {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe(response => {
         console.log('Estado actualizado:', response);
@@ -101,8 +91,9 @@ export class Tab1Page {
         this.mostrarAlerta('Error al actualizar estado', 'Hubo un problema al actualizar el estado de la configuración.');
       });
   }
+
   stateConfiguracion2() {
-    this.http.put(`https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882`,{
+    this.http.put(`https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882`, {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe(response => {
         console.log('Estado actualizado:', response);
@@ -112,9 +103,8 @@ export class Tab1Page {
         this.mostrarAlerta('Error al actualizar estado', 'Hubo un problema al actualizar el estado de la configuración.');
       });
   }
+
   mostrarAlerta(titulo: string, mensaje: string) {
     alert(`${titulo}\n${mensaje}`);
   }
-  
-
 }

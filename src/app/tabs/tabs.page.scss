@@ -1,8 +1,43 @@
-
-.head{
-    --background: #38A1D2;
-    border: none;
+/* --- Barra de Navegación Premium --- */
+.custom-tab-bar {
+    --background: #1E2E4F; /* Space Cadet: El azul oscuro de tu captura */
+    border-top: 1px solid #31487A; /* Divisor sutil */
+    height: 60px; 
+    box-shadow: 0 -10px 25px rgba(25, 35, 56, 0.3);
 }
-.icon{
-    color: #000000;
+
+/* --- Botones en modo Horizontal --- */
+.nav-button {
+    --background: transparent;
+    
+    /* Colores de la paleta premium */
+    --color: #7284a1; /* Color apagado para los inactivos */
+    --color-selected: #8FB3E2; /* Jordy Blue para el activo */
+    
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: center;
+    
+    transition: all 0.2s ease;
+}
+
+/* --- SOLUCIÓN DE SEPARACIÓN: Forzado individual por ícono --- */
+.nav-button ion-icon {
+    font-size: 1.3rem; 
+    margin: 0 !important; /* Reseteamos los márgenes automáticos de Ionic */
+    margin-right: 12px !important; /* Forzamos 12px de espacio libre a la derecha del ícono */
+}
+
+/* --- Ajuste del Texto --- */
+.nav-button ion-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 !important; /* Evita que Ionic lo desplace hacia abajo */
+    letter-spacing: 0.3px;
+}
+
+/* --- Destello sutil en la pestaña activa --- */
+.nav-button.tab-selected {
+    background: rgba(143, 179, 226, 0.04);
 }

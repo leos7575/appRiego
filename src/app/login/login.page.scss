@@ -1,116 +1,189 @@
-/* --- Global Typography & Background --- */
-.dark-background {
+/* --- Fondo General --- */
+.desktop-bg {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    --background: #0b0f19; /* Deep midnight blue */
+    --background: #192338;
 }
 
-/* --- Centered Layout Container --- */
-.centered-container {
+/* --- Centrado en Pantalla Grande --- */
+.login-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 24px;
+    padding: 40px;
     box-sizing: border-box;
 }
 
-/* --- Premium Glass/Dark Card --- */
-.premium-card {
+/* --- Tarjeta Contenedora Principal --- */
+.split-card {
+    display: flex;
     width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 32px 24px;
-    background: #131a26; /* Slightly lighter dark shade for contrast */
-    border-radius: 28px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
-                0 0 50px rgba(6, 182, 212, 0.03); /* Subtle aqua ambient glow */
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    max-width: 1000px; /* Un poco más compacto */
+    min-height: 600px;
+    background: #1E2E4F; 
+    border-radius: 24px; /* ESQUINAS CORREGIDAS: Más cuadradas */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden; 
 }
 
-/* --- Typography & Header --- */
-.clean-header {
-    text-align: center;
-    padding-bottom: 16px;
+/* --- Lado Izquierdo (Claro) --- */
+.split-left {
+    flex: 1.1; 
+    background: #D9E1F1; 
+    border-top-right-radius: 60px; /* Curva adaptada a la nueva proporción */
+    border-bottom-right-radius: 60px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2; 
+    box-shadow: 10px 0 25px rgba(25, 35, 56, 0.15); 
 }
 
-.main-title {
-    font-size: 2.4rem;
+.brand-title {
+    color: #192338; 
     font-weight: 800;
-    margin: 0 0 8px 0;
-    letter-spacing: -0.5px;
-    /* Cyan to Aqua Gradient */
-    background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 2.2rem;
+    margin: 0 0 5px 0;
 }
 
-.dark-subtitle {
-    color: #64748b;
-    font-size: 0.9rem;
+.brand-subtitle {
+    color: #31487A; 
+    font-weight: 600;
     margin: 0;
-    font-weight: 500;
 }
 
-/* --- Modern Input Fields --- */
-.premium-input {
-    --background: #1e293b; /* Sleek integrated input backdrop */
-    --color: #f8fafc; /* Crisp white text */
-    --placeholder-color: #475569;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --padding-top: 16px;
-    --padding-bottom: 16px;
-    border-radius: 16px;
-    margin-bottom: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.25s ease-in-out;
-}
-
-/* Interactive Input Focus State */
-.premium-input.ion-focused {
-    border: 1px solid #06b6d4;
-    --background: #131a26;
-    box-shadow: 0 0 15px rgba(6, 182, 212, 0.25); /* Focused glow effect */
-}
-
-.neon-eye {
-    --color: #06b6d4;
-}
-
-/* --- Action Button --- */
-.neon-btn {
-    --background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-    --color: #0b0f19; /* High-contrast dark text on bright background */
-    --border-radius: 16px;
-    --box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35);
-    margin: 12px 0 24px 0;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.5px;
-    height: 52px;
-}
-
-/* --- Footer Link Section --- */
-.forgot-container {
+/* Contenedor de la ilustración para centrarla */
+.illustration-container {
+    flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px;
+    margin-top: 20px;
+}
+
+.water-drop-logo {
+    width: 200px;
+    height: 200px;
+    filter: drop-shadow(0 15px 20px rgba(49, 72, 122, 0.3)); /* Sombra suave a la gota */
+}
+
+/* --- Lado Derecho (Formulario Oscuro) --- */
+.split-right {
+    flex: 1; 
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #1E2E4F; 
+}
+
+.main-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff; 
+    margin-bottom: 30px;
+}
+
+/* --- Agrupación de Inputs --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    width: 100%; /* Forzamos ancho completo */
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #D9E1F1; 
+    font-weight: 600;
+}
+
+/* --- Inputs Corregidos (Tamaños Exactos) --- */
+.premium-input {
+    --background: #31487A; 
+    --color: #ffffff;
+    --placeholder-color: #8FB3E2; 
+    --padding-start: 16px; 
+    --padding-end: 16px;
+    
+    /* Forzamos el alto exacto y caja para que sean idénticos */
+    height: 52px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+
+    border-radius: 12px; 
+    --border-radius: 12px; 
+    border: 2px solid transparent; 
+    transition: border 0.3s ease;
+}
+
+.premium-input::part(native) {
+    /* Esto asegura que el campo nativo de Ionic no empuje los bordes */
+    height: 100%;
+}
+
+.premium-input.ion-focused {
+    border: 2px solid #8FB3E2; 
+}
+
+.light-eye {
+    --color: #8FB3E2;
+}
+
+.premium-input.ion-focused {
+    border: 2px solid #8FB3E2; 
+}
+
+.light-eye {
+    --color: #8FB3E2;
+}
+
+/* --- Enlaces --- */
+.forgot-link-container {
+    text-align: right;
+    margin-top: 8px;
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    color: #8FB3E2; 
+    text-decoration: underline;
+}
+
+/* --- Botón de Acción Corregido --- */
+.neon-btn {
+    --background: #8FB3E2; 
+    --color: #192338; 
+    --border-radius: 12px; /* ESQUINAS CORREGIDAS */
+    --box-shadow: none; /* SOMBRA EXTRAÑA ELIMINADA */
+    box-shadow: none; 
+    margin: 20px 0 24px 0;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    height: 52px;
+}
+
+/* --- Footer --- */
+.forgot-container {
+    text-align: center;
     font-size: 0.9rem;
 }
 
 .text-secondary {
-    color: #64748b;
+    color: #D9E1F1; 
 }
 
 .neon-link {
-    color: #38bdf8;
-    font-weight: 600;
+    color: #8FB3E2; 
+    font-weight: 700;
     text-decoration: none;
-    transition: color 0.2s ease;
+    margin-left: 4px;
 }
 
 .neon-link:hover {
-    color: #06b6d4;
     text-decoration: underline;
 }

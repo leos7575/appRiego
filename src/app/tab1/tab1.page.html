@@ -1,47 +1,76 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&display=swap" rel="stylesheet">
-<ion-header [translucent]="true">
-  <ion-toolbar class="head">
-    <ion-title class="title">
-      Sectores
-    </ion-title>
+<ion-header [translucent]="true" class="custom-header">
+  <ion-toolbar class="head-toolbar">
+    <div class="header-container-full">
+      
+      <div class="brand-wrapper">
+        <div class="logo-indicator"></div>
+        <ion-title class="main-header-title">AquaControl</ion-title>
+        <span class="version-tag">v2.1</span>
+      </div>
+
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="fondo">
-  <div class="parent-container">
-    <div class="contBtn1">
-      <h1>Sector 1</h1>
-      <div class="contBtn1only">
+<ion-content [fullscreen]="true" class="desktop-bg">
+  <div class="dashboard-wrapper">
+    
+    <div class="section-intro">
+      <h1 class="section-title">Control de Sectores</h1>
+      <p class="section-subtitle">Monitoreo y activación manual de válvulas de flujo</p>
+    </div>
+
+    <div class="sectors-grid">
+
+      <div class="sector-card" [ngClass]="{'is-active': estado1}">
+        <div class="card-header-status">
+          <span class="status-badge">{{ estado1 ? 'En línea' : 'Inactivo' }}</span>
+          <div class="status-dot"></div>
+        </div>
+        
+        <div class="card-body">
+          <div class="icon-box">
+            <ion-icon name="water"></ion-icon>
+          </div>
+          <h2 class="sector-name">Sector 01</h2>
+          <p class="sector-details">Válvula Principal Norte</p>
+        </div>
+
         <ion-button 
-          [ngClass]="{'btn1-on': estado1, 'btn1-off': !estado1}" 
+          [ngClass]="{'btn-on': estado1, 'btn-off': !estado1}" 
           fill="solid" 
           expand="block" 
-          (click)="toggleEstado1()">
-          {{ estado1 ? 'Desactivar' : 'Activar' }}
+          (click)="toggleEstado1()"
+          class="action-btn">
+          {{ estado1 ? 'Desactivar' : 'Activar Válvula' }}
         </ion-button>
       </div>
-      
 
-    </div>
-    
-    
-    <div class="contBtn2">
-      <h1>Sector 2</h1>
-      <div class="contBtn2only">
+      <div class="sector-card" [ngClass]="{'is-active': estado2}">
+        <div class="card-header-status">
+          <span class="status-badge">{{ estado2 ? 'En línea' : 'Inactivo' }}</span>
+          <div class="status-dot"></div>
+        </div>
+        
+        <div class="card-body">
+          <div class="icon-box">
+            <ion-icon name="water"></ion-icon>
+          </div>
+          <h2 class="sector-name">Sector 02</h2>
+          <p class="sector-details">Válvula de Asperción Sur</p>
+        </div>
+
         <ion-button 
-          [ngClass]="{'btn2-on': estado2, 'btn2-off': !estado2}" 
+          [ngClass]="{'btn-on': estado2, 'btn-off': !estado2}" 
           fill="solid" 
           expand="block" 
-          (click)="toggleEstado2()">
-          {{ estado2 ? 'Desactivar' : 'Activar' }}
+          (click)="toggleEstado2()"
+          class="action-btn">
+          {{ estado2 ? 'Desactivar' : 'Activar Válvula' }}
         </ion-button>
       </div>
 
     </div>
+
   </div>
-  
- 
-  
 </ion-content>
