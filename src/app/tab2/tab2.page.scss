@@ -1,75 +1,170 @@
-.alarma {
-    width: 40px;
-    height: 40px;
-    font-weight: bold;
-    --background: #f0f0f0;
-    --color: #333;
-    --border-radius: 50%;
-    --font-family: "Tektur", sans-serif;
-  
-    &.selected {
-      --background: #74E59C ;
-      --color: white;
-    }
-  }
+/* --- Variables e Importaciones de Tipografía --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
-.fondo {
-  --background: #ffffff;
-  --color: #333;
-  
-  
-}
-
-.head{
-  --background: #38A1D2;
-  font-family: "Tektur", sans-serif;
-  font-weight: 900;
-  height: 4.5rem;
-}
-
-.title{
-  text-align: center;
-  font-weight: 900;
-  // margin-top: 1.4rem;
-  font-size: 1.6rem;
-  
-}
-
-ion-datetime-button::part(native) {
-  background-color: #74E59C !important;
-  color: #000 !important; 
-  border-radius: 8px; 
-  padding: 10px 15px; 
-  border: 3px solid #F4E6AE;
-  font-weight: 900;
-  font-family: "Tektur", sans-serif;
-}
-.h1{
-  color: #74E59C;
-  margin-left: 7px;
-  font-weight: 900;
-  
-  
-}
-h3{
-  color: #011A3D;
-  font-weight: 900;
-  margin-left: 1.6rem;
-}
-
-.Guardar{
-  --background: #74E59C;
+/* --- Toolbar Superior --- */
+.custom-toolbar {
+  --background: #1E2E4F;
   --color: #ffffff;
-  --font-weight: 900;
-  --font-family: "Tektur", sans-serif;
+  border-bottom: 1px solid rgba(143, 179, 226, 0.2);
+  height: 64px;
 }
 
-@media (min-width: 768px) {
-  .Guardarancho{
-    width: 50%;
-    margin-left: 25%;
+.custom-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+/* --- Fondo General de la Página --- */
+.premium-bg {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  --background: #192338;
+}
+
+/* Contenedor central adaptable (Responsive) */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- Tarjeta Contenedora por Sector --- */
+.config-card {
+  background: #1E2E4F;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(143, 179, 226, 0.05);
+}
+
+.sector-title {
+  color: #8FB3E2;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.5px;
+}
+
+/* --- Filas de Control (Fecha y Hora) --- */
+.control-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  background: rgba(49, 72, 122, 0.4);
+  padding: 10px 16px;
+  border-radius: 12px;
+}
+
+.label-col {
+  display: flex;
+  align-items: center;
+}
+
+.label-col label, .input-group label, .block-label {
+  font-size: 0.95rem;
+  color: #D9E1F1;
+  font-weight: 600;
+}
+
+.block-label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+.component-col {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Customización del botón Datetime Nativo de Ionic */
+ion-datetime-button::part(native) {
+  background: #31487A;
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 1px solid rgba(143, 179, 226, 0.3);
+  padding: 6px 12px;
+}
+
+/* --- Botones Circulares de los Días --- */
+.days-container {
+  margin: 20px 0;
+}
+
+.day-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #31487A;
+  color: #D9E1F1;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin: 0 4px;
+
+  &:hover {
+    background: lighten(#31487A, 5%);
+  }
+
+  &.selected {
+    background: #8FB3E2;
+    color: #192338;
+    box-shadow: 0 0 12px rgba(143, 179, 226, 0.4);
+    font-weight: 800;
   }
 }
 
+/* --- Estructura y Estilos de Inputs --- */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  width: 100%;
+}
 
-  
+.input-group label {
+  margin-bottom: 8px;
+}
+
+.premium-input {
+  --background: #31487A;
+  --color: #ffffff;
+  --placeholder-color: #8FB3E2;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  height: 50px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 12px;
+  --border-radius: 12px;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+}
+
+.premium-input.ion-focused {
+  border: 2px solid #8FB3E2;
+}
+
+/* --- Botón Guardar Metálico/Neon --- */
+.neon-btn {
+  --background: #8FB3E2;
+  --color: #192338;
+  --border-radius: 12px;
+  box-shadow: none;
+  margin-top: 15px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  height: 50px;
+}

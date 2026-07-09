@@ -19,6 +19,7 @@ ion-card {
 }
 a {
     text-decoration: underline;
+<<<<<<< Updated upstream
     color: black;
 }
 
@@ -190,3 +191,22 @@ ion-button {
   
 
   
+=======
+}
+
+.toast-success{
+    --background:#8FB3E2;
+    --color:#192338;
+    --border-radius:18px;
+    --box-shadow:0 12px 35px rgba(143,179,226,.35);
+    font-weight:700;
+}
+
+.toast-error{
+    --background:#31487A;
+    --color:#ffffff;
+    --border-radius:18px;
+    --box-shadow:0 12px 35px rgba(49,72,122,.45);
+    font-weight:700;
+}
+>>>>>>> Stashed changes
