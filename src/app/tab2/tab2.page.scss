@@ -1,26 +1,27 @@
 /* --- Variables e Importaciones de Tipografía --- */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
-
-/* --- Toolbar Superior --- */
-.custom-toolbar {
-  --background: #1E2E4F;
-  --color: #ffffff;
-  border-bottom: 1px solid rgba(143, 179, 226, 0.2);
-  height: 64px;
-}
-
-.custom-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  text-align: center;
-  font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: 0.5px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&display=swap');
 
 /* --- Fondo General de la Página --- */
 .premium-bg {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  --background: #192338;
+  font-family: 'Tektur', sans-serif;
+  --background: #ffffff;
+  --color: #333333;
+}
+
+/* --- Toolbar Superior --- */
+.custom-toolbar {
+  --background: #38A1D2;
+  --color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  height: 4.5rem;
+}
+
+.custom-title {
+  font-family: 'Tektur', sans-serif;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
 }
 
 /* Contenedor central adaptable (Responsive) */
@@ -35,17 +36,18 @@
 
 /* --- Tarjeta Contenedora por Sector --- */
 .config-card {
-  background: #1E2E4F;
+  background: #f9fbfd; /* Un fondo sutilmente azulado/claro para contrastar en el fondo blanco */
   border-radius: 20px;
   padding: 24px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(143, 179, 226, 0.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 2px solid #38A1D2; /* Delimitador usando tu azul principal */
 }
 
 .sector-title {
-  color: #8FB3E2;
-  font-size: 1.6rem;
-  font-weight: 800;
+  color: #011A3D;
+  font-family: 'Tektur', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
   margin: 0 0 20px 0;
   letter-spacing: 0.5px;
 }
@@ -55,7 +57,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 18px;
-  background: rgba(49, 72, 122, 0.4);
+  background: rgba(56, 161, 210, 0.08); /* Sutil fondo azul claro */
   padding: 10px 16px;
   border-radius: 12px;
 }
@@ -66,14 +68,16 @@
 }
 
 .label-col label, .input-group label, .block-label {
+  font-family: 'Tektur', sans-serif;
   font-size: 0.95rem;
-  color: #D9E1F1;
-  font-weight: 600;
+  color: #011A3D;
+  font-weight: 900;
 }
 
 .block-label {
   display: block;
   margin-bottom: 12px;
+  margin-left: 4px;
 }
 
 .component-col {
@@ -81,15 +85,15 @@
   justify-content: flex-end;
 }
 
-/* Customización del botón Datetime Nativo de Ionic */
+/* Customización del botón Datetime Nativo de Ionic (Estilo Alarma/Neon) */
 ion-datetime-button::part(native) {
-  background: #31487A;
-  color: #ffffff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
+  background: #74E59C !important;
+  color: #000000 !important;
+  font-family: 'Tektur', sans-serif;
+  font-weight: 900;
   border-radius: 8px;
-  border: 1px solid rgba(143, 179, 226, 0.3);
-  padding: 6px 12px;
+  border: 3px solid #F4E6AE;
+  padding: 10px 15px;
 }
 
 /* --- Botones Circulares de los Días --- */
@@ -101,10 +105,11 @@ ion-datetime-button::part(native) {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #31487A;
-  color: #D9E1F1;
-  font-weight: 700;
-  font-size: 0.9rem;
+  background: #f0f0f0;
+  color: #333333;
+  font-family: 'Tektur', sans-serif;
+  font-weight: 900;
+  font-size: 0.95rem;
   border: none;
   cursor: pointer;
   display: flex;
@@ -114,14 +119,14 @@ ion-datetime-button::part(native) {
   margin: 0 4px;
 
   &:hover {
-    background: lighten(#31487A, 5%);
+    background: #e2e2e2;
   }
 
   &.selected {
-    background: #8FB3E2;
-    color: #192338;
-    box-shadow: 0 0 12px rgba(143, 179, 226, 0.4);
-    font-weight: 800;
+    background: #74E59C;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(116, 229, 156, 0.5);
+    font-weight: 900;
   }
 }
 
@@ -138,11 +143,12 @@ ion-datetime-button::part(native) {
 }
 
 .premium-input {
-  --background: #31487A;
-  --color: #ffffff;
-  --placeholder-color: #8FB3E2;
+  --background: #f0f0f0;
+  --color: #333333;
+  --placeholder-color: #999999;
   --padding-start: 16px;
   --padding-end: 16px;
+  font-family: 'Tektur', sans-serif;
   height: 50px;
   box-sizing: border-box;
   width: 100%;
@@ -153,18 +159,27 @@ ion-datetime-button::part(native) {
 }
 
 .premium-input.ion-focused {
-  border: 2px solid #8FB3E2;
+  border: 2px solid #74E59C;
 }
 
-/* --- Botón Guardar Metálico/Neon --- */
+/* --- Botón Guardar Metálico/Neon Responsivo --- */
 .neon-btn {
-  --background: #8FB3E2;
-  --color: #192338;
+  --background: #74E59C;
+  --color: #ffffff;
   --border-radius: 12px;
-  box-shadow: none;
-  margin-top: 15px;
-  font-weight: 800;
-  font-size: 0.95rem;
+  font-family: 'Tektur', sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
   letter-spacing: 1px;
   height: 50px;
+  margin-top: 15px;
+  box-shadow: 0 4px 15px rgba(116, 229, 156, 0.3);
+}
+
+/* Ajuste Responsivo para Tablets/Escritorio (Ancho del 50% al guardar en pantallas grandes) */
+@media (min-width: 768px) {
+  .neon-btn {
+    width: 50%;
+    margin-left: 25%;
+  }
 }
