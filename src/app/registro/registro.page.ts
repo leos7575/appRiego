@@ -41,47 +41,36 @@ import {
   ]
 })
 export class RegistroPage implements OnInit {
-
   credenciales = {
     usuario: '',
     password: '',
     email: ''
   };
-
   errores = {
     usuario: '',
     password: '',
     email: ''
   };
-
   constructor(
     private ruta: Router,
     private userS: UsuariosService,
     private toastController: ToastController
   ) {}
-
   ngOnInit() {}
-
   limpiarErrores() {
     this.errores.usuario = '';
     this.errores.password = '';
     this.errores.email = '';
   }
-
   validarFormulario(): boolean {
-
     this.limpiarErrores();
-
     let valido = true;
-
     if (!this.credenciales.usuario) {
       this.errores.usuario = 'Username is required.';
       valido = false;
     }
-
     const emailPattern =
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
     if (!this.credenciales.email) {
       this.errores.email = 'Email is required.';
       valido = false;
@@ -89,7 +78,6 @@ export class RegistroPage implements OnInit {
       this.errores.email = 'Enter a valid email.';
       valido = false;
     }
-
     if (!this.credenciales.password) {
       this.errores.password = 'Password is required.';
       valido = false;
@@ -98,15 +86,12 @@ export class RegistroPage implements OnInit {
         'Password must contain at least 6 characters.';
       valido = false;
     }
-
     return valido;
   }
-
   async mostrarToast(
     mensaje: string,
     tipo: 'success' | 'error'
   ) {
-
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 2200,
@@ -120,52 +105,35 @@ export class RegistroPage implements OnInit {
           ? 'toast-success'
           : 'toast-error'
     });
-
     await toast.present();
   }
-
   insertar() {
-
     if (!this.validarFormulario()) {
       return;
     }
-
     const nuevoUsuario = {
       user: this.credenciales.usuario,
       password: this.credenciales.password,
       email: this.credenciales.email
     };
-
     this.userS.postUsers(nuevoUsuario).subscribe(
-
       (res: any) => {
-
         console.log('Usuario registrado:', res);
-
         this.mostrarToast(
           'Account created successfully!',
           'success'
         );
-
         setTimeout(() => {
           this.ruta.navigate(['login']);
         }, 1300);
-
       },
-
       (err: any) => {
-
         console.error(err);
-
         this.mostrarToast(
           'There was a problem creating your account.',
           'error'
         );
-
       }
-
     );
-
   }
-
 }
