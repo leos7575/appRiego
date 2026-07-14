@@ -3,7 +3,6 @@
 /*=========================
   COLORES
 =========================*/
-
 $background: #192338;
 $card: #1E2E4F;
 $primary: #8FB3E2;
@@ -18,192 +17,112 @@ $warning: #FFD76E;
 /*=========================
   HEADER PREMIUM
 =========================*/
-
 .custom-toolbar {
-
   --background: linear-gradient(
     135deg,
     #1E2E4F 0%,
     #16223B 100%
   );
-
   --border-width:0;
-
   height:70px;
-
 }
-
 
 .header-content {
-
   display:flex;
-
   align-items:center;
-
   gap:12px;
-
   padding:0 30px;
-
 }
-
 
 .logo-indicator {
-
   width:6px;
-
   height:24px;
-
   background:#8FB3E2;
-
   border-radius:5px;
-
   box-shadow:
   0 0 12px rgba(143,179,226,.7);
-
 }
-
-
 
 .custom-title {
-
   font-family:'Plus Jakarta Sans';
-
   font-weight:800;
-
   color:white;
-
   font-size:1.35rem;
-
   letter-spacing:.5px;
-
   padding:0;
-
 }
-
-
 
 /*=========================
   SELECTOR DE SECTORES
 =========================*/
-
-
 .segment-container {
-
   background:#192338;
-
   padding:15px 20px;
-
 }
-
-
 
 .premium-segment {
-
   background:#1E2E4F;
-
   border-radius:16px;
-
   padding:5px;
-
 }
 
-
 .premium-segment ion-segment-button {
-
-
   --color:#D9E1F1;
-
   --color-checked:#71E49A;
-
   --indicator-color:#8FB3E2;
-
-
   font-family:'Plus Jakarta Sans';
-
   font-weight:700;
-
   min-height:40px;
-
 }
 
 /*=========================
   FONDO
 =========================*/
-
 .premium-bg{
-
   --background:#192338;
-
   font-family:'Plus Jakarta Sans';
-
 }
 
 /*=========================
   CONTENEDOR
 =========================*/
-
 .page-container{
-
   max-width:1200px;
-
   margin:auto;
-
   padding:18px;
-
 }
 
 /*=========================
   GRID KPIs
 =========================*/
-
 .metrics-grid{
-
   margin-bottom:18px;
-
 }
 
 .metrics-grid ion-col{
-
   padding:7px;
-
 }
 
 /*=========================
  KPI
 =========================*/
-
 .kpi-card{
-
   background:#1E2E4F;
-
   border-radius:18px;
-
   padding:18px;
-
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
   justify-content:center;
-
   text-align:center;
-
   border:1px solid rgba(255,255,255,.04);
-
   transition:.25s;
-
   height:140px;
-
 }
 
 .kpi-card:hover{
-
   transform:translateY(-5px);
-
   box-shadow:0 14px 28px rgba(0,0,0,.35);
-
 }
 
 .kpi-icon {
@@ -213,67 +132,42 @@ $warning: #FFD76E;
 }
 
 .kpi-title{
-
   color:#9DB5D9;
-
   font-size:.78rem;
-
   font-weight:700;
-
   margin-bottom:8px;
-
 }
 
 .kpi-value{
-
   color:white;
-
   font-size:1.45rem;
-
   font-weight:800;
-
 }
 
 .text-success{
-
   color:#71E49A;
-
 }
 
 .text-warning{
-
   color:#FFD76E;
-
 }
 
 /*=========================
  GRAFICA
 =========================*/
-
 .config-card{
-
   background:#1E2E4F;
-
   border-radius:22px;
-
   padding:18px;
-
   margin-top:10px;
-
   margin-bottom:25px;
-
   border:1px solid rgba(255,255,255,.05);
-
   box-shadow:0 12px 25px rgba(0,0,0,.22);
-
 }
 
 .chart-container{
-
   width:100%;
-
   height:420px;
-
 }
 
 /*=========================
@@ -281,37 +175,24 @@ $warning: #FFD76E;
 =========================*/
 
 .bottom-grid{
-
   margin-top:5px;
-
 }
 
 .bottom-grid ion-col{
-
   padding:7px;
-
 }
 
 .info-card{
-
   background:#1E2E4F;
-
   border-radius:20px;
-
   padding:22px;
-
   height:100%;
-
   border:1px solid rgba(255,255,255,.04);
-
   transition:.25s;
-
 }
 
 .info-card:hover{
-
   transform:translateY(-4px);
-
 }
 
 .info-card h3 {
@@ -327,117 +208,74 @@ $warning: #FFD76E;
 }
 
 .info-item{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   padding:10px 0;
-
   border-bottom:1px solid rgba(255,255,255,.05);
-
 }
 
 .info-item:last-child{
-
   border-bottom:none;
-
 }
 
 .info-item span{
-
   color:#AFC5E7;
-
 }
 
 .info-item strong{
-
   color:white;
-
   font-weight:700;
-
 }
 
 /*=========================
  ANIMACION
 =========================*/
-
 .dashboard-views{
-
   animation:fade .35s ease;
-
 }
 
 @keyframes fade{
-
   from{
-
     opacity:0;
-
     transform:translateY(15px);
-
   }
-
   to{
-
     opacity:1;
-
     transform:none;
-
   }
-
 }
 
 /*=========================
  RESPONSIVE
 =========================*/
-
 @media(max-width:768px){
-
   .page-container{
-
     padding:14px;
-
   }
 
   .kpi-card{
-
     height:120px;
-
   }
 
   .emoji{
-
     font-size:26px;
-
   }
 
   .kpi-value{
-
     font-size:1.2rem;
-
   }
 
   .chart-container{
-
     height:330px;
-
   }
-
 }
 
 @media(min-width:992px){
-
   .metrics-grid ion-col{
-
     padding:10px;
-
   }
-
 }
-
 
 .info-card-title{
   color: #ffffff;
