@@ -1,43 +1,3 @@
-<<<<<<< Updated upstream
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&display=swap" rel="stylesheet">
-<ion-header [translucent]="true">
-  <ion-toolbar class="head">
-    <ion-title class="title">
-      Sectores
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true" class="fondo">
-  <div class="parent-container">
-    <div class="contBtn1">
-      <h1>Sector 1</h1>
-      <div class="contBtn1only">
-        <ion-button 
-          [ngClass]="{'btn1-on': estado1, 'btn1-off': !estado1}" 
-          fill="solid" 
-          expand="block" 
-          (click)="toggleEstado1()">
-          {{ estado1 ? 'Desactivar' : 'Activar' }}
-        </ion-button>
-      </div>
-      
-
-    </div>
-    
-    
-    <div class="contBtn2">
-      <h1>Sector 2</h1>
-      <div class="contBtn2only">
-        <ion-button 
-          [ngClass]="{'btn2-on': estado2, 'btn2-off': !estado2}" 
-          fill="solid" 
-          expand="block" 
-          (click)="toggleEstado2()">
-          {{ estado2 ? 'Desactivar' : 'Activar' }}
-=======
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
     <div class="header-container-full">
@@ -86,22 +46,16 @@
 
           <div class="status-info">
 
-  <span
-    class="status-dot"
-    [ngClass]="{'active': estado1}">
-  </span>
+            <span class="status-dot" [ngClass]="{'active': estado1}"></span>
 
-  <span class="status-badge">
-    {{ estado1 ? 'En línea' : 'Inactivo' }}
-  </span>
+            <span class="status-badge">
+              {{ estado1 ? 'En línea' : 'Inactivo' }}
+            </span>
 
-</div>
+          </div>
 
           <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(1)">
-
-            <ion-icon slot="icon-only" name="trash-outline">
-            </ion-icon>
-
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
 
         </div>
@@ -141,22 +95,16 @@
 
           <div class="status-info">
 
-  <span
-    class="status-dot"
-    [ngClass]="{'active': estado2}">
-  </span>
+            <span class="status-dot" [ngClass]="{'active': estado2}"></span>
 
-  <span class="status-badge">
-    {{ estado2 ? 'En línea' : 'Inactivo' }}
-  </span>
+            <span class="status-badge">
+              {{ estado2 ? 'En línea' : 'Inactivo' }}
+            </span>
 
-</div>
+          </div>
 
-          <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(1)">
-
-            <ion-icon slot="icon-only" name="trash-outline">
-            </ion-icon>
-
+          <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(2)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
 
         </div>
@@ -182,29 +130,17 @@
 
           {{ estado2 ? 'Desactivar' : 'Activar Válvula' }}
 
->>>>>>> Stashed changes
         </ion-button>
 
       </div>
 
     </div>
-<<<<<<< Updated upstream
-  </div>
-  
- 
-  
-</ion-content>
-=======
 
     <ion-button class="add-sector-btn" (click)="agregarSector()">
-
-      <ion-icon slot="start" name="add-circle-outline">
-      </ion-icon>
-
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
       Agregar Sector
-
     </ion-button>
+
   </div>
 
 </ion-content>
->>>>>>> Stashed changes
