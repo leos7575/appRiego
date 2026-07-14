@@ -1,193 +1,167 @@
-/* ==========================================================================
-   1. CONFIGURACIÓN GENERAL Y NOTIFICACIONES TOAST
-   ========================================================================== */
-.toast-success {
-  --background: #8FB3E2;
-  --color: #192338;
-  --border-radius: 16px;
-  --box-shadow: 0 10px 25px rgba(143, 179, 226, 0.35);
-  font-weight: 600;
-}
-
-.toast-error {
-  --background: #31487A;
-  --color: #D9E1F1;
-  --border-radius: 16px;
-  --box-shadow: 0 10px 25px rgba(49, 72, 122, 0.35);
-  font-weight: 600;
-}
-
-/* ==========================================================================
-   2. FONDO GENERAL Y CENTRADO DE CONTENIDO
-   ========================================================================== */
+/* --- Fondo General --- */
 .desktop-bg {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  --background: #192338; /* Oxford Blue */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    --background: #192338;
 }
 
+/* --- Centrado en Pantalla Grande --- */
 .login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 40px;
-  box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px;
+    box-sizing: border-box;
 }
 
-/* ==========================================================================
-   3. ESTRUCTURA SPLIT-CARD (DIVISIÓN PREMIUM)
-   ========================================================================== */
+/* --- Tarjeta Contenedora Principal --- */
 .split-card {
-  display: flex;
-  width: 100%;
-  max-width: 1000px;
-  min-height: 600px;
-  background: #1E2E4F; 
-  border-radius: 24px; 
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  overflow: hidden; 
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    min-height: 600px;
+    background: #1E2E4F; 
+    border-radius: 24px; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden; 
 }
 
-/* --- Lado Izquierdo (Contenedor de Marca Claro) --- */
+/* --- Lado Izquierdo (Claro) --- */
 .split-left {
-  flex: 1.1; 
-  background: #D9E1F1; 
-  border-top-right-radius: 60px; 
-  border-bottom-right-radius: 60px;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2; 
-  box-shadow: 10px 0 25px rgba(25, 35, 56, 0.15); 
+    flex: 1.1; 
+    background: #D9E1F1; 
+    border-top-right-radius: 60px; 
+    border-bottom-right-radius: 60px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2; 
+    box-shadow: 10px 0 25px rgba(25, 35, 56, 0.15); 
 }
 
 .brand-title {
-  color: #192338; 
-  font-weight: 800;
-  font-size: 2.2rem;
-  margin: 0 0 5px 0;
+    color: #192338; 
+    font-weight: 800;
+    font-size: 2.2rem;
+    margin: 0 0 5px 0;
 }
 
 .brand-subtitle {
-  color: #31487A; 
-  font-weight: 600;
-  margin: 0;
+    color: #31487A; 
+    font-weight: 600;
+    margin: 0;
 }
 
 .illustration-container {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
-/* --- Lado Derecho (Formulario de Registro Oscuro) --- */
+/* --- Lado Derecho (Formulario Oscuro) --- */
 .split-right {
-  flex: 1; 
-  padding: 40px 60px; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #1E2E4F; 
+    flex: 1; 
+    padding: 40px 60px; /* Un poco menos de padding vertical para acomodar los 3 inputs */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #1E2E4F; 
 }
 
 .main-title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #ffffff; 
-  margin-bottom: 25px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff; 
+    margin-bottom: 25px;
 }
 
-/* ==========================================================================
-   4. FORMULARIOS E INPUTS
-   ========================================================================== */
+/* --- Agrupación de Inputs --- */
 .input-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .input-group label {
-  font-size: 0.9rem;
-  margin-bottom: 8px;
-  color: #D9E1F1; 
-  font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #D9E1F1; 
+    font-weight: 600;
 }
 
+/* --- Inputs Corregidos (Tamaños Exactos) --- */
 .premium-input {
-  --background: #31487A; 
-  --color: #ffffff;
-  --placeholder-color: #8FB3E2; 
-  --padding-start: 16px; 
-  --padding-end: 16px;
-  
-  height: 52px;
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0;
+    --background: #31487A; 
+    --color: #ffffff;
+    --placeholder-color: #8FB3E2; 
+    --padding-start: 16px; 
+    --padding-end: 16px;
+    
+    height: 52px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
 
-  border-radius: 12px; 
-  --border-radius: 12px; 
-  border: 2px solid transparent; 
-  transition: border 0.3s ease;
+    border-radius: 12px; 
+    --border-radius: 12px; 
+    border: 2px solid transparent; 
+    transition: border 0.3s ease;
 }
 
 .premium-input::part(native) {
-  height: 100%;
+    height: 100%;
 }
 
 .premium-input.ion-focused {
-  border: 2px solid #8FB3E2; 
+    border: 2px solid #8FB3E2; 
 }
 
 .light-eye {
-  --color: #8FB3E2;
+    --color: #8FB3E2;
 }
 
-/* ==========================================================================
-   5. VALIDACIONES Y ERRORES
-   ========================================================================== */
+/* --- Mensajes de Error de Angular --- */
 .error-text {
-  color: #ff8787; /* Coral suave */
-  font-size: 0.8rem;
-  margin: 6px 0 0 12px;
-  font-weight: 600;
+    color: #ff8787; /* Coral suave para resaltar sin lastimar la vista */
+    font-size: 0.8rem;
+    margin: 6px 0 0 12px;
+    font-weight: 600;
 }
 
-/* ==========================================================================
-   6. BOTONES DE ACCIÓN Y ENLACES (FOOTER)
-   ========================================================================== */
+/* --- Botón de Acción --- */
 .neon-btn {
-  --background: #8FB3E2; 
-  --color: #192338; 
-  --border-radius: 12px; 
-  box-shadow: none; 
-  margin: 10px 0 20px 0;
-  font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 1px;
-  height: 52px;
+    --background: #8FB3E2; 
+    --color: #192338; 
+    --border-radius: 12px; 
+    box-shadow: none; 
+    margin: 10px 0 20px 0;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    height: 52px;
 }
 
+/* --- Footer --- */
 .forgot-container {
-  text-align: center;
-  font-size: 0.9rem;
+    text-align: center;
+    font-size: 0.9rem;
 }
 
 .text-secondary {
-  color: #D9E1F1; 
+    color: #D9E1F1; 
 }
 
 .neon-link {
-  color: #8FB3E2; 
-  font-weight: 700;
-  text-decoration: none;
-  margin-left: 4px;
+    color: #8FB3E2; 
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
 }
 
 .neon-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
