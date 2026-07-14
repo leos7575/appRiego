@@ -1,40 +1,73 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&display=swap" rel="stylesheet">
-<ion-content [fullscreen]="true" class="fondo">
-  <ion-header [translucent]="true" >
-    <ion-toolbar class="head">
-      <ion-title class="title">
-        Aqua Control
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <div class="container maT">
-    <ion-card class="fondo card">
-      <ion-card-header>
-        <div class="container-img">
-          <img src='assets/img/logo.jpg' alt="Logo" class="img-logo" />
+<ion-content [fullscreen]="true" class="desktop-bg">
+  <div class="login-wrapper">
+    
+    <div class="split-card">
+      
+      <div class="split-left">
+        <div class="brand-container">
+          <h2 class="brand-title">Aqua Control</h2>
+          <p class="brand-subtitle">Smart monitoring & optimization</p>
         </div>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-input [(ngModel)]="credenciales.usuario" placeholder="Username" type="text" class="input1" required style="--padding-top: 15px; --padding-bottom: 15px;"></ion-input>
-        <p *ngIf="errores.usuario" class="error-text" style="color: red;">{{ errores.usuario }}</p>
-
-        <ion-input [(ngModel)]="credenciales.email" placeholder="Email" type="email" required class="input1" style="--padding-top: 15px; --padding-bottom: 15px;"></ion-input>
-        <p *ngIf="errores.email" class="error-text" style="color: red;">{{ errores.email }}</p>
-
-        <ion-input [(ngModel)]="credenciales.password" placeholder="Password" type="password" required class="input1">
-          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-        </ion-input>
-        <p *ngIf="errores.password" class="error-text" style="color: red;">{{ errores.password }}</p>
-      </ion-card-content>
-
-      <ion-button (click)="insertar()" fill="solid" expand="block" class="register-button">Register</ion-button>
-
-      <div class="forgot-container">
-        <a href="login" class="label-registrar">I already have an account</a>
+        
+        <div class="illustration-container">
+          </div>
       </div>
-    </ion-card>
+
+      <div class="split-right">
+        <h1 class="main-title">Create Account</h1>
+
+        <div class="input-group">
+          <label>Username</label>
+          <ion-input
+            [(ngModel)]="credenciales.usuario"
+            name="username"
+            placeholder="Choose a username"
+            type="text"
+            required
+            class="premium-input"
+          ></ion-input>
+          <p *ngIf="errores.usuario" class="error-text">{{ errores.usuario }}</p>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <ion-input
+            [(ngModel)]="credenciales.email"
+            name="email"
+            placeholder="Enter your email"
+            type="email"
+            required
+            class="premium-input"
+          ></ion-input>
+          <p *ngIf="errores.email" class="error-text">{{ errores.email }}</p>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <ion-input
+            [(ngModel)]="credenciales.password"
+            name="password"
+            placeholder="Create a password"
+            type="password"
+            required
+            class="premium-input"
+          >
+            <ion-input-password-toggle slot="end" class="light-eye"></ion-input-password-toggle>
+          </ion-input>
+          <p *ngIf="errores.password" class="error-text">{{ errores.password }}</p>
+        </div>
+
+        <ion-button (click)="insertar()" fill="solid" expand="block" class="neon-btn">
+          REGISTER
+        </ion-button>
+
+        <div class="forgot-container">
+          <span class="text-secondary">I already have an account.</span>
+          <a href="login" class="neon-link">Login here</a>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </ion-content>
