@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 // Importamos todos los componentes que usas en el HTML
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonIcon, IonList, IonItem, IonLabel, IonToggle, IonButton } from "@ionic/angular/standalone";
 
