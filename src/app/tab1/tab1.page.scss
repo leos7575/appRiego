@@ -1,38 +1,57 @@
-<<<<<<< Updated upstream
-.btn1-on{
-    margin-top: 50px;
-=======
+/* ==========================================================================
+   1. CONFIGURACIÓN GENERAL Y FONDO
+   ========================================================================== */
 .desktop-bg {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    --background: #192338; /* Oxford Blue: Fondo oscuro principal de tu Login */
+    --background: #192338; 
 }
 
+/* ==========================================================================
+   2. HEADER / NAVBAR PREMIUM
+   ========================================================================== */
 .custom-header {
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
-    background: #1E2E4F; /* Asegura consistencia con el color Space Cadet */
+    background: #1E2E4F; 
 }
 
 .head-toolbar {
-    --background: linear-gradient(135deg, #1E2E4F 0%, #16223B 100%); /* Gradiente premium unificado */
+    --background: linear-gradient(135deg, #1E2E4F 0%, #16223B 100%); 
     --border-width: 0;
-    border-bottom: 1px solid rgba(143, 179, 226, 0.15); /* Línea Jordy Blue sutil */
+    border-bottom: 1px solid rgba(143, 179, 226, 0.15); 
     height: 70px;
     --padding-start: 0;
     --padding-end: 0;
 }
 
-/* Contenedor fluido sin topes de ancho (Abarca toda la pantalla limpiamente) */
 .header-container-full {
->>>>>>> Stashed changes
     width: 100%;
-
-    --background:#74E59C;
-    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 32px; 
+    box-sizing: border-box;
 }
-<<<<<<< Updated upstream
-.btn1-off{
-    margin-top: 50px;
-=======
+
+.brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-indicator {
+    width: 6px;
+    height: 22px;
+    background: #8FB3E2; 
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(143, 179, 226, 0.6);
+}
+
+.main-header-title {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.3px;
+    padding: 0;
+}
 
 .version-tag {
     background: rgba(143, 179, 226, 0.1);
@@ -44,6 +63,9 @@
     border: 1px solid rgba(143, 179, 226, 0.2);
 }
 
+/* ==========================================================================
+   3. CUERPO DEL DASHBOARD Y GRID
+   ========================================================================== */
 .dashboard-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -68,58 +90,32 @@
     opacity: 0.7;
 }
 
-/* Malla inteligente que acomoda las tarjetas solas en Web/Móvil */
 .sectors-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
->>>>>>> Stashed changes
     width: 100%;
-
-<<<<<<< Updated upstream
-    --background:#d92121;
-    color: #ffffff;
 }
-.btn2-on{
-    margin-top: 50px;
-    width: 100%;
 
-    --background:#74E59C;
-    color: #ffffff;
-}
-.btn2-off{
-    margin-top: 50px;
-    width: 100%;
-
-    --background:#d92121;
-    color: #ffffff;
-}
-.parent-container {
-=======
+/* ==========================================================================
+   4. TARJETAS DE SECTORES
+   ========================================================================== */
 .sector-card {
-    background: #1E2E4F; /* Space Cadet */
+    background: #1E2E4F; 
     border: 1px solid #31487A; 
     border-radius: 20px;
     padding: 25px;
->>>>>>> Stashed changes
     display: flex;
-    justify-content: center; // Centra horizontalmente
-    align-items: center; // Centra verticalmente
-    height: 88vh; // Altura completa de la pantalla (ajústala según necesites)
-    flex-direction: column; // Si quieres que estén en columna
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.contBtn1, 
-.contBtn2 {
-    margin-bottom: 100px;
-    width: 50%;
-    margin-top: 0;
-
+.sector-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
 
-<<<<<<< Updated upstream
-h1{
-=======
 .card-header-status {
     display: flex;
     justify-content: space-between;
@@ -128,36 +124,34 @@ h1{
 }
 
 .status-badge {
-    color: #7284a1; /* Apagado por defecto */
+    color: #7284a1; 
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.status-info{
-    display:flex;
-    align-items:center;
-    gap:8px;
+.status-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .status-dot {
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#5d6d88;
-    transition:.3s;
+    width: 10px;
+    height: 10px;
+    background: #7284a1;
+    border-radius: 50%;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.status-dot.active{
-    background:#52D191;
-
+.status-dot.active {
+    background: #52D191; 
     box-shadow:
         0 0 5px #52D191,
         0 0 10px #52D191,
         0 0 18px rgba(82,209,145,.8);
-
-    animation:pulse 1.6s infinite;
+    animation: pulse 1.6s infinite;
 }
 
 .card-body {
@@ -175,98 +169,47 @@ h1{
     border-radius: 50%;
     color: #7284a1;
     font-size: 2.2rem;
->>>>>>> Stashed changes
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
-    font-family: "Tektur", sans-serif;
-    font-weight: 900;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
 
+.sector-name {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
 }
-.fondo{
-    --background: #ffffff;
-}
-<<<<<<< Updated upstream
-.head{
-    --background: #38A1D2;
-    font-family: "Tektur", sans-serif;
-    font-weight: 900;
-    height: 4.5rem;
-}
-.title{
-   text-align: center;
-   font-weight: 900;
-//    margin-top: 1.4rem;
-   font-size: 1.6rem;
-=======
 
+.sector-details {
+    color: #D9E1F1;
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   5. ESTADOS DINÁMICOS
+   ========================================================================== */
 .sector-card.is-active {
-    border-color: #8FB3E2;
-    box-shadow:
-        0 0 0 1px rgba(143, 179, 226, .2),
-        0 12px 30px rgba(0, 0, 0, .25);
+    border-color: #8FB3E2; 
 }
 
 .sector-card.is-active .status-badge {
-    color: #8FB3E2;
->>>>>>> Stashed changes
+    color: #8FB3E2; 
 }
-@media (min-width: 768px) {
-    .contBtn1only, 
-    .contBtn2only {
-        margin-left: 41%;
-    }
-    .btn1-on{
-        width: 30%;
-
-        color: #ffffff;
-    }
-    .btn1-off{
-        width: 30%;
-
-        color: #ffffff;
-    }
-    .btn2-on{
-        width: 30%;
-
-        color: #ffffff;
-    }
-    .btn2-off{
-        width: 30%;
-
-        color: #ffffff;
-    }
-    .fondo{
-        --background: #ffffff;
-    }
-    .title{
-       text-align: center;
-       font-weight: 900;
-    }
-
-<<<<<<< Updated upstream
-}
-.btn-activar {
-    --background: #74E59C !important; /* Verde personalizado */
-    --color: #000 !important; /* Texto negro para contraste */
-  }
-  
-  .btn-desactivar {
-    --background: #E57474 !important; /* Rojo personalizado */
-    --color: #fff !important; /* Texto blanco */
-  }
-  
-=======
-
 
 .sector-card.is-active .icon-box {
-    background: rgba(143, 179, 226, .15);
-    color: #8FB3E2;
+    background: rgba(143, 179, 226, 0.15);
+    color: #8FB3E2; 
     transform: scale(1.08);
 }
 
-//6. BOTONES DE ACCIÓN (ESTILO INTEGRADO)
+/* ==========================================================================
+   6. BOTONES DE ACCIÓN
+   ========================================================================== */
 .action-btn {
     height: 48px;
     font-weight: 700;
@@ -275,20 +218,21 @@ h1{
     margin: 0;
 }
 
-/* Botón cuando dice: "Activar Válvula" */
 .btn-off {
-    --background: #8FB3E2; /* Jordy Blue de tu registro */
+    --background: #8FB3E2; 
     --color: #192338;
     --border-radius: 12px;
 }
 
-/* Botón cuando dice: "Desactivar" */
 .btn-on {
-    --background: #E56363; /* Coral mate (aviso de apagado elegante) */
+    --background: #E56363; 
     --color: #ffffff;
     --border-radius: 12px;
 }
 
+/* ==========================================================================
+   7. ANIMACIONES DE INTERFAZ
+   ========================================================================== */
 @keyframes pulse {
     0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(82, 209, 145, 0.7); }
     70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(82, 209, 145, 0); }
@@ -304,20 +248,19 @@ h1{
     flex-wrap: wrap;
 }
 
+/* ==========================================================================
+   8. BOTÓN DE AGREGAR SECTOR
+   ========================================================================== */
 .add-sector-btn {
     --background: linear-gradient(135deg, #8FB3E2 0%, #6EA5F7 100%);
     --color: #192338;
     --border-radius: 14px;
-
     height: 46px;
     font-weight: 700;
     letter-spacing: .4px;
-
     display: flex;
     width: fit-content;
-
-    margin: 40px auto 0 auto; // 40px abajo de las tarjetas y centrado
-
+    margin: 40px auto 0 auto; 
     transition: .25s ease;
 }
 
@@ -333,15 +276,12 @@ h1{
 /* ==========================================================================
    9. BOTÓN ELIMINAR
    ========================================================================== */
-
 .delete-btn {
     --color: #D9E1F1;
     --background: transparent;
     --border-radius: 50%;
-
     width: 38px;
     height: 38px;
-
     transition: .25s ease;
 }
 
@@ -351,8 +291,39 @@ h1{
     transform: rotate(8deg) scale(1.1);
 }
 
-
 .delete-btn ion-icon {
     font-size: 20px;
 }
->>>>>>> Stashed changes
+
+/* ==========================================================================
+   NUEVO: BOTÓN DE PERFIL (Para el Header)
+   ========================================================================== */
+.profile-btn {
+  --color: #ffffff;
+  --background: transparent;
+  --ripple-color: transparent;
+  
+  width: 65px;  /* Un pelín más grande para resaltar */
+  height: 65px;
+  
+  /* CAMBIO AQUÍ: -15px hace que ignore el padding del contenedor y se pegue al borde */
+  margin-right: -15px; 
+  
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    --color: #8FB3E2;
+    transform: scale(1.1);
+  }
+
+  ion-icon {
+    font-size: 40px; /* Un poco más grande para que se vea imponente */
+    margin: 0;
+    filter: drop-shadow(0 0 10px rgba(143, 179, 226, 0.7));
+    transition: all 0.3s ease;
+  }
+}

@@ -1,5 +1,3 @@
-
-
 ion-card {
     max-width: 400px;
     margin: 0 auto;
@@ -14,16 +12,13 @@ ion-card {
     justify-content: center;
     align-items: center;
     --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-
-
 }
+
 a {
     text-decoration: underline;
-<<<<<<< Updated upstream
     color: black;
 }
 
-  
 .title-card {
     text-align: center;
     font-size: 24px;
@@ -66,39 +61,46 @@ ion-button {
     background: none;
     color: black;
 }
+
 ion-text {
     text-decoration: underline;
-
 }
+
 img {
     width: 10rem;
 }
+
 .label-registrar {
     margin-left: 10%;
 }
+
 .maT{
     margin-top: 120px;
 }
+
 .img-logo {
     border-radius: 50%;
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5); 
 }
+
 .fondo{
     --background: #ffffff;
 }
+
 .card {
     border: none;
 }
+
 .head{
     --background: #38A1D2;
     font-family: "Tektur", sans-serif;
     font-weight: 900;
     height: 4.5rem;
 }
+
 .title{
    text-align: center;
    font-weight: 900;
-//    margin-top: 1.4rem;
    font-size: 1.6rem;
 }
 
@@ -106,32 +108,29 @@ img {
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    border-radius: 12px; /* Bordes redondeados */
-    background-color: #f2f4f7; /* Color de fondo similar al de la imagen */
-    border: none; /* Sin borde */
-    box-shadow: none; /* Sin sombra por defecto */
-    color: #6c757d; /* Color del texto */
+    border-radius: 12px;
+    background-color: #f2f4f7;
+    border: none;
+    box-shadow: none;
+    color: #6c757d;
     text-indent: 10px; 
     outline: none;
 }
   
-  
 .input1::placeholder {
-    color: #a0a5a8; /* Color del placeholder similar al de la imagen */
+    color: #a0a5a8;
     text-indent: 1000px; 
 }
   
-  .input1:focus {
-    outline: none; /* Eliminar borde al hacer clic */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Suave sombra al enfocar */
-  }
+.input1:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
 
 .login-button {
-    // --background: #74E59C;
     --border-radius: 30px;
     width: 90%;
     padding: 12px;
-    // border: solid 2px #000000;
     margin-left: 5%;
     color: black;
     --box-shadow: 0 4px 5px 2px rgba(0.1, 0.1, 0.1, 0.1);
@@ -142,7 +141,6 @@ img {
 }
 
 @media (min-width: 768px) {
-
     .container {
         margin: 2.5% auto;
         color: black;
@@ -155,43 +153,34 @@ img {
         border-radius: 12px;
     }
 }
+
 ion-button {
     --background: #74E59C;
     --background-hover: #9ce0be;
     --background-activated: #88f4be;
     --background-focused: #88f4be;
-  
     --color: blue;
-  
     --border-radius: 0;
     --border-color: #000;
     --border-style: solid;
     --border-width: 1px;
-  
     --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-  
     --ripple-color: deeppink;
-  
     --padding-top: 15px;
     --padding-bottom: 15px;
     font-weight: 800;
 }
+
 .sombra{
     --box-shadow: 2px 2px 6px 5px rgb(1, 1, 1, 0.25);
 }
+
 .forgot-container p {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del párrafo */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
   
-  .forgot-container a {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del enlace */
-}
-
-
-  
-
-  
-=======
+.forgot-container a {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .toast-success{
@@ -209,4 +198,3 @@ ion-button {
     --box-shadow:0 12px 35px rgba(49,72,122,.45);
     font-weight:700;
 }
->>>>>>> Stashed changes

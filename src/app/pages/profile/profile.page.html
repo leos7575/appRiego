@@ -1,0 +1,52 @@
+<!-- Forzamos el fondo del header aquí también -->
+<ion-header class="ion-no-border" style="--background: #1E2E4F;">
+  <ion-toolbar class="head-toolbar" style="--background: #1E2E4F; --color: #ffffff;">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: #ffffff;">Perfil de Usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Forzamos el fondo oscuro aquí -->
+<ion-content style="--background: #192338;">
+  <div class="dashboard-wrapper" style="max-width: 600px; margin: 0 auto; padding-top: 20px;">
+    
+    <!-- Tarjeta de Perfil -->
+    <div class="sector-card" style="background: #1E2E4F; border: 1px solid #31487A; padding: 30px; border-radius: 20px; align-items: center; display: flex; flex-direction: column; margin-bottom: 25px;">
+      <div style="width: 80px; height: 80px; background: #31487A; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #8FB3E2; font-size: 3rem; margin-bottom: 15px;">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </div>
+      <h2 style="color: #ffffff; margin: 0; font-weight: 700;">Usuario AquaControl</h2>
+      <p style="color: #8FB3E2; margin: 5px 0 0 0; opacity: 0.8;">{{ userEmail }}</p>
+    </div>
+
+    <!-- Tarjeta de Configuración -->
+    <div class="sector-card" style="background: #1E2E4F; border: 1px solid #31487A; padding: 10px; border-radius: 20px;">
+      <ion-list lines="none" style="background: transparent;">
+        <ion-item style="--background: transparent;">
+          <ion-label>
+            <h3 style="color: #ffffff; font-weight: 700;">Notificaciones Push</h3>
+            <p style="color: #8FB3E2;">Recibir alertas de riego</p>
+          </ion-label>
+          <ion-toggle slot="end" color="primary"></ion-toggle>
+        </ion-item>
+        
+        <ion-item style="--background: transparent;">
+          <ion-label>
+            <h3 style="color: #ffffff; font-weight: 700;">Modo Oscuro</h3>
+            <p style="color: #8FB3E2;">Interfaz de sistema</p>
+          </ion-label>
+          <ion-toggle slot="end" color="primary" checked></ion-toggle>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Botones -->
+    <div style="margin-top: 30px;">
+      <ion-button expand="block" style="--background: #8FB3E2; --color: #192338; height: 50px; font-weight: 700; border-radius: 12px; margin-bottom: 15px;">EDITAR INFORMACIÓN</ion-button>
+      <ion-button expand="block" style="--background: transparent; --color: #E56363; height: 50px; font-weight: 700; border: 1px solid #E56363; border-radius: 12px;">CERRAR SESIÓN</ion-button>
+    </div>
+
+  </div>
+</ion-content>

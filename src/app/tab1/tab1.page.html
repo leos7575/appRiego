@@ -1,210 +1,94 @@
-<<<<<<< Updated upstream
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&display=swap" rel="stylesheet">
-<ion-header [translucent]="true">
-  <ion-toolbar class="head">
-    <ion-title class="title">
-      Sectores
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true" class="fondo">
-  <div class="parent-container">
-    <div class="contBtn1">
-      <h1>Sector 1</h1>
-      <div class="contBtn1only">
-        <ion-button 
-          [ngClass]="{'btn1-on': estado1, 'btn1-off': !estado1}" 
-          fill="solid" 
-          expand="block" 
-          (click)="toggleEstado1()">
-          {{ estado1 ? 'Desactivar' : 'Activar' }}
-        </ion-button>
-      </div>
-      
-
-    </div>
-    
-    
-    <div class="contBtn2">
-      <h1>Sector 2</h1>
-      <div class="contBtn2only">
-        <ion-button 
-          [ngClass]="{'btn2-on': estado2, 'btn2-off': !estado2}" 
-          fill="solid" 
-          expand="block" 
-          (click)="toggleEstado2()">
-          {{ estado2 ? 'Desactivar' : 'Activar' }}
-=======
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
-    <div class="header-container-full">
-
-      <div class="brand-wrapper">
+    <div class="header-container-full" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      
+      <div class="brand-wrapper" style="display: flex; align-items: center;">
         <div class="logo-indicator"></div>
         <ion-title class="main-header-title">AquaControl</ion-title>
         <span class="version-tag">v2.1</span>
       </div>
+
+      <!-- Botón de perfil integrado -->
+      <ion-buttons slot="end">
+  <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
+    <ion-icon name="person-circle-outline"></ion-icon>
+  </ion-button>
+</ion-buttons>
 
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="desktop-bg">
-
   <div class="dashboard-wrapper">
-
     <div class="section-intro">
-
       <div class="title-row">
-
         <div>
-          <h1 class="section-title">
-            Control de Sectores
-          </h1>
-
-          <p class="section-subtitle">
-            Monitoreo y activación manual de válvulas de flujo
-          </p>
+          <h1 class="section-title">Control de Sectores</h1>
+          <p class="section-subtitle">Monitoreo y activación manual de válvulas de flujo</p>
         </div>
-
       </div>
-
     </div>
 
     <div class="sectors-grid">
-
       <!-- ========================= -->
       <!-- SECTOR 1 -->
       <!-- ========================= -->
-
       <div class="sector-card" [ngClass]="{'is-active': estado1}">
-
         <div class="card-header-status">
-
           <div class="status-info">
-
-  <span
-    class="status-dot"
-    [ngClass]="{'active': estado1}">
-  </span>
-
-  <span class="status-badge">
-    {{ estado1 ? 'En línea' : 'Inactivo' }}
-  </span>
-
-</div>
-
+            <span class="status-dot" [ngClass]="{'active': estado1}"></span>
+            <span class="status-badge">{{ estado1 ? 'En línea' : 'Inactivo' }}</span>
+          </div>
           <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(1)">
-
-            <ion-icon slot="icon-only" name="trash-outline">
-            </ion-icon>
-
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
-
         </div>
 
         <div class="card-body">
-
           <div class="icon-box">
             <ion-icon name="water"></ion-icon>
           </div>
-
-          <h2 class="sector-name">
-            Sector 01
-          </h2>
-
-          <p class="sector-details">
-            Válvula Principal Norte
-          </p>
-
+          <h2 class="sector-name">Sector 01</h2>
+          <p class="sector-details">Válvula Principal Norte</p>
         </div>
 
-        <ion-button [ngClass]="{'btn-on': estado1, 'btn-off': !estado1}" fill="solid" expand="block"
-          (click)="toggleEstado1()" class="action-btn">
-
+        <ion-button [ngClass]="{'btn-on': estado1, 'btn-off': !estado1}" fill="solid" expand="block" (click)="toggleEstado1()" class="action-btn">
           {{ estado1 ? 'Desactivar' : 'Activar Válvula' }}
-
         </ion-button>
-
       </div>
 
       <!-- ========================= -->
       <!-- SECTOR 2 -->
       <!-- ========================= -->
-
       <div class="sector-card" [ngClass]="{'is-active': estado2}">
-
         <div class="card-header-status">
-
           <div class="status-info">
-
-  <span
-    class="status-dot"
-    [ngClass]="{'active': estado2}">
-  </span>
-
-  <span class="status-badge">
-    {{ estado2 ? 'En línea' : 'Inactivo' }}
-  </span>
-
-</div>
-
-          <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(1)">
-
-            <ion-icon slot="icon-only" name="trash-outline">
-            </ion-icon>
-
+            <span class="status-dot" [ngClass]="{'active': estado2}"></span>
+            <span class="status-badge">{{ estado2 ? 'En línea' : 'Inactivo' }}</span>
+          </div>
+          <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(2)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
-
         </div>
 
         <div class="card-body">
-
           <div class="icon-box">
             <ion-icon name="water"></ion-icon>
           </div>
-
-          <h2 class="sector-name">
-            Sector 02
-          </h2>
-
-          <p class="sector-details">
-            Válvula de Aspersión Sur
-          </p>
-
+          <h2 class="sector-name">Sector 02</h2>
+          <p class="sector-details">Válvula de Aspersión Sur</p>
         </div>
 
-        <ion-button [ngClass]="{'btn-on': estado2, 'btn-off': !estado2}" fill="solid" expand="block"
-          (click)="toggleEstado2()" class="action-btn">
-
+        <ion-button [ngClass]="{'btn-on': estado2, 'btn-off': !estado2}" fill="solid" expand="block" (click)="toggleEstado2()" class="action-btn">
           {{ estado2 ? 'Desactivar' : 'Activar Válvula' }}
-
->>>>>>> Stashed changes
         </ion-button>
-
       </div>
-
     </div>
-<<<<<<< Updated upstream
-  </div>
-  
- 
-  
-</ion-content>
-=======
 
     <ion-button class="add-sector-btn" (click)="agregarSector()">
-
-      <ion-icon slot="start" name="add-circle-outline">
-      </ion-icon>
-
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
       Agregar Sector
-
     </ion-button>
   </div>
-
 </ion-content>
->>>>>>> Stashed changes

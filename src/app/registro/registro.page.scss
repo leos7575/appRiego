@@ -1,5 +1,3 @@
-
-
 ion-card {
     max-width: 400px;
     margin: 0 auto;
@@ -12,15 +10,13 @@ ion-card {
     margin: 1rem 1.5rem 1rem 0rem;
     text-align: center;
     color: black;
-    
-    
 }
 
 .label-registrar {
     color: black;
+    margin-left: 10%;
 }
 
-  
 .title-card {
     text-align: center;
     font-size: 24px;
@@ -51,93 +47,83 @@ ion-input {
     margin-bottom: 15px;
 }
 
-ion-button {
-    margin-top: 20px;
-    color: white;
-    border-radius: 8px;
-    padding: 10px;
-}
-
 .container {
     margin: 1.8% auto;
     background: none;
     color: black;
 }
+
 ion-text {
     text-decoration: underline;
-<<<<<<< Updated upstream
+}
 
-}
 img {
-    width: 6rem;
+    width: 10rem;
 }
-.label-registrar {
-    margin-left: 10%;
-}
-.maT{
+
+.maT {
     margin-top: 120px;
 }
 
-.head{
+.head {
     --background: #38A1D2;
     font-family: "Tektur", sans-serif;
     font-weight: 900;
     height: 4.5rem;
 }
-.title{
+
+.title {
    text-align: center;
    font-weight: 900;
-//    margin-top: 1.4rem;
    font-size: 1.6rem;
 }
-.fondo{
+
+.fondo {
     --background: #ffffff;
 }
+
 .card {
     border: none;
 }
-img {
-    width: 10rem;
-}
+
 .img-logo {
     border-radius: 50%;
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5); 
 }
+
 .input1 {
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    border-radius: 12px; /* Bordes redondeados */
-    background-color: #f2f4f7; /* Color de fondo similar al de la imagen */
-    border: none; /* Sin borde */
-    box-shadow: none; /* Sin sombra por defecto */
-    color: #6c757d; /* Color del texto */
+    border-radius: 12px;
+    background-color: #f2f4f7;
+    border: none;
+    box-shadow: none;
+    color: #6c757d;
     text-indent: 10px; 
     outline: none;
 }
   
-  
 .input1::placeholder {
-    color: #a0a5a8; /* Color del placeholder similar al de la imagen */
+    color: #a0a5a8;
     text-indent: 1000px; 
 }
   
 .input1:focus {
-    outline: none; /* Eliminar borde al hacer clic */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Suave sombra al enfocar */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
 .register-button {
-    // --background: #74E59C;
     --border-radius: 30px;
     width: 90%;
     padding: 12px;
-    // border: solid 2px #000000;
     margin-left: 5%;
     color: black;
     --box-shadow: 0 4px 5px 2px rgba(0.1, 0.1, 0.1, 0.1);
 }
-@media (min-width: 768px) {
 
+@media (min-width: 768px) {
     .container {
         margin: 1.3% auto;
         color: black;
@@ -150,63 +136,52 @@ img {
         border-radius: 12px;
     }
 }
+
 ion-button {
+    margin-top: 20px;
+    color: white;
+    padding: 10px;
     --background: #74E59C;
     --background-hover: #9ce0be;
     --background-activated: #88f4be;
     --background-focused: #88f4be;
-  
     --color: blue;
-  
     --border-radius: 0;
     --border-color: #000;
     --border-style: solid;
     --border-width: 1px;
-  
     --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-  
     --ripple-color: deeppink;
-  
     --padding-top: 15px;
     --padding-bottom: 15px;
     font-weight: 800;
 }
 
-.sombra{
+.sombra {
     --box-shadow: 2px 2px 6px 5px rgb(1, 1, 1, 0.25);
 }
+
 .forgot-container p {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del párrafo */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
   
 .forgot-container a {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del enlace */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-
-
-
-
-
-
-
-  
-=======
-}
-
+/* Alertas Toast integradas de tu stash */
 .toast-success {
-  --background: #8FB3E2;
-  --color: #192338;
-  --border-radius: 16px;
-  --box-shadow: 0 10px 25px rgba(143,179,226,.35);
-  font-weight: 600;
+    --background: #8FB3E2;
+    --color: #192338;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 25px rgba(143,179,226,.35);
+    font-weight: 600;
 }
 
 .toast-error {
-  --background: #31487A;
-  --color: #D9E1F1;
-  --border-radius: 16px;
-  --box-shadow: 0 10px 25px rgba(49,72,122,.35);
-  font-weight: 600;
+    --background: #31487A;
+    --color: #D9E1F1;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 25px rgba(49,72,122,.35);
+    font-weight: 600;
 }
->>>>>>> Stashed changes
