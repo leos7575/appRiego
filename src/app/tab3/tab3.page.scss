@@ -1,282 +1,854 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/*=========================
-  COLORES
-=========================*/
-$background: #192338;
-$card: #1E2E4F;
-$primary: #8FB3E2;
-$text: #D9E1F1;
-$success: #71E49A;
-$warning: #FFD76E;
+/* =====================================
+   COLORES
+===================================== */
 
-/*=========================
-  HEADER
-=========================*/
+$background: #10192b;
+$background-secondary: #162238;
+$card: #1c2b49;
+$card-light: #223557;
+$primary: #59d7e7;
+$secondary: #8fb3e2;
+$text: #f4f7ff;
+$text-secondary: #aebdd6;
+$success: #71e49a;
+$warning: #ffd76e;
+$danger: #ff6b7a;
+$muted: #71809a;
 
-/*=========================
-  HEADER PREMIUM
-=========================*/
+/* =====================================
+   HEADER
+===================================== */
+
 .custom-toolbar {
   --background: linear-gradient(
     135deg,
-    #1E2E4F 0%,
-    #16223B 100%
+    #1d2d4d 0%,
+    #111c30 100%
   );
-  --border-width:0;
-  height:70px;
+
+  --border-width: 0;
+  --min-height: 72px;
 }
 
 .header-content {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:0 30px;
+  min-height: 72px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo-indicator {
-  width:6px;
-  height:24px;
-  background:#8FB3E2;
-  border-radius:5px;
-  box-shadow:
-  0 0 12px rgba(143,179,226,.7);
+  width: 6px;
+  height: 28px;
+  border-radius: 10px;
+  background: $primary;
+  box-shadow: 0 0 16px rgba(89, 215, 231, 0.7);
 }
 
 .custom-title {
-  font-family:'Plus Jakarta Sans';
-  font-weight:800;
-  color:white;
-  font-size:1.35rem;
-  letter-spacing:.5px;
-  padding:0;
+  padding: 0;
+  color: white;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
 }
 
-/*=========================
-  SELECTOR DE SECTORES
-=========================*/
-.segment-container {
-  background:#192338;
-  padding:15px 20px;
-}
-
-.premium-segment {
-  background:#1E2E4F;
-  border-radius:16px;
-  padding:5px;
-}
-
-.premium-segment ion-segment-button {
-  --color:#D9E1F1;
-  --color-checked:#71E49A;
-  --indicator-color:#8FB3E2;
-  font-family:'Plus Jakarta Sans';
-  font-weight:700;
-  min-height:40px;
-}
-
-/*=========================
-  FONDO
-=========================*/
-.premium-bg{
-  --background:#192338;
-  font-family:'Plus Jakarta Sans';
-}
-
-/*=========================
-  CONTENEDOR
-=========================*/
-.page-container{
-  max-width:1200px;
-  margin:auto;
-  padding:18px;
-}
-
-/*=========================
-  GRID KPIs
-=========================*/
-.metrics-grid{
-  margin-bottom:18px;
-}
-
-.metrics-grid ion-col{
-  padding:7px;
-}
-
-/*=========================
- KPI
-=========================*/
-.kpi-card{
-  background:#1E2E4F;
-  border-radius:18px;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  border:1px solid rgba(255,255,255,.04);
-  transition:.25s;
-  height:140px;
-}
-
-.kpi-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 14px 28px rgba(0,0,0,.35);
-}
-
-.kpi-icon {
-  font-size: 34px;
-  color: #2bb3b1;
-  margin-bottom: 10px;
-}
-
-.kpi-title{
-  color:#9DB5D9;
-  font-size:.78rem;
-  font-weight:700;
-  margin-bottom:8px;
-}
-
-.kpi-value{
-  color:white;
-  font-size:1.45rem;
-  font-weight:800;
-}
-
-.text-success{
-  color:#71E49A;
-}
-
-.text-warning{
-  color:#FFD76E;
-}
-
-/*=========================
- GRAFICA
-=========================*/
-.config-card{
-  background:#1E2E4F;
-  border-radius:22px;
-  padding:18px;
-  margin-top:10px;
-  margin-bottom:25px;
-  border:1px solid rgba(255,255,255,.05);
-  box-shadow:0 12px 25px rgba(0,0,0,.22);
-}
-
-.chart-container{
-  width:100%;
-  height:420px;
-}
-
-/*=========================
- TARJETAS INFERIORES
-=========================*/
-
-.bottom-grid{
-  margin-top:5px;
-}
-
-.bottom-grid ion-col{
-  padding:7px;
-}
-
-.info-card{
-  background:#1E2E4F;
-  border-radius:20px;
-  padding:22px;
-  height:100%;
-  border:1px solid rgba(255,255,255,.04);
-  transition:.25s;
-}
-
-.info-card:hover{
-  transform:translateY(-4px);
-}
-
-.info-card h3 {
+.live-status {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 18px;
+  color: $success;
 }
 
-.info-card h3 ion-icon {
+.live-status small,
+.live-status strong {
+  display: block;
+}
+
+.live-status small {
+  margin-bottom: 2px;
+  color: $text-secondary;
+  font-size: 0.7rem;
+}
+
+.live-status strong {
+  font-size: 0.82rem;
+}
+
+.live-status.is-offline {
+  color: $danger;
+}
+
+.live-dot,
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor;
+  animation: pulse 1.7s infinite;
+}
+
+/* =====================================
+   SELECTOR DE SECTORES
+===================================== */
+
+.segment-container {
+  padding: 13px 20px;
+  background: $background;
+}
+
+.premium-segment {
+  max-width: 900px;
+  margin: auto;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  background: $card;
+}
+
+.premium-segment ion-segment-button {
+  --color: #aebdd6;
+  --color-checked: #71e49a;
+  --indicator-color: #59d7e7;
+  --indicator-height: 3px;
+
+  min-height: 42px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+}
+
+/* =====================================
+   FONDO Y CONTENEDOR
+===================================== */
+
+.premium-bg {
+  --background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(66, 113, 174, 0.14),
+      transparent 38%
+    ),
+    #10192b;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1450px;
+  margin: auto;
+  padding: 22px;
+}
+
+/* =====================================
+   ESTADO GENERAL
+===================================== */
+
+.system-status {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(190px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.status-pill {
+  min-height: 76px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  border: 1px solid rgba(143, 179, 226, 0.13);
+  border-radius: 16px;
+  background: rgba(30, 46, 79, 0.9);
+}
+
+.status-pill ion-icon {
+  flex-shrink: 0;
+  color: $primary;
+  font-size: 27px;
+}
+
+.status-pill span,
+.status-pill strong {
+  display: block;
+}
+
+.status-pill span {
+  margin-bottom: 4px;
+  color: $text-secondary;
+  font-size: 0.72rem;
+}
+
+.status-pill strong {
+  color: $success;
+  font-size: 0.88rem;
+}
+
+.status-pill.status-danger strong,
+.status-pill.status-danger ion-icon {
+  color: $danger;
+}
+
+/* =====================================
+   ENCABEZADOS DE SECCIÓN
+===================================== */
+
+.section-header {
+  margin: 6px 6px 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.compact-header {
+  margin-top: 22px;
+}
+
+.section-label {
+  color: $primary;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.section-header h2,
+.chart-header h2 {
+  margin: 4px 0 0;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.auto-update-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $success;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* =====================================
+   TARJETAS GENERALES
+===================================== */
+
+.dashboard-card {
+  height: 100%;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(143, 179, 226, 0.12);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(34, 53, 87, 0.98),
+      rgba(24, 38, 65, 0.98)
+    );
+  box-shadow: 0 13px 30px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(89, 215, 231, 0.28);
+  box-shadow: 0 17px 38px rgba(0, 0, 0, 0.28);
+}
+
+.sensors-grid,
+.operations-grid,
+.bottom-grid {
+  padding: 0;
+}
+
+.sensors-grid ion-col,
+.operations-grid ion-col,
+.bottom-grid ion-col {
+  padding: 7px;
+}
+
+/* =====================================
+   TARJETAS DE SENSORES
+===================================== */
+
+.sensor-card,
+.single-value-card {
+  min-height: 235px;
+}
+
+.card-header {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(89, 215, 231, 0.2);
+  border-radius: 13px;
+  color: $primary;
+  background: rgba(89, 215, 231, 0.07);
+}
+
+.card-icon ion-icon {
+  font-size: 24px;
+}
+
+.card-category {
+  display: block;
+  margin-bottom: 3px;
+  color: $text-secondary;
+  font-size: 0.67rem;
+  font-weight: 600;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.optional-badge {
+  margin-left: auto;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 215, 110, 0.25);
+  border-radius: 7px;
+  color: $warning;
+  background: rgba(255, 215, 110, 0.08);
+  font-size: 0.61rem;
+  font-weight: 800;
+}
+
+.double-metric {
+  margin-top: 27px;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: center;
+  gap: 15px;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.metric-box {
+  text-align: center;
+}
+
+.metric-box span,
+.metric-box strong {
+  display: block;
+}
+
+.metric-box span {
+  margin-bottom: 8px;
+  color: $text-secondary;
+  font-size: 0.73rem;
+}
+
+.metric-box strong {
+  color: white;
+  font-size: 1.65rem;
+  font-weight: 800;
+}
+
+.metric-box strong.metric-warning {
+  color: $warning;
+}
+
+.main-value {
+  min-height: 85px;
+  padding: 20px 0 13px;
+  display: flex;
+  align-items: center;
+  color: $primary;
+  font-size: clamp(1.55rem, 2.4vw, 2rem);
+  font-weight: 800;
+}
+
+.value-success {
+  color: $success;
+}
+
+.value-warning {
+  color: $warning;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.progress-value {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2bb3b1, #71e49a);
+  transition: width 0.4s ease;
+}
+
+.card-footer {
+  min-height: 38px;
+  margin-top: 18px;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: $text-secondary;
+  font-size: 0.71rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.status-green {
+  background: $success;
+  box-shadow: 0 0 8px rgba(113, 228, 154, 0.65);
+}
+
+.status-yellow {
+  background: $warning;
+  box-shadow: 0 0 8px rgba(255, 215, 110, 0.55);
+}
+
+.status-gray {
+  background: $muted;
+}
+
+.alert-card {
+  border-color: rgba(255, 215, 110, 0.24);
+}
+
+.active-irrigation::after {
+  width: 130px;
+  height: 130px;
+  content: '';
+  position: absolute;
+  right: -55px;
+  bottom: -55px;
+  border-radius: 50%;
+  background: rgba(113, 228, 154, 0.06);
+}
+
+/* =====================================
+   VÁLVULAS Y OPERACIÓN
+===================================== */
+
+.operation-card {
+  min-height: 175px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.operation-card > ion-icon {
+  margin-bottom: 12px;
+  color: $primary;
+  font-size: 32px;
+}
+
+.operation-card span,
+.operation-card strong,
+.operation-card small {
+  display: block;
+}
+
+.operation-card span {
+  color: $text-secondary;
+  font-size: 0.75rem;
+}
+
+.operation-card strong {
+  margin: 9px 0 5px;
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.operation-card small {
+  color: $muted;
+  font-size: 0.68rem;
+}
+
+.operation-card.valve-open > ion-icon,
+.operation-card.valve-open strong {
+  color: $success;
+}
+
+/* =====================================
+   GRÁFICA
+===================================== */
+
+.chart-card {
+  height: auto;
+  min-height: 480px;
+  margin: 20px 7px 25px;
+  padding: 24px;
+}
+
+.chart-header {
+  padding: 0 5px 5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.chart-period {
+  height: fit-content;
+  padding: 8px 12px;
+  border: 1px solid rgba(143, 179, 226, 0.18);
+  border-radius: 10px;
+  color: $text-secondary;
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.71rem;
+}
+
+.chart-container {
+  width: 100%;
+  height: 390px;
+}
+
+/* =====================================
+   TARJETAS INFERIORES
+===================================== */
+
+.info-card {
+  min-height: 325px;
+}
+
+.info-card-title {
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.info-card-title ion-icon {
+  color: $primary;
+  font-size: 23px;
+}
+
+.battery-header {
+  margin-bottom: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.battery-header div span,
+.battery-header div strong {
+  display: block;
+}
+
+.battery-header span {
+  color: $text-secondary;
+  font-size: 0.73rem;
+}
+
+.battery-header strong {
+  margin-top: 4px;
+  color: $success;
+  font-size: 1.65rem;
+}
+
+.battery-header ion-icon {
+  color: $success;
+  font-size: 39px;
+}
+
+.battery-progress {
+  margin-bottom: 19px;
+}
+
+.info-item {
+  min-height: 49px;
+  padding: 11px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-item span {
+  color: $text-secondary;
+  font-size: 0.76rem;
+}
+
+.info-item strong {
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: right;
+}
+
+.ai-state {
+  margin-bottom: 15px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(113, 228, 154, 0.12);
+  border-radius: 14px;
+  background: rgba(113, 228, 154, 0.045);
+}
+
+.ai-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: $success;
+  background: rgba(113, 228, 154, 0.1);
+}
+
+.ai-icon ion-icon {
   font-size: 22px;
-  color: #2bb3b1;
 }
 
-.info-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);
+.ai-state span,
+.ai-state strong {
+  display: block;
 }
 
-.info-item:last-child{
-  border-bottom:none;
+.ai-state span {
+  margin-bottom: 3px;
+  color: $text-secondary;
+  font-size: 0.7rem;
 }
 
-.info-item span{
-  color:#AFC5E7;
+.ai-state strong {
+  color: $success;
+  font-size: 0.92rem;
 }
 
-.info-item strong{
-  color:white;
-  font-weight:700;
+.alerts-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-/*=========================
- ANIMACION
-=========================*/
-.dashboard-views{
-  animation:fade .35s ease;
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
 
-@keyframes fade{
-  from{
-    opacity:0;
-    transform:translateY(15px);
+.alert-item {
+  min-height: 62px;
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.alert-item > ion-icon {
+  flex-shrink: 0;
+  font-size: 22px;
+}
+
+.alert-item strong,
+.alert-item span {
+  display: block;
+}
+
+.alert-item strong {
+  margin-bottom: 3px;
+  color: white;
+  font-size: 0.74rem;
+}
+
+.alert-item span {
+  color: $text-secondary;
+  font-size: 0.65rem;
+  line-height: 1.35;
+}
+
+.alert-success > ion-icon {
+  color: $success;
+}
+
+.alert-warning > ion-icon {
+  color: $warning;
+}
+
+.alert-danger > ion-icon {
+  color: $danger;
+}
+
+.alert-info > ion-icon {
+  color: $primary;
+}
+
+/* =====================================
+   ANIMACIONES
+===================================== */
+
+.dashboard-views {
+  animation: fade 0.35s ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-  to{
-    opacity:1;
-    transform:none;
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/*=========================
- RESPONSIVE
-=========================*/
-@media(max-width:768px){
-  .page-container{
-    padding:14px;
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 
-  .kpi-card{
-    height:120px;
-  }
-
-  .emoji{
-    font-size:26px;
-  }
-
-  .kpi-value{
-    font-size:1.2rem;
-  }
-
-  .chart-container{
-    height:330px;
+  50% {
+    opacity: 0.45;
+    transform: scale(0.8);
   }
 }
 
-@media(min-width:992px){
-  .metrics-grid ion-col{
-    padding:10px;
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1100px) {
+  .system-status {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
   }
 }
 
-.info-card-title{
-  color: #ffffff;
+@media (max-width: 768px) {
+  .header-content {
+    padding: 0 16px;
+  }
+
+  .custom-title {
+    font-size: 1.05rem;
+  }
+
+  .live-status small {
+    display: none;
+  }
+
+  .live-status strong {
+    font-size: 0.7rem;
+  }
+
+  .page-container {
+    padding: 14px 9px 25px;
+  }
+
+  .system-status {
+    grid-template-columns: 1fr;
+    margin-bottom: 22px;
+  }
+
+  .status-pill {
+    min-height: 67px;
+  }
+
+  .section-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .auto-update-label {
+    font-size: 0.68rem;
+  }
+
+  .sensor-card,
+  .single-value-card {
+    min-height: 215px;
+  }
+
+  .chart-card {
+    min-height: 410px;
+    margin-right: 7px;
+    margin-left: 7px;
+    padding: 16px 10px;
+  }
+
+  .chart-header {
+    padding: 5px 9px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .chart-container {
+    height: 330px;
+  }
+
+  .info-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 430px) {
+  .live-status {
+    display: none;
+  }
+
+  .segment-container {
+    padding: 10px 12px;
+  }
+
+  .double-metric {
+    gap: 10px;
+  }
+
+  .metric-box strong {
+    font-size: 1.4rem;
+  }
 }

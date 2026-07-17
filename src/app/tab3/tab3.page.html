@@ -1,166 +1,636 @@
 <ion-header [translucent]="true" class="dashboard-header">
   <ion-toolbar class="custom-toolbar">
     <div class="header-content">
-      <div class="logo-indicator"></div>
-      <ion-title class="custom-title">
-        Dashboard Inteligente
-      </ion-title>
+      <div class="header-title">
+        <div class="logo-indicator"></div>
+
+        <ion-title class="custom-title">
+          Dashboard Inteligente
+        </ion-title>
+      </div>
+
+      <div
+        class="live-status"
+        [class.is-offline]="!esp32Conectado"
+      >
+        <span class="live-dot"></span>
+
+        <div>
+          <small>Actualización automática</small>
+
+          <strong>
+            {{ esp32Conectado ? 'En vivo' : 'Sin conexión' }}
+          </strong>
+        </div>
+      </div>
     </div>
   </ion-toolbar>
+
   <div class="segment-container">
-    <ion-segment [(ngModel)]="sectorSeleccionado" (ionChange)="onSectorChange()" mode="md" class="premium-segment">
+    <ion-segment
+      [(ngModel)]="sectorSeleccionado"
+      (ionChange)="onSectorChange()"
+      mode="md"
+      class="premium-segment"
+    >
       <ion-segment-button value="sector1">
-        <ion-label>
-          Sector 01
-        </ion-label>
+        <ion-label>Sector 01</ion-label>
       </ion-segment-button>
+
       <ion-segment-button value="sector2">
-        <ion-label>
-          Sector 02
-        </ion-label>
+        <ion-label>Sector 02</ion-label>
       </ion-segment-button>
     </ion-segment>
   </div>
 </ion-header>
+
 <ion-content [fullscreen]="true" class="premium-bg">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
+    <ion-refresher-content
+      pullingText="Desliza para actualizar"
+      refreshingSpinner="circles"
+      refreshingText="Actualizando datos..."
+    >
+    </ion-refresher-content>
   </ion-refresher>
+
   <div class="page-container">
-    <!-- ========================= -->
-    <!-- DASHBOARD -->
-    <!-- ========================= -->
     <div class="dashboard-views">
-      <!-- KPIs -->
-      <ion-grid class="metrics-grid">
-        <ion-row>
-          <ion-col size="6" size-md="4">
-            <div class="kpi-card">
-              <ion-icon name="leaf-outline" class="kpi-icon"></ion-icon>
-              <span class="kpi-title">Humedad</span>
-              <span class="kpi-value">{{ dashboard.humedad }}%</span>
-            </div>
-          </ion-col>
-          <ion-col size="6" size-md="4">
-            <div class="kpi-card">
-              <ion-icon name="thermometer-outline" class="kpi-icon"></ion-icon>
-              <span class="kpi-title">Temperatura</span>
-              <span class="kpi-value">{{ dashboard.temperatura }}°C</span>
-            </div>
-          </ion-col>
-          <ion-col size="6" size-md="4">
-            <div class="kpi-card">
-              <ion-icon name="flash-outline" class="kpi-icon"></ion-icon>
-              <span class="kpi-title">Voltaje</span>
-              <span class="kpi-value text-warning">
-                {{ dashboard.voltaje }}V
-              </span>
-            </div>
-          </ion-col>
-          <ion-col size="6" size-md="4">
-            <div class="kpi-card">
-              <ion-icon name="water-outline" class="kpi-icon"></ion-icon>
-              <span class="kpi-title">Agua Hoy</span>
-              <span class="kpi-value text-success">
-                {{ dashboard.aguaHoy }}L
-              </span>
-            </div>
-          </ion-col>
-          <ion-col size="6" size-md="4">
-            <div class="kpi-card">
-              <ion-icon name="hardware-chip-outline" class="kpi-icon"></ion-icon>
-              <span class="kpi-title">IA</span>
-              <span class="kpi-value">
-                {{ dashboard.precisionIA }}%
-              </span>
-            </div>
-          </ion-col>
-          <ion-col size="6" size-md="4">
-            <div class="kpi-card">
-              <ion-icon name="git-branch-outline" class="kpi-icon"></ion-icon>
-              <span class="kpi-title">Válvula</span>
-              <span class="kpi-value" [class.text-success]="dashboard.estadoValvula">
-                {{ dashboard.estadoValvula ? 'Abierta' : 'Cerrada' }}
-              </span>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <!-- GRÁFICA -->
-      <div class="config-card">
-        <div *ngIf="sectorSeleccionado==='sector1'" id="sector1_chart" class="chart-container">
+
+      <!-- ======================================== -->
+      <!-- ESTADO GENERAL DEL SISTEMA -->
+      <!-- ======================================== -->
+
+      <section class="system-status">
+        <div
+          class="status-pill"
+          [class.status-danger]="!esp32Conectado"
+        >
+          <ion-icon name="wifi-outline"></ion-icon>
+
+          <div>
+            <span>Estado ESP32</span>
+
+            <strong>
+              {{ esp32Conectado ? 'Conectado' : 'Desconectado' }}
+            </strong>
+          </div>
         </div>
-        <div *ngIf="sectorSeleccionado==='sector2'" id="sector2_chart" class="chart-container">
+
+        <div class="status-pill">
+          <ion-icon name="time-outline"></ion-icon>
+
+          <div>
+            <span>Última actualización</span>
+
+            <strong>
+              {{ ultimaActualizacion | date:'dd/MM/yyyy HH:mm:ss' }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="status-pill">
+          <ion-icon name="hardware-chip-outline"></ion-icon>
+
+          <div>
+            <span>Modo de riego</span>
+
+            <strong>
+              {{ modoRiego }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="status-pill">
+          <ion-icon name="git-branch-outline"></ion-icon>
+
+          <div>
+            <span>Sector seleccionado</span>
+
+            <strong>
+              {{ nombreSectorSeleccionado }}
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================== -->
+      <!-- SENSORES Y ESTADOS -->
+      <!-- ======================================== -->
+
+      <div class="section-header">
+        <div>
+          <span class="section-label">Monitoreo</span>
+          <h2>Información en tiempo real</h2>
+        </div>
+
+        <div class="auto-update-label">
+          <span class="pulse-dot"></span>
+          Actualización cada 5 segundos
         </div>
       </div>
-      <!-- TARJETAS INFERIORES -->
+
+      <ion-grid class="sensors-grid">
+        <ion-row>
+
+          <!-- AMBIENTE EXTERIOR -->
+
+          <ion-col size="12" size-md="6" size-xl="4">
+            <div class="dashboard-card sensor-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <ion-icon name="partly-sunny-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span class="card-category">Sensor AHT10</span>
+                  <h3>Ambiente exterior</h3>
+                </div>
+              </div>
+
+              <div class="double-metric">
+                <div class="metric-box">
+                  <span>Temperatura</span>
+
+                  <strong>
+                    {{ dashboard.temperaturaAmbiente }}°C
+                  </strong>
+                </div>
+
+                <div class="metric-divider"></div>
+
+                <div class="metric-box">
+                  <span>Humedad</span>
+
+                  <strong>
+                    {{ dashboard.humedadAmbiente }}%
+                  </strong>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <span class="status-dot status-green"></span>
+                {{ dashboard.estadoAmbiente }}
+              </div>
+            </div>
+          </ion-col>
+
+          <!-- CAJA ELECTRÓNICA -->
+
+          <ion-col size="12" size-md="6" size-xl="4">
+            <div class="dashboard-card sensor-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <ion-icon name="cube-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span class="card-category">Sensor AHT10</span>
+                  <h3>Caja electrónica</h3>
+                </div>
+
+                <span class="optional-badge">
+                  Opcional
+                </span>
+              </div>
+
+              <div class="double-metric">
+                <div class="metric-box">
+                  <span>Temperatura</span>
+
+                  <strong
+                    [class.metric-warning]="dashboard.temperaturaCaja >= 38"
+                  >
+                    {{ dashboard.temperaturaCaja }}°C
+                  </strong>
+                </div>
+
+                <div class="metric-divider"></div>
+
+                <div class="metric-box">
+                  <span>Humedad</span>
+
+                  <strong>
+                    {{ dashboard.humedadCaja }}%
+                  </strong>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <span
+                  class="status-dot"
+                  [class.status-green]="dashboard.temperaturaCaja < 38"
+                  [class.status-yellow]="dashboard.temperaturaCaja >= 38"
+                ></span>
+
+                {{
+                  dashboard.temperaturaCaja < 38
+                    ? 'Condiciones normales'
+                    : 'Temperatura elevada'
+                }}
+              </div>
+            </div>
+          </ion-col>
+
+          <!-- HUMEDAD DEL SUELO -->
+
+          <ion-col size="12" size-md="6" size-xl="4">
+            <div class="dashboard-card single-value-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <ion-icon name="leaf-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span class="card-category">Sensor de suelo</span>
+                  <h3>Humedad del suelo</h3>
+                </div>
+              </div>
+
+              <div class="main-value">
+                {{ dashboard.humedadSuelo }}%
+              </div>
+
+              <div class="progress-track">
+                <div
+                  class="progress-value"
+                  [style.width.%]="dashboard.humedadSuelo"
+                ></div>
+              </div>
+
+              <div class="card-footer">
+                <span
+                  class="status-dot"
+                  [class.status-green]="dashboard.humedadSuelo >= 30"
+                  [class.status-yellow]="dashboard.humedadSuelo < 30"
+                ></span>
+
+                {{ estadoHumedadSuelo }}
+              </div>
+            </div>
+          </ion-col>
+
+          <!-- LLUVIA -->
+
+          <ion-col size="12" size-md="6" size-xl="4">
+            <div
+              class="dashboard-card single-value-card"
+              [class.alert-card]="dashboard.lluvia"
+            >
+              <div class="card-header">
+                <div class="card-icon">
+                  <ion-icon name="rainy-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span class="card-category">Sensor de lluvia</span>
+                  <h3>Estado de lluvia</h3>
+                </div>
+              </div>
+
+              <div
+                class="main-value"
+                [class.value-success]="!dashboard.lluvia"
+                [class.value-warning]="dashboard.lluvia"
+              >
+                {{ dashboard.lluvia ? 'Lluvia detectada' : 'Sin lluvia' }}
+              </div>
+
+              <div class="card-footer">
+                <span
+                  class="status-dot"
+                  [class.status-green]="!dashboard.lluvia"
+                  [class.status-yellow]="dashboard.lluvia"
+                ></span>
+
+                {{
+                  dashboard.lluvia
+                    ? 'El riego debe detenerse'
+                    : 'Riego permitido'
+                }}
+              </div>
+            </div>
+          </ion-col>
+
+          <!-- FLUJO ACTUAL -->
+
+          <ion-col size="12" size-md="6" size-xl="4">
+            <div class="dashboard-card single-value-card">
+              <div class="card-header">
+                <div class="card-icon">
+                  <ion-icon name="speedometer-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span class="card-category">Caudalímetro</span>
+                  <h3>Flujo actual</h3>
+                </div>
+              </div>
+
+              <div class="main-value">
+                {{ dashboard.flujoActual }} L/min
+              </div>
+
+              <div class="card-footer">
+                <span
+                  class="status-dot"
+                  [class.status-green]="dashboard.flujoActual > 0"
+                  [class.status-gray]="dashboard.flujoActual === 0"
+                ></span>
+
+                {{
+                  dashboard.flujoActual > 0
+                    ? 'Agua circulando'
+                    : 'Sin flujo de agua'
+                }}
+              </div>
+            </div>
+          </ion-col>
+
+          <!-- ESTADO DEL RIEGO -->
+
+          <ion-col size="12" size-md="6" size-xl="4">
+            <div
+              class="dashboard-card single-value-card"
+              [class.active-irrigation]="dashboard.riegoActivo"
+            >
+              <div class="card-header">
+                <div class="card-icon">
+                  <ion-icon name="water-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span class="card-category">Estado actual</span>
+                  <h3>Riego</h3>
+                </div>
+              </div>
+
+              <div
+                class="main-value"
+                [class.value-success]="dashboard.riegoActivo"
+              >
+                {{
+                  dashboard.riegoActivo
+                    ? 'Riego activo'
+                    : 'Riego detenido'
+                }}
+              </div>
+
+              <div class="card-footer">
+                <span
+                  class="status-dot"
+                  [class.status-green]="dashboard.riegoActivo"
+                  [class.status-gray]="!dashboard.riegoActivo"
+                ></span>
+
+                {{ nombreSectorSeleccionado }}
+              </div>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <!-- ======================================== -->
+      <!-- VÁLVULAS Y DATOS ANTERIORES -->
+      <!-- ======================================== -->
+
+      <div class="section-header compact-header">
+        <div>
+          <span class="section-label">Control</span>
+          <h2>Estado de válvulas y consumo</h2>
+        </div>
+      </div>
+
+      <ion-grid class="operations-grid">
+        <ion-row>
+
+          <!-- VÁLVULA 1 -->
+
+          <ion-col size="12" size-sm="6" size-lg="3">
+            <div
+              class="dashboard-card operation-card"
+              [class.valve-open]="valvulaSector1"
+            >
+              <ion-icon name="git-branch-outline"></ion-icon>
+
+              <span>Válvula Sector 1</span>
+
+              <strong>
+                {{ valvulaSector1 ? 'Abierta' : 'Cerrada' }}
+              </strong>
+
+              <small>Estado estimado</small>
+            </div>
+          </ion-col>
+
+          <!-- VÁLVULA 2 -->
+
+          <ion-col size="12" size-sm="6" size-lg="3">
+            <div
+              class="dashboard-card operation-card"
+              [class.valve-open]="valvulaSector2"
+            >
+              <ion-icon name="git-branch-outline"></ion-icon>
+
+              <span>Válvula Sector 2</span>
+
+              <strong>
+                {{ valvulaSector2 ? 'Abierta' : 'Cerrada' }}
+              </strong>
+
+              <small>Estado estimado</small>
+            </div>
+          </ion-col>
+
+          <!-- AGUA UTILIZADA -->
+
+          <ion-col size="12" size-sm="6" size-lg="3">
+            <div class="dashboard-card operation-card">
+              <ion-icon name="water-outline"></ion-icon>
+
+              <span>Agua utilizada hoy</span>
+
+              <strong>
+                {{ dashboard.aguaHoy }} L
+              </strong>
+
+              <small>
+                {{ nombreSectorSeleccionado }}
+              </small>
+            </div>
+          </ion-col>
+
+          <!-- PRECISIÓN IA -->
+
+          <ion-col size="12" size-sm="6" size-lg="3">
+            <div class="dashboard-card operation-card">
+              <ion-icon name="analytics-outline"></ion-icon>
+
+              <span>Precisión del modelo</span>
+
+              <strong>
+                {{ dashboard.precisionIA }}%
+              </strong>
+
+              <small>
+                {{ dashboard.modeloIA }}
+              </small>
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <!-- ======================================== -->
+      <!-- GRÁFICA -->
+      <!-- ======================================== -->
+
+      <div class="dashboard-card chart-card">
+        <div class="chart-header">
+          <div>
+            <span class="section-label">Historial</span>
+
+            <h2>
+              Duración del riego — {{ nombreSectorSeleccionado }}
+            </h2>
+          </div>
+
+          <div class="chart-period">
+            Últimos 7 registros
+          </div>
+        </div>
+
+        <div id="irrigation_chart" class="chart-container"></div>
+      </div>
+
+      <!-- ======================================== -->
+      <!-- INFORMACIÓN INFERIOR -->
+      <!-- ======================================== -->
+
       <ion-grid class="bottom-grid">
         <ion-row>
+
           <!-- ENERGÍA -->
+
           <ion-col size="12" size-lg="4">
-            <div class="info-card">
+            <div class="dashboard-card info-card">
               <h3 class="info-card-title">
                 <ion-icon name="flash-outline"></ion-icon>
-                Estado Energético
+                Estado energético
               </h3>
-              <div class="info-item">
-                <span>Batería</span>
-                <strong>{{ dashboard.bateria }}%</strong>
+
+              <div class="battery-header">
+                <div>
+                  <span>Batería</span>
+                  <strong>{{ dashboard.bateria }}%</strong>
+                </div>
+
+                <ion-icon name="battery-half-outline"></ion-icon>
               </div>
+
+              <div class="progress-track battery-progress">
+                <div
+                  class="progress-value"
+                  [style.width.%]="dashboard.bateria"
+                ></div>
+              </div>
+
               <div class="info-item">
                 <span>Voltaje</span>
-                <strong>{{ dashboard.voltaje }}V</strong>
+                <strong>{{ dashboard.voltaje }} V</strong>
               </div>
+
               <div class="info-item">
                 <span>Generación</span>
-                <strong>{{ dashboard.generacion }}W</strong>
+                <strong>{{ dashboard.generacion }} W</strong>
               </div>
-            </div>
-          </ion-col>
-          <!-- AMBIENTE -->
-          <ion-col size="12" size-lg="4">
-            <div class="info-card">
-              <h3 class="info-card-title">
-                <ion-icon name="partly-sunny-outline"></ion-icon>
-                Ambiente
-              </h3>
-              <div class="info-item">
-                <span>Temperatura</span>
-                <strong>{{ dashboard.temperatura }}°C</strong>
-              </div>
-              <div class="info-item">
-                <span>Humedad</span>
-                <strong>{{ dashboard.humedad }}%</strong>
-              </div>
+
               <div class="info-item">
                 <span>Estado</span>
-                <strong>{{ dashboard.estadoAmbiente }}</strong>
+                <strong>
+                  {{
+                    dashboard.bateria >= 30
+                      ? 'Energía estable'
+                      : 'Batería baja'
+                  }}
+                </strong>
               </div>
             </div>
           </ion-col>
+
           <!-- IA -->
+
           <ion-col size="12" size-lg="4">
-            <div class="info-card">
+            <div class="dashboard-card info-card">
               <h3 class="info-card-title">
                 <ion-icon name="hardware-chip-outline"></ion-icon>
                 Inteligencia Artificial
               </h3>
+
+              <div class="ai-state">
+                <div class="ai-icon">
+                  <ion-icon name="pulse-outline"></ion-icon>
+                </div>
+
+                <div>
+                  <span>Estado del modelo</span>
+                  <strong>Activo</strong>
+                </div>
+              </div>
+
               <div class="info-item">
                 <span>Modelo</span>
                 <strong>{{ dashboard.modeloIA }}</strong>
               </div>
+
               <div class="info-item">
                 <span>Precisión</span>
                 <strong>{{ dashboard.precisionIA }}%</strong>
               </div>
+
               <div class="info-item">
-                <span>Estado</span>
-                <strong>Activo</strong>
+                <span>Modo actual</span>
+                <strong>{{ modoRiego }}</strong>
               </div>
             </div>
           </ion-col>
+
+          <!-- ALERTAS -->
+
+          <ion-col size="12" size-lg="4">
+            <div class="dashboard-card info-card">
+              <div class="alerts-title">
+                <h3 class="info-card-title">
+                  <ion-icon name="warning-outline"></ion-icon>
+                  Alertas y errores
+                </h3>
+
+                <span class="optional-badge">
+                  Opcional
+                </span>
+              </div>
+
+              <div class="alerts-list">
+                <div
+                  class="alert-item"
+                  *ngFor="let alerta of alertas"
+                  [ngClass]="'alert-' + alerta.tipo"
+                >
+                  <ion-icon [name]="alerta.icono"></ion-icon>
+
+                  <div>
+                    <strong>{{ alerta.titulo }}</strong>
+                    <span>{{ alerta.descripcion }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ion-col>
+
         </ion-row>
       </ion-grid>
+
     </div>
   </div>
 </ion-content>
