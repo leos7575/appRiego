@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 /* ==========================================================================
    1. CONFIGURACIÓN GENERAL Y FONDO
    ========================================================================== */
@@ -26,6 +28,7 @@
 .header-container-full {
     width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 0 32px; 
     box-sizing: border-box;
@@ -296,17 +299,16 @@
 }
 
 /* ==========================================================================
-   NUEVO: BOTÓN DE PERFIL (Para el Header)
+   BOTÓN DE PERFIL
    ========================================================================== */
 .profile-btn {
   --color: #ffffff;
   --background: transparent;
   --ripple-color: transparent;
   
-  width: 65px;  /* Un pelín más grande para resaltar */
+  width: 65px;
   height: 65px;
   
-  /* CAMBIO AQUÍ: -15px hace que ignore el padding del contenedor y se pegue al borde */
   margin-right: -15px; 
   
   border: none;
@@ -321,7 +323,7 @@
   }
 
   ion-icon {
-    font-size: 40px; /* Un poco más grande para que se vea imponente */
+    font-size: 40px;
     margin: 0;
     filter: drop-shadow(0 0 10px rgba(143, 179, 226, 0.7));
     transition: all 0.3s ease;

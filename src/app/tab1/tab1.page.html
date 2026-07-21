@@ -1,19 +1,18 @@
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
-    <div class="header-container-full" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+    <div class="header-container-full">
       
-      <div class="brand-wrapper" style="display: flex; align-items: center;">
+      <!-- Lado izquierdo: Logo, Título y Versión -->
+      <div class="brand-wrapper">
         <div class="logo-indicator"></div>
         <ion-title class="main-header-title">AquaControl</ion-title>
         <span class="version-tag">v2.1</span>
       </div>
 
-      <!-- Botón de perfil integrado -->
-      <ion-buttons slot="end">
-  <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
-    <ion-icon name="person-circle-outline"></ion-icon>
-  </ion-button>
-</ion-buttons>
+      <!-- Lado derecho: Botón de perfil empujado al extremo por space-between -->
+      <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
 
     </div>
   </ion-toolbar>
