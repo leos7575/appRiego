@@ -1,14 +1,20 @@
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
+
     <div class="header-container-full">
 
       <div class="brand-wrapper">
         <div class="logo-indicator"></div>
-        <ion-title class="main-header-title">AquaControl</ion-title>
+
+        <ion-title class="main-header-title">
+          AquaControl
+        </ion-title>
+
         <span class="version-tag">v2.1</span>
       </div>
 
     </div>
+
   </ion-toolbar>
 </ion-header>
 
@@ -40,23 +46,24 @@
       <!-- SECTOR 1 -->
       <!-- ========================= -->
 
-      <div class="sector-card" [ngClass]="{'is-active': estado1}">
+      <div
+        class="sector-card"
+        [ngClass]="{'is-active': estado1}">
 
         <div class="card-header-status">
 
           <div class="status-info">
 
-            <span class="status-dot" [ngClass]="{'active': estado1}"></span>
+            <span
+              class="status-dot"
+              [ngClass]="{'active': estado1}">
+            </span>
 
             <span class="status-badge">
               {{ estado1 ? 'En línea' : 'Inactivo' }}
             </span>
 
           </div>
-
-          <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(1)">
-            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-          </ion-button>
 
         </div>
 
@@ -76,8 +83,15 @@
 
         </div>
 
-        <ion-button [ngClass]="{'btn-on': estado1, 'btn-off': !estado1}" fill="solid" expand="block"
-          (click)="toggleEstado1()" class="action-btn">
+        <ion-button
+          [ngClass]="{
+            'btn-on': estado1,
+            'btn-off': !estado1
+          }"
+          fill="solid"
+          expand="block"
+          class="action-btn"
+          (click)="toggleEstado1()">
 
           {{ estado1 ? 'Desactivar' : 'Activar Válvula' }}
 
@@ -89,23 +103,24 @@
       <!-- SECTOR 2 -->
       <!-- ========================= -->
 
-      <div class="sector-card" [ngClass]="{'is-active': estado2}">
+      <div
+        class="sector-card"
+        [ngClass]="{'is-active': estado2}">
 
         <div class="card-header-status">
 
           <div class="status-info">
 
-            <span class="status-dot" [ngClass]="{'active': estado2}"></span>
+            <span
+              class="status-dot"
+              [ngClass]="{'active': estado2}">
+            </span>
 
             <span class="status-badge">
               {{ estado2 ? 'En línea' : 'Inactivo' }}
             </span>
 
           </div>
-
-          <ion-button fill="clear" size="small" class="delete-btn" (click)="eliminarSector(2)">
-            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-          </ion-button>
 
         </div>
 
@@ -125,8 +140,15 @@
 
         </div>
 
-        <ion-button [ngClass]="{'btn-on': estado2, 'btn-off': !estado2}" fill="solid" expand="block"
-          (click)="toggleEstado2()" class="action-btn">
+        <ion-button
+          [ngClass]="{
+            'btn-on': estado2,
+            'btn-off': !estado2
+          }"
+          fill="solid"
+          expand="block"
+          class="action-btn"
+          (click)="toggleEstado2()">
 
           {{ estado2 ? 'Desactivar' : 'Activar Válvula' }}
 
@@ -135,11 +157,6 @@
       </div>
 
     </div>
-
-    <ion-button class="add-sector-btn" (click)="agregarSector()">
-      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
-      Agregar Sector
-    </ion-button>
 
   </div>
 

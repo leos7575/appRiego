@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonIcon
+} from '@ionic/angular/standalone';
+
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { UsuariosService } from '../services/usuarios.service';
 
 import { addIcons } from 'ionicons';
-import {
-  water,
-  trashOutline,
-  addCircleOutline
-} from 'ionicons/icons';
+import { water } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tab1',
@@ -23,8 +26,7 @@ import {
     IonContent,
     IonButton,
     IonIcon,
-    CommonModule,
-    FormsModule
+    CommonModule
   ],
 })
 export class Tab1Page implements OnInit {
@@ -36,34 +38,72 @@ export class Tab1Page implements OnInit {
     private http: HttpClient,
     private bd: UsuariosService
   ) {
-    // Registramos todos los iconos que usa el diseño premium
     addIcons({
-      water,
-      trashOutline,
-      addCircleOutline
+      water
     });
   }
 
   ngOnInit() {
-    this.bd.getEstadoValvula('67bb6f2e85118d10af317f79').subscribe((res: any) => {
-      console.log('Respuesta completa estado1:', res);
-      if (res && res.Respuesta && res.Respuesta.estado !== undefined) {
-        this.estado1 = res.Respuesta.estado;
-        console.log('Estado1 asignado:', this.estado1);
-      } else {
-        console.warn('La respuesta no contiene la propiedad "estado".');
-      }
-    });
+    this.obtenerEstadoSector1();
+    this.obtenerEstadoSector2();
+  }
 
-    this.bd.getEstadoValvula('67bb79ac1c82e9d42d445882').subscribe((res: any) => {
-      console.log('Respuesta completa estado2:', res);
-      if (res && res.Respuesta && res.Respuesta.estado !== undefined) {
-        this.estado2 = res.Respuesta.estado;
-        console.log('Estado2 asignado:', this.estado2);
-      } else {
-        console.warn('La respuesta no contiene la propiedad "estado".');
-      }
-    });
+  obtenerEstadoSector1() {
+    this.bd
+      .getEstadoValvula('67bb6f2e85118d10af317f79')
+      .subscribe({
+        next: (res: any) => {
+          console.log('Respuesta completa estado1:', res);
+
+          if (
+            res &&
+            res.Respuesta &&
+            res.Respuesta.estado !== undefined
+          ) {
+            this.estado1 = res.Respuesta.estado;
+            console.log('Estado1 asignado:', this.estado1);
+          } else {
+            console.warn(
+              'La respuesta no contiene la propiedad "estado".'
+            );
+          }
+        },
+        error: (error) => {
+          console.error(
+            'Error al obtener el estado del Sector 1:',
+            error
+          );
+        }
+      });
+  }
+
+  obtenerEstadoSector2() {
+    this.bd
+      .getEstadoValvula('67bb79ac1c82e9d42d445882')
+      .subscribe({
+        next: (res: any) => {
+          console.log('Respuesta completa estado2:', res);
+
+          if (
+            res &&
+            res.Respuesta &&
+            res.Respuesta.estado !== undefined
+          ) {
+            this.estado2 = res.Respuesta.estado;
+            console.log('Estado2 asignado:', this.estado2);
+          } else {
+            console.warn(
+              'La respuesta no contiene la propiedad "estado".'
+            );
+          }
+        },
+        error: (error) => {
+          console.error(
+            'Error al obtener el estado del Sector 2:',
+            error
+          );
+        }
+      });
   }
 
   toggleEstado1() {
@@ -73,22 +113,28 @@ export class Tab1Page implements OnInit {
       ? 'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79'
       : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb6f2e85118d10af317f79';
 
-    this.http.put(endpoint, {
-      headers: {
-        'Content-Type': 'application/json'
+    this.http.put(endpoint, {}).subscribe({
+      next: (response) => {
+        console.log('Estado actualizado:', response);
+
+        this.mostrarAlerta(
+          'Estado actualizado',
+          `El Sector 1 está ${
+            this.estado1 ? 'activado' : 'desactivado'
+          }.`
+        );
+      },
+      error: (error) => {
+        console.error('Error al actualizar estado:', error);
+
+        // Regresa visualmente al estado anterior.
+        this.estado1 = !this.estado1;
+
+        this.mostrarAlerta(
+          'Error',
+          'Hubo un problema al actualizar el Sector 1.'
+        );
       }
-    }).subscribe(response => {
-      console.log('Estado actualizado:', response);
-      this.mostrarAlerta(
-        'Estado actualizado',
-        `El sistema está ${this.estado1 ? 'Activado' : 'Desactivado'}.`
-      );
-    }, error => {
-      console.error('Error al actualizar estado:', error);
-      this.mostrarAlerta(
-        'Error',
-        'Hubo un problema al actualizar el estado.'
-      );
     });
   }
 
@@ -99,87 +145,29 @@ export class Tab1Page implements OnInit {
       ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
       : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb79ac1c82e9d42d445882';
 
-    this.http.put(endpoint, {
-      headers: {
-        'Content-Type': 'application/json'
+    this.http.put(endpoint, {}).subscribe({
+      next: (response) => {
+        console.log('Estado actualizado:', response);
+
+        this.mostrarAlerta(
+          'Estado actualizado',
+          `El Sector 2 está ${
+            this.estado2 ? 'activado' : 'desactivado'
+          }.`
+        );
+      },
+      error: (error) => {
+        console.error('Error al actualizar estado:', error);
+
+        // Regresa visualmente al estado anterior.
+        this.estado2 = !this.estado2;
+
+        this.mostrarAlerta(
+          'Error',
+          'Hubo un problema al actualizar el Sector 2.'
+        );
       }
-    }).subscribe(response => {
-      console.log('Estado actualizado:', response);
-      this.mostrarAlerta(
-        'Estado actualizado',
-        `El sistema está ${this.estado2 ? 'Activado' : 'Desactivado'}.`
-      );
-    }, error => {
-      console.error('Error al actualizar estado:', error);
-      this.mostrarAlerta(
-        'Error',
-        'Hubo un problema al actualizar el estado.'
-      );
     });
-  }
-
-  stateConfiguracion() {
-    this.http.put(
-      'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79',
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    ).subscribe(response => {
-      console.log('Estado actualizado:', response);
-      this.mostrarAlerta(
-        'Estado actualizado',
-        'Se ha actualizado el estado de la configuración.'
-      );
-    }, error => {
-      console.error('Error al actualizar estado:', error);
-      this.mostrarAlerta(
-        'Error al actualizar estado',
-        'Hubo un problema al actualizar el estado de la configuración.'
-      );
-    });
-  }
-
-  stateConfiguracion2() {
-    this.http.put(
-      'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882',
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-    ).subscribe(response => {
-      console.log('Estado actualizado:', response);
-      this.mostrarAlerta(
-        'Estado actualizado',
-        'Se ha actualizado el estado de la configuración.'
-      );
-    }, error => {
-      console.error('Error al actualizar estado:', error);
-      this.mostrarAlerta(
-        'Error al actualizar estado',
-        'Hubo un problema al actualizar el estado de la configuración.'
-      );
-    });
-  }
-
-  // ==========================================
-  // FUNCIONES DE CONTROL DEL PANEL PREMIUM
-  // ==========================================
-
-  agregarSector() {
-    this.mostrarAlerta(
-      'Próximamente',
-      'Aquí podrás crear un nuevo sector.'
-    );
-  }
-
-  eliminarSector(sector: number) {
-    this.mostrarAlerta(
-      'Próximamente',
-      `Aquí podrás eliminar el Sector ${sector}.`
-    );
   }
 
   mostrarAlerta(titulo: string, mensaje: string) {
