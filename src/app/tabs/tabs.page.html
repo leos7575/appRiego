@@ -1,6 +1,7 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom" class="head">
-    <ion-tab-button  tab="tab1" href="/tabs/tab1">
+    
+    <ion-tab-button tab="tab1" href="/tabs/tab1">
       <ion-icon name="water-outline" style="color:black"></ion-icon>
       <ion-label style="color:black">Valvulas</ion-label>
     </ion-tab-button>
@@ -14,5 +15,12 @@
       <ion-icon name="stats-chart-outline" style="color:black"></ion-icon>
       <ion-label style="color:black">Dashboard</ion-label>
     </ion-tab-button>
+
+    <!-- AQUÍ ESTÁ EL CAMBIO -->
+    <ion-tab-button tab="generador" href="/tabs/generador">
+      <ion-icon name="flash-outline" style="color:black"></ion-icon> <!-- Te cambié el ícono para que no sea igual al dashboard -->
+      <ion-label style="color:black">Generador</ion-label>
+    </ion-tab-button>
+
   </ion-tab-bar>
 </ion-tabs>

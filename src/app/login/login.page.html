@@ -1,65 +1,62 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tektur:wdth,wght@75..100,400..900&display=swap" rel="stylesheet">
-<ion-content [fullscreen]="true" class="fondo">
-  <ion-header [translucent]="true">
-    <ion-toolbar class="head">
-      <ion-title class="title">
-        Aqua Control
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div class="container maT">
-    <ion-card color="fondo card">
-      <ion-card-header>
-        <div class="container-img">
-          <img src='assets/img/logo.jpg' alt="Logo" class="img-logo" />
+<ion-content [fullscreen]="true" class="desktop-bg">
+  <div class="login-wrapper">
+    
+    <div class="split-card">
+      
+      <div class="split-left">
+        <div class="brand-container">
+          <h2 class="brand-title">Aqua Control</h2>
+          <p class="brand-subtitle">Smart monitoring & optimization</p>
         </div>
-      </ion-card-header>
-
-      <ion-card-content>
-        <!-- Usuario Input -->
-         
-        <ion-input
-          [(ngModel)]="usuariosCredes.usuario"
-          name="usuario"
-          placeholder="Username"
-          type="text"
-          required
-          minlength="3"
-          email
-          #usuario="ngModel" 
-          class="input1"
-          style="--padding-top: 15px; --padding-bottom: 15px;"
-        ></ion-input>
-
-
-        <!-- Contraseña Input -->
-        <ion-input
-          [(ngModel)]="usuariosCredes.password"
-          name="password"
-          placeholder="Password"
-          type="password"
-          required
-          minlength="6"
-          #password="ngModel"
-          class="input1"
-        >
-          <ion-input-password-toggle slot="end" class="ojo"></ion-input-password-toggle>
-        </ion-input>
-
-
-      </ion-card-content>
-
-      <ion-button (click)="mostrar()" fill="solid" expand="block" class="login-button">
-        Login
-      </ion-button>
-
-      <div class="forgot-container">
-        <p>Don’t have an account?</p>
-        <a href="registro" class="label-registrar sombra">Request Now</a>
+        
+        <div class="illustration-container">
+          </div>
       </div>
-    </ion-card>
+
+      <div class="split-right">
+        <h1 class="main-title">LogIn</h1>
+
+        <div class="input-group">
+          <label>Username</label>
+          <ion-input
+            [(ngModel)]="usuariosCredes.usuario"
+            name="username"
+            placeholder="Enter your username"
+            type="text"
+            required
+            minlength="3"
+            class="premium-input"
+          ></ion-input>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <ion-input
+            [(ngModel)]="usuariosCredes.password"
+            name="password"
+            placeholder="Enter your password"
+            type="password"
+            required
+            minlength="6"
+            class="premium-input"
+          >
+            <ion-input-password-toggle slot="end" class="light-eye"></ion-input-password-toggle>
+          </ion-input>
+          <div class="forgot-link-container">
+            <a href="#" class="forgot-link">Forgot Password?</a>
+          </div>
+        </div>
+
+        <ion-button (click)="mostrar()" fill="solid" expand="block" class="neon-btn">
+          CLICK TO LOGIN
+        </ion-button>
+
+        <div class="forgot-container">
+          <span class="text-secondary">Don’t have an account?</span>
+          <a href="registro" class="neon-link">Register Now</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </ion-content>

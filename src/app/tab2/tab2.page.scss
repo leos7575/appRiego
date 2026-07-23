@@ -114,7 +114,7 @@ ion-datetime-button::part(native) {
   margin: 0 4px;
 
   &:hover {
-    background: lighten(#31487A, 5%);
+    background: color-mix(in srgb, #31487A, white 5%);
   }
 
   &.selected {

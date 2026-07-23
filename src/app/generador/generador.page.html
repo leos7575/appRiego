@@ -1,0 +1,100 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="custom-toolbar">
+    <ion-title class="header-title">Generador de Energía</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="custom-content ion-padding">
+
+  <div class="intro-section">
+    <p class="subtitle">Mantenimiento y monitoreo de generación eléctrica</p>
+  </div>
+
+  <!-- SECCIÓN 1: Estado del Generador (Dynamic State Card) -->
+  <div class="status-card">
+    <div class="status-info">
+      <div class="status-text">
+        <span class="label">ESTADO DEL EQUIPO</span>
+        <h2 class="status-value">{{ estadoActual() }}</h2>
+      </div>
+      
+      <!-- Lógica de Badges reactivos con @if/@else de Angular moderno -->
+      @if (estadoActual() === 'Funcionando') {
+        <span class="indicator-dot active"></span>
+      } @else if (estadoActual() === 'En mantenimiento') {
+        <span class="indicator-dot warning"></span>
+      } @else {
+        <span class="indicator-dot inactive"></span>
+      }
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: Telemetría Eléctrica (Diseño idéntico a Dashboard 2x2) -->
+  <h3 class="section-title">Telemetría Eléctrica</h3>
+  <p class="section-subtitle">Módulos de medición listos para integración de hardware</p>
+  
+  <div class="telemetry-grid">
+    <!-- Card Voltaje -->
+    <div class="telemetry-card">
+      <ion-icon name="flash-outline" class="icon-voltaje"></ion-icon>
+      <span class="card-label">Voltaje</span>
+      <span class="card-value">{{ medicionesFuturas().voltaje }}</span>
+    </div>
+
+    <!-- Card Corriente -->
+    <div class="telemetry-card">
+      <ion-icon name="pulse-outline" class="icon-corriente"></ion-icon>
+      <span class="card-label">Corriente</span>
+      <span class="card-value">{{ medicionesFuturas().corriente }}</span>
+    </div>
+
+    <!-- Card Potencia -->
+    <div class="telemetry-card">
+      <ion-icon name="construct-outline" class="icon-potencia"></ion-icon>
+      <span class="card-label">Potencia</span>
+      <span class="card-value">{{ medicionesFuturas().potencia }}</span>
+    </div>
+
+    <!-- Card RPM -->
+    <div class="telemetry-card">
+      <ion-icon name="speedometer-outline" class="icon-rpm"></ion-icon>
+      <span class="card-label">Velocidad</span>
+      <span class="card-value">{{ medicionesFuturas().rpm }}</span>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: Bitácora de Mantenimiento (Matching con Configuración UI) -->
+  <div class="maint-header">
+    <h3 class="section-title">Bitácora de Revisiones</h3>
+  </div>
+
+  <div class="maint-list">
+    @for (revision of historialMantenimiento(); track revision.fecha) {
+      <div class="maint-item">
+        <div class="maint-top">
+          <div class="maint-meta">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span class="maint-date">{{ revision.fecha }}</span>
+          </div>
+          <div class="maint-meta">
+            <ion-icon name="person-outline"></ion-icon>
+            <span class="maint-user">{{ revision.responsable }}</span>
+          </div>
+        </div>
+        
+        <p class="maint-desc">{{ revision.observaciones }}</p>
+        
+        <div class="maint-footer">
+          <span class="next-label">PRÓXIMA INSPECCIÓN</span>
+          <span class="next-date">{{ revision.proximaFecha }}</span>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <p>No se registran mantenimientos recientes en la base de datos.</p>
+      </div>
+    }
+  </div>
+
+</ion-content>

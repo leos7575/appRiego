@@ -1,0 +1,249 @@
+:host {
+  /* Paleta de colores Aqua Control extraída del diseño original */
+  --bg-primary: #121a2e;       /* Fondo oscuro profundo */
+  --bg-card: #1e2942;          /* Fondo tarjetas */
+  --border-card: #2b3a5c;      /* Borde sutil de tarjetas */
+  --color-accent: #89b0f5;     /* Azul hielo brillante */
+  --color-success: #2cd1a3;    /* Verde/Cian brillante de estado activo */
+  --color-warning: #e9b84c;    /* Amarillo/Naranja de mantenimiento */
+  --color-text-light: #ffffff; /* Blanco títulos */
+  --color-text-muted: #92a1b9; /* Gris azulado para etiquetas */
+}
+
+/* Fondo de la página */
+.custom-content {
+  --background: var(--bg-primary);
+}
+
+.custom-toolbar {
+  --background: var(--bg-primary);
+  --color: var(--color-text-light);
+  padding-top: 10px;
+}
+
+.header-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.intro-section {
+  margin-bottom: 24px;
+  .subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+/* Tarjeta del Estado Principal */
+.status-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+  .status-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--color-text-muted);
+    }
+
+    .status-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-text-light);
+      margin: 4px 0 0 0;
+    }
+  }
+
+  /* Puntos indicadores interactivos */
+  .indicator-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    &.active {
+      background-color: var(--color-success);
+      box-shadow: 0 0 12px var(--color-success);
+      &::after { background-color: var(--color-success); }
+    }
+
+    &.warning {
+      background-color: var(--color-warning);
+      box-shadow: 0 0 12px var(--color-warning);
+      &::after { background-color: var(--color-warning); }
+    }
+
+    &.inactive {
+      background-color: #616e88;
+      box-shadow: 0 0 8px #616e88;
+      &::after { background-color: #616e88; }
+    }
+  }
+}
+
+/* Títulos de sección consistentes con "Control de Sectores" */
+.section-title {
+  color: var(--color-text-light);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin: 0 0 16px 0;
+}
+
+/* Replicación de la cuadrícula de Telemetría (Dashboard Style) */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.telemetry-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  ion-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    
+    /* Colores temáticos para cada tipo de telemetría */
+    &.icon-voltaje { color: var(--color-warning); }
+    &.icon-corriente { color: var(--color-accent); }
+    &.icon-potencia { color: var(--color-success); }
+    &.icon-rpm { color: #b39ddb; }
+  }
+
+  .card-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .card-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text-light);
+  }
+}
+
+/* Estructura para Mantenimientos (Estilo Inputs redondeados) */
+.maint-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.maint-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+
+  .maint-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    .maint-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+
+      ion-icon {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .maint-desc {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin: 0 0 16px 0;
+  }
+
+  .maint-footer {
+    border-top: 1px solid rgba(146, 161, 185, 0.15);
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .next-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .next-date {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-success);
+    }
+  }
+}
+
+/* Estado de lista vacía */
+.empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--color-text-muted);
+  
+  ion-icon {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}

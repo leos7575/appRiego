@@ -7,14 +7,7 @@ import { UsuariosService } from '../services/usuarios.service';
 
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
   IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
   IonInput,
   IonInputPasswordToggle
 } from '@ionic/angular/standalone';
@@ -26,17 +19,10 @@ import {
   standalone: true,
   imports: [
     IonContent,
-    IonHeader,
     IonInputPasswordToggle,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
     IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
     IonInput
   ]
 })

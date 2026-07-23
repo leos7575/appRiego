@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',  // Redirige a la página de login al iniciar
+    redirectTo: 'login',  
     pathMatch: 'full'
   },
   {
@@ -17,5 +17,5 @@ export const routes: Routes = [
   {
     path: 'registro',
     loadComponent: () => import('./registro/registro.page').then( m => m.RegistroPage)
-  },
+  }
 ];

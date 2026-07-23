@@ -1,202 +1,189 @@
-ion-card {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    box-shadow: none;
-    border-radius: 12px;
+/* --- Fondo General --- */
+.desktop-bg {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    --background: #192338;
 }
 
-.forgot-container {
-    margin: 1rem 0 1rem 0;
+/* --- Centrado en Pantalla Grande --- */
+.login-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+    min-height: 100vh;
+    padding: 40px;
+    box-sizing: border-box;
 }
 
-a {
-    text-decoration: underline;
-    color: black;
+/* --- Tarjeta Contenedora Principal --- */
+.split-card {
+    display: flex;
+    width: 100%;
+    max-width: 1000px; /* Un poco más compacto */
+    min-height: 600px;
+    background: #1E2E4F; 
+    border-radius: 24px; /* ESQUINAS CORREGIDAS: Más cuadradas */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    overflow: hidden; 
 }
 
-  
-.title-card {
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+/* --- Lado Izquierdo (Claro) --- */
+.split-left {
+    flex: 1.1; 
+    background: #D9E1F1; 
+    border-top-right-radius: 60px; /* Curva adaptada a la nueva proporción */
+    border-bottom-right-radius: 60px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2; 
+    box-shadow: 10px 0 25px rgba(25, 35, 56, 0.15); 
 }
 
-ion-card-header {
-    text-align: center;
-    margin-bottom: 20px;
+.brand-title {
+    color: #192338; 
+    font-weight: 800;
+    font-size: 2.2rem;
+    margin: 0 0 5px 0;
 }
 
-ion-card-subtitle {
-    text-align: center;
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 20px;
+.brand-subtitle {
+    color: #31487A; 
+    font-weight: 600;
+    margin: 0;
 }
 
-ion-card-content {
-    padding: 20px;
+/* Contenedor de la ilustración para centrarla */
+.illustration-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.water-drop-logo {
+    width: 200px;
+    height: 200px;
+    filter: drop-shadow(0 15px 20px rgba(49, 72, 122, 0.3)); /* Sombra suave a la gota */
+}
+
+/* --- Lado Derecho (Formulario Oscuro) --- */
+.split-right {
+    flex: 1; 
+    padding: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background: #1E2E4F; 
 }
 
-ion-input {
-    margin-bottom: 15px;
+.main-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff; 
+    margin-bottom: 30px;
 }
 
-ion-button {
-    margin-top: 20px;
-    color: white;
-    border-radius: 8px;
-    padding: 10px;
+/* --- Agrupación de Inputs --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    width: 100%; /* Forzamos ancho completo */
 }
 
-.container {
-    margin: 1.8% auto;
-    background: none;
-    color: black;
-}
-ion-text {
-    text-decoration: underline;
-
-}
-img {
-    width: 10rem;
-}
-.label-registrar {
-    margin-left: 10%;
-}
-.maT{
-    margin-top: 120px;
-}
-.img-logo {
-    border-radius: 50%;
-    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5); 
-}
-.fondo{
-    --background: #ffffff;
-}
-.card {
-    border: none;
-}
-.head{
-    --background: #38A1D2;
-    font-family: "Tektur", sans-serif;
-    font-weight: 900;
-    height: 4.5rem;
-}
-.title{
-   text-align: center;
-   font-weight: 900;
-//    margin-top: 1.4rem;
-   font-size: 1.6rem;
+.input-group label {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #D9E1F1; 
+    font-weight: 600;
 }
 
-.input1 {
+/* --- Inputs Corregidos (Tamaños Exactos) --- */
+.premium-input {
+    --background: #31487A; 
+    --color: #ffffff;
+    --placeholder-color: #8FB3E2; 
+    --padding-start: 16px; 
+    --padding-end: 16px;
+    
+    /* Forzamos el alto exacto y caja para que sean idénticos */
+    height: 52px;
+    box-sizing: border-box;
     width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 12px; /* Bordes redondeados */
-    background-color: #f2f4f7; /* Color de fondo similar al de la imagen */
-    border: none; /* Sin borde */
-    box-shadow: none; /* Sin sombra por defecto */
-    color: #6c757d; /* Color del texto */
-    text-indent: 10px; 
-    outline: none;
-}
-   
-.input1::placeholder {
-    color: #a0a5a8; /* Color del placeholder similar al de la imagen */
-    text-indent: 1000px; 
-}
-  
-  .input1:focus {
-    outline: none; /* Eliminar borde al hacer clic */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Suave sombra al enfocar */
-  }
+    margin: 0;
 
-.login-button {
-    // --background: #74E59C;
-    --border-radius: 30px;
-    width: 90%;
-    padding: 12px;
-    // border: solid 2px #000000;
-    margin-left: 5%;
-    color: black;
-    --box-shadow: 0 4px 5px 2px rgba(0.1, 0.1, 0.1, 0.1);
+    border-radius: 12px; 
+    --border-radius: 12px; 
+    border: 2px solid transparent; 
+    transition: border 0.3s ease;
 }
 
-.ojo{
-    --color: #74E59C;
+.premium-input::part(native) {
+    /* Esto asegura que el campo nativo de Ionic no empuje los bordes */
+    height: 100%;
 }
 
-@media (min-width: 768px) {
-
-    .container {
-        margin: 2.5% auto;
-        color: black;
-    }
-    ion-card {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        box-shadow: 0 4px 10px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 12px;
-    }
+.premium-input.ion-focused {
+    border: 2px solid #8FB3E2; 
 }
-ion-button {
-    --background: #74E59C;
-    --background-hover: #9ce0be;
-    --background-activated: #88f4be;
-    --background-focused: #88f4be;
-  
-    --color: blue;
-  
-    --border-radius: 0;
-    --border-color: #000;
-    --border-style: solid;
-    --border-width: 1px;
-  
-    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-  
-    --ripple-color: deeppink;
-  
-    --padding-top: 15px;
-    --padding-bottom: 15px;
+
+.light-eye {
+    --color: #8FB3E2;
+}
+
+.premium-input.ion-focused {
+    border: 2px solid #8FB3E2; 
+}
+
+.light-eye {
+    --color: #8FB3E2;
+}
+
+/* --- Enlaces --- */
+.forgot-link-container {
+    text-align: right;
+    margin-top: 8px;
+}
+
+.forgot-link {
+    font-size: 0.85rem;
+    color: #8FB3E2; 
+    text-decoration: underline;
+}
+
+/* --- Botón de Acción Corregido --- */
+.neon-btn {
+    --background: #8FB3E2; 
+    --color: #192338; 
+    --border-radius: 12px; /* ESQUINAS CORREGIDAS */
+    --box-shadow: none; /* SOMBRA EXTRAÑA ELIMINADA */
+    box-shadow: none; 
+    margin: 20px 0 24px 0;
     font-weight: 800;
-}
-.sombra{
-    --box-shadow: 2px 2px 6px 5px rgb(1, 1, 1, 0.25);
-}
-.forgot-container p {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del párrafo */
-}
-  
-  .forgot-container a {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra en el texto del enlace */
+    font-size: 1rem;
+    letter-spacing: 1px;
+    height: 52px;
 }
 
-
+/* --- Footer --- */
+.forgot-container {
+    text-align: center;
+    font-size: 0.9rem;
 }
 
-.toast-success{
-    --background:#8FB3E2;
-    --color:#192338;
-    --border-radius:18px;
-    --box-shadow:0 12px 35px rgba(143,179,226,.35);
-    font-weight:700;
+.text-secondary {
+    color: #D9E1F1; 
 }
 
-.toast-error{
-    --background:#31487A;
-    --color:#ffffff;
-    --border-radius:18px;
-    --box-shadow:0 12px 35px rgba(49,72,122,.45);
-    font-weight:700;
+.neon-link {
+    color: #8FB3E2; 
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.neon-link:hover {
+    text-decoration: underline;
 }
