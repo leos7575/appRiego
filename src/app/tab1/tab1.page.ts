@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router'; // 1. Importación que faltaba
 import {
   IonHeader,
   IonToolbar,
@@ -13,20 +14,21 @@ import { CommonModule } from '@angular/common';
 import { UsuariosService } from '../services/usuarios.service';
 
 import { addIcons } from 'ionicons';
-import { water } from 'ionicons/icons';
+import { water, trashOutline, addCircleOutline, personCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   imports: [
+    RouterLink,    // 2. Ya registrado en los imports del componente Standalone
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
     IonButton,
     IonIcon,
-    CommonModule
+    CommonModule,
   ],
 })
 export class Tab1Page implements OnInit {
@@ -39,7 +41,10 @@ export class Tab1Page implements OnInit {
     private bd: UsuariosService
   ) {
     addIcons({
-      water
+      water,
+      trashOutline,
+      addCircleOutline,
+      personCircleOutline
     });
   }
 
@@ -140,7 +145,6 @@ export class Tab1Page implements OnInit {
 
   toggleEstado2() {
     this.estado2 = !this.estado2;
-
     const endpoint = this.estado2
       ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
       : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb79ac1c82e9d42d445882';

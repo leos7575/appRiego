@@ -1,0 +1,29 @@
+/* Ajuste de tarjetas para que luzcan igual al Dashboard */
+.sector-card {
+    background: #1E2E4F; 
+    border: 1px solid #31487A; 
+    border-radius: 20px;
+    padding: 25px;
+}
+
+/* Clases de tus botones definidos anteriormente */
+.action-btn {
+    height: 48px;
+    font-weight: 700;
+    --border-radius: 12px;
+}
+
+.btn-off {
+    --background: #8FB3E2; 
+    --color: #192338;
+}
+
+.btn-on {
+    --background: #E56363; 
+    --color: #ffffff;
+}
+
+.custom-setting-item {
+    --background: transparent;
+    --min-height: 70px;
+}

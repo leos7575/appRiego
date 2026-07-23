@@ -11,19 +11,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 import {
-  IonCol,
   IonContent,
-  IonGrid,
   IonHeader,
   IonIcon,
   IonLabel,
   IonRefresher,
   IonRefresherContent,
-  IonRow,
   IonSegment,
   IonSegmentButton,
-  IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonTitle
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -105,17 +102,14 @@ interface AlertaDashboard {
     FormsModule,
     IonHeader,
     IonToolbar,
-    IonTitle,
     IonContent,
     IonRefresher,
     IonRefresherContent,
     IonSegment,
     IonSegmentButton,
     IonLabel,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonIcon
+    IonIcon,
+    IonTitle
   ]
 })
 export class Tab3Page

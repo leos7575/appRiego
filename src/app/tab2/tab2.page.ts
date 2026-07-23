@@ -1,15 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonDatetime, IonDatetimeButton, IonModal, IonInput } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { RouterLink } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { personCircleOutline } from 'ionicons/icons';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonDatetime, IonDatetimeButton, IonModal, IonInput, IonIcon } from '@ionic/angular/standalone';
 import { UsuariosService } from '../services/usuarios.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  imports: [FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, CommonModule, IonDatetime, IonDatetimeButton, IonModal, IonInput]
+  standalone: true,
+  imports: [
+    IonIcon, FormsModule, IonHeader, IonToolbar, IonTitle, 
+    IonContent, IonGrid, IonRow, IonCol, IonButton, CommonModule, 
+    IonDatetime, IonDatetimeButton, IonModal, IonInput,
+    RouterLink
+  ]
 })
 
 export class Tab2Page {
@@ -60,19 +68,22 @@ export class Tab2Page {
 
   toggleDia(dia: any) {
     dia.selected = !dia.selected;
-    this.onDiasFinChangeSector1(); // Modifica esta función si es necesario
+    this.onDiasFinChangeSector1();
   }
   
   toggleDia2(dia: any) {
     dia.selected = !dia.selected;
-    this.onDiasFinChangeSector2(); // Modifica esta función si es necesario
+    this.onDiasFinChangeSector2();
   }
 
   getPrimeraLetra(dia: string): string {
     return dia.charAt(0);
   }
 
-  constructor(private Sector:UsuariosService) {}
+  constructor(private Sector: UsuariosService) {
+    // Registramos el ícono de perfil para que aparezca correctamente
+    addIcons({ personCircleOutline });
+  }
 
   ngOnInit() {}
 
@@ -108,6 +119,7 @@ export class Tab2Page {
       }
     );
   }
+
   guardar2(idSector: string) {
     if (!idSector) {
       this.mostrarAlerta('Error', 'No se proporcionó un ID para actualizar.');
@@ -141,10 +153,10 @@ export class Tab2Page {
     );
   }
   
-
   onFechaInicioChange(event: any) {
     this.configuracion.fechaInicio = this.formatDate(event.detail.value);
   }
+
   onFechaInicioChange2(event: any) {
     this.configuracion2.fechaInicio = this.formatDate(event.detail.value);
   }
@@ -152,12 +164,15 @@ export class Tab2Page {
   onFechaFinChange(event: any) {
     this.configuracion.fechaFin = this.formatDate(event.detail.value);
   }
+
   onFechaFinChange2(event: any) {
     this.configuracion2.fechaFin = this.formatDate(event.detail.value);
   }
+
   onHoraInicioChange(event: any) {
     this.configuracion.horaInicio = this.formatTime(event.detail.value);
   }
+
   onHoraInicioChange2(event: any) {
     this.configuracion2.horaInicio = this.formatTime(event.detail.value);
   }
@@ -169,7 +184,6 @@ export class Tab2Page {
   onDiasFinChangeSector2() {
     this.configuracion2.dias = this.diasSector2.filter(dia => dia.selected).map(dia => dia.nombre);
   }
-  
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -178,35 +192,36 @@ export class Tab2Page {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+
   formatTime(timeString: string): string {
     const date = new Date(timeString);
     let hours = date.getHours();
     const minutes = ('0' + date.getMinutes()).slice(-2);
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // La hora '0' debe ser '12'
+    hours = hours ? hours : 12;
     return `${('0' + hours).slice(-2)}:${minutes} ${ampm}`;
   }
+
   getFormattedCurrentTime(): string {
     const date = new Date();
     let hours = date.getHours();
     const minutes = ('0' + date.getMinutes()).slice(-2);
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
-    hours = hours ? hours : 12; // La hora '0' debe ser '12'
+    hours = hours ? hours : 12;
     return `${('0' + hours).slice(-2)}:${minutes} ${ampm}`;
   }
 
   mostrarAlerta(titulo: string, mensaje: string) {
     alert(`${titulo}\n${mensaje}`);
   }
+
   getLocalDate(): string {
     const date = new Date();
-    date.setMinutes(date.getMinutes() - date.getTimezoneOffset()); // Ajuste de zona horaria
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     return date.toISOString().split('T')[0]; 
   }
-  
-  
 }
 
 interface Dia {

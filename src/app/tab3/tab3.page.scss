@@ -15,21 +15,25 @@ $warning: #ffd76e;
 $danger: #ff6b7a;
 $muted: #71809a;
 
+//* ==========================================================
+ //  HEADER PRINCIPAL
+ //  ========================================================== */
+
 /* ==========================================================
-   2. HEADER PRINCIPAL
+   HEADER PRINCIPAL (Ahora con el color del Header 1)
    ========================================================== */
 
 .dashboard-header {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background: #10192b;
+  background: #1E2E4F; /* Color del primer header */
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
 }
 
 .custom-toolbar {
-  --background: #10192b;
+  --background: linear-gradient(135deg, #1E2E4F 0%, #16223B 100%); /* Gradiente del primer header */
   --border-width: 0;
   --min-height: 82px;
-
-  border-bottom: 1px solid rgba(143, 179, 226, 0.1);
+  border-bottom: 1px solid rgba(143, 179, 226, 0.15);
 }
 
 .top-header {
@@ -37,35 +41,47 @@ $muted: #71809a;
   min-height: 82px;
   padding: 0 28px;
   display: grid;
-  grid-template-columns: 230px minmax(320px, 1fr) auto;
+  /* Cambiamos 230px por auto para que el título y la versión quepan perfectamente */
+  grid-template-columns: auto minmax(320px, 1fr) auto;
   align-items: center;
   gap: 24px;
   box-sizing: border-box;
 }
 
 /* ==========================================================
-   LOGO
+   NUEVO LOGO Y TÍTULO (Basado en la Imagen 1)
    ========================================================== */
-
-.brand-container {
+.brand-wrapper {
   display: flex;
   align-items: center;
-  gap: 11px;
-  white-space: nowrap;
+  gap: 12px;
 }
 
-.brand-icon {
-  color: $primary;
-  font-size: 34px;
-  filter: drop-shadow(0 0 8px rgba(89, 215, 231, 0.3));
+.logo-indicator {
+  width: 6px;
+  height: 22px;
+  background: #8FB3E2; 
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(143, 179, 226, 0.6);
 }
 
-.brand-name {
-  color: $primary;
-  font-size: 1.05rem;
+.main-header-title {
+  color: #ffffff;
   font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.3px;
+  padding: 0;
 }
 
+.version-tag {
+  background: rgba(143, 179, 226, 0.1);
+  color: #8FB3E2;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(143, 179, 226, 0.2);
+}
 /* ==========================================================
    SELECTOR DE SECTORES
    ========================================================== */
@@ -127,7 +143,7 @@ $muted: #71809a;
 
 .header-status > ion-icon {
   flex-shrink: 0;
-  color: $primary;
+  color: #59d7e7; /* Ajusta a tu variable $primary si usas SCSS */
   font-size: 27px;
 }
 
@@ -138,20 +154,20 @@ $muted: #71809a;
 
 .status-information span {
   margin-bottom: 3px;
-  color: $text-secondary;
+  color: #aebdd6; /* Ajusta a tu variable $text-secondary */
   font-size: 0.59rem;
   font-weight: 600;
 }
 
 .status-information strong {
-  color: $success;
+  color: #71e49a; /* Ajusta a tu variable $success */
   font-size: 0.67rem;
   font-weight: 800;
 }
 
 .header-status.status-offline > ion-icon,
 .header-status.status-offline strong {
-  color: $danger;
+  color: #ff6b6b; /* Ajusta a tu variable $danger */
 }
 
 .status-divider {
@@ -160,7 +176,6 @@ $muted: #71809a;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.08);
 }
-
 /* ==========================================================
    TÍTULO DEL DASHBOARD
    ========================================================== */

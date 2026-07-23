@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { 
   flashOutline, 
@@ -9,14 +10,15 @@ import {
   calendarOutline, 
   checkmarkCircleOutline,
   alertCircleOutline,
-  constructOutline
+  constructOutline,
+  personCircleOutline // <-- Icono con outline
 } from 'ionicons/icons';
 import { 
   IonContent, 
-  IonHeader, 
-  IonTitle, 
+  IonHeader,  
   IonToolbar, 
-  IonIcon
+  IonIcon,
+  IonButton
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -25,19 +27,18 @@ import {
   styleUrls: ['./generador.page.scss'],
   standalone: true,
   imports: [
+    RouterLink,
     IonContent, 
-    IonHeader, 
-    IonTitle, 
+    IonHeader,  
     IonToolbar, 
-    IonIcon
+    IonIcon,
+    IonButton
   ]
 })
 export class GeneradorPage {
+  
+  estadoActual = signal<string>('Funcionando');
 
-  // Signals reactivos con los datos requeridos por el plan de trabajo del Equipo 5
-  estadoActual = signal<string>('Funcionando'); // Puede ser: 'Funcionando', 'Detenido', 'En mantenimiento'
-
-  // Telemetría vacía por el momento (mediciones futuras sin datos inventados)[cite: 1]
   medicionesFuturas = signal({
     voltaje: '-- V',
     corriente: '-- A',
@@ -45,7 +46,6 @@ export class GeneradorPage {
     rpm: '-- RPM'
   });
 
-  // Historial basado en las tareas de revisión física del generador[cite: 1]
   historialMantenimiento = signal([
     {
       fecha: '17 jul 2026',
@@ -62,7 +62,6 @@ export class GeneradorPage {
   ]);
 
   constructor() {
-    // Registro de iconos obligatorios para Standalone
     addIcons({
       flashOutline,
       pulseOutline,
@@ -72,7 +71,8 @@ export class GeneradorPage {
       calendarOutline,
       checkmarkCircleOutline,
       alertCircleOutline,
-      constructOutline
+      constructOutline,
+      personCircleOutline
     });
   }
 }

@@ -1,47 +1,33 @@
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
-
     <div class="header-container-full">
-
+      <!-- Lado izquierdo: Logo, Título y Versión -->
       <div class="brand-wrapper">
         <div class="logo-indicator"></div>
-
         <ion-title class="main-header-title">
           AquaControl
         </ion-title>
-
         <span class="version-tag">v2.1</span>
       </div>
-
+      <!-- Lado derecho: Botón de perfil empujado al extremo por space-between -->
+      <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
     </div>
-
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true" class="desktop-bg">
-
   <div class="dashboard-wrapper">
-
     <div class="section-intro">
-
       <div class="title-row">
-
         <div>
-          <h1 class="section-title">
-            Control de Sectores
-          </h1>
-
-          <p class="section-subtitle">
-            Monitoreo y activación manual de válvulas de flujo
-          </p>
+          <h1 class="section-title">Control de Sectores</h1>
+          <p class="section-subtitle">Monitoreo y activación manual de válvulas de flujo</p>
         </div>
-
       </div>
-
     </div>
 
     <div class="sectors-grid">
-
       <!-- ========================= -->
       <!-- SECTOR 1 -->
       <!-- ========================= -->
@@ -51,7 +37,6 @@
         [ngClass]="{'is-active': estado1}">
 
         <div class="card-header-status">
-
           <div class="status-info">
 
             <span
@@ -68,19 +53,11 @@
         </div>
 
         <div class="card-body">
-
           <div class="icon-box">
             <ion-icon name="water"></ion-icon>
           </div>
-
-          <h2 class="sector-name">
-            Sector 01
-          </h2>
-
-          <p class="sector-details">
-            Válvula Principal Norte
-          </p>
-
+          <h2 class="sector-name">Sector 01</h2>
+          <p class="sector-details">Válvula Principal Norte</p>
         </div>
 
         <ion-button
@@ -94,9 +71,7 @@
           (click)="toggleEstado1()">
 
           {{ estado1 ? 'Desactivar' : 'Activar Válvula' }}
-
         </ion-button>
-
       </div>
 
       <!-- ========================= -->
@@ -108,7 +83,6 @@
         [ngClass]="{'is-active': estado2}">
 
         <div class="card-header-status">
-
           <div class="status-info">
 
             <span
@@ -125,19 +99,11 @@
         </div>
 
         <div class="card-body">
-
           <div class="icon-box">
             <ion-icon name="water"></ion-icon>
           </div>
-
-          <h2 class="sector-name">
-            Sector 02
-          </h2>
-
-          <p class="sector-details">
-            Válvula de Aspersión Sur
-          </p>
-
+          <h2 class="sector-name">Sector 02</h2>
+          <p class="sector-details">Válvula de Aspersión Sur</p>
         </div>
 
         <ion-button
@@ -153,9 +119,7 @@
           {{ estado2 ? 'Desactivar' : 'Activar Válvula' }}
 
         </ion-button>
-
       </div>
-
     </div>
 
   </div>

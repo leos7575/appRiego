@@ -7,112 +7,81 @@
 <!-- ====================================================== -->
 
 <ion-header class="dashboard-header ion-no-border">
-
   <ion-toolbar class="custom-toolbar">
-
     <div class="top-header">
-
-      <!-- LOGO -->
-
-      <div class="brand-container">
-
-        <ion-icon name="water-outline" class="brand-icon">
-        </ion-icon>
-
-        <span class="brand-name">
-          Aqua Control
-        </span>
-
+      
+      <!-- ==============================================
+           BLOQUE 1: LOGO (Estilo del Header 1)
+           ============================================== -->
+      <div class="brand-wrapper">
+        <div class="logo-indicator"></div>
+        <ion-title class="main-header-title">
+          AquaControl
+        </ion-title>
+        <span class="version-tag">v2.1</span>
       </div>
 
-      <!-- SELECTOR DE SECTORES -->
-
+      <!-- ==============================================
+           BLOQUE 2: SELECTOR DE SECTORES
+           ============================================== -->
       <div class="segment-container">
-
         <ion-segment [(ngModel)]="sectorSeleccionado" (ionChange)="onSectorChange()" mode="md" class="premium-segment">
-
           <ion-segment-button value="sector1">
-            <ion-label>Sector 01</ion-label>
+            <ion-label>SECTOR 01</ion-label>
           </ion-segment-button>
-
           <ion-segment-button value="sector2">
-            <ion-label>Sector 02</ion-label>
+            <ion-label>SECTOR 02</ion-label>
           </ion-segment-button>
-
         </ion-segment>
-
       </div>
 
-      <!-- ESTADOS DEL SISTEMA -->
-
+      <!-- ==============================================
+           BLOQUE 3: ESTADOS DEL SISTEMA
+           ============================================== -->
       <div class="header-status-container">
-
+        
         <!-- ESP32 -->
-
         <div class="header-status" [class.status-offline]="!esp32Conectado">
-
           <ion-icon name="wifi-outline"></ion-icon>
-
           <div class="status-information">
-
             <span>ESP32</span>
-
             <strong>
               {{ esp32Conectado ? 'Conectado' : 'Desconectado' }}
             </strong>
-
           </div>
-
         </div>
-
+        
         <div class="status-divider"></div>
-
+        
         <!-- ÚLTIMA ACTUALIZACIÓN -->
-
         <div class="header-status">
-
           <ion-icon name="time-outline"></ion-icon>
-
           <div class="status-information">
-
             <span>Última actualización</span>
-
             <strong>
               {{ ultimaActualizacion | date:'dd/MM/yyyy HH:mm:ss' }}
             </strong>
-
           </div>
-
         </div>
-
+        
         <div class="status-divider"></div>
-
+        
         <!-- MODO DE RIEGO -->
-
         <div class="header-status">
-
           <ion-icon name="hardware-chip-outline"></ion-icon>
-
           <div class="status-information">
-
             <span>Modo de riego</span>
-
             <strong>
               {{ modoRiego }}
             </strong>
-
           </div>
-
         </div>
 
       </div>
-
+      
     </div>
-
   </ion-toolbar>
-
 </ion-header>
-
 <!-- ====================================================== -->
 <!-- CONTENIDO DEL DASHBOARD                                -->
 <!-- ====================================================== -->
