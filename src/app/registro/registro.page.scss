@@ -1,167 +1,433 @@
-/* --- Fondo General --- */
+/* ========================================
+   FONDO GENERAL
+======================================== */
+
 .desktop-bg {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    --background: #192338;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  --background: #192338;
 }
 
-/* --- Centrado en Pantalla Grande --- */
+/* ========================================
+   CONTENEDOR GENERAL
+======================================== */
+
 .login-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 40px;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  min-height: 100%;
+  padding: 40px;
+
+  box-sizing: border-box;
 }
 
-/* --- Tarjeta Contenedora Principal --- */
+/* ========================================
+   TARJETA PRINCIPAL
+======================================== */
+
 .split-card {
-    display: flex;
-    width: 100%;
-    max-width: 1000px;
-    min-height: 600px;
-    background: #1E2E4F; 
-    border-radius: 24px; 
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    overflow: hidden; 
+  display: flex;
+
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+
+  overflow: hidden;
+
+  background: #1e2e4f;
+  border-radius: 24px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* --- Lado Izquierdo (Claro) --- */
+/* ========================================
+   LADO IZQUIERDO
+======================================== */
+
 .split-left {
-    flex: 1.1; 
-    background: #D9E1F1; 
-    border-top-right-radius: 60px; 
-    border-bottom-right-radius: 60px;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 2; 
-    box-shadow: 10px 0 25px rgba(25, 35, 56, 0.15); 
+  flex: 1.1;
+
+  padding: 50px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  z-index: 2;
+
+  background: #d9e1f1;
+
+  border-top-right-radius: 60px;
+  border-bottom-right-radius: 60px;
+
+  box-shadow: 10px 0 25px rgba(25, 35, 56, 0.15);
+
+  box-sizing: border-box;
+}
+
+.brand-container {
+  width: 100%;
+  text-align: left;
 }
 
 .brand-title {
-    color: #192338; 
-    font-weight: 800;
-    font-size: 2.2rem;
-    margin: 0 0 5px 0;
+  margin: 0 0 5px;
+
+  color: #192338;
+
+  font-size: 2.2rem;
+  font-weight: 800;
 }
 
 .brand-subtitle {
-    color: #31487A; 
-    font-weight: 600;
-    margin: 0;
+  margin: 0;
+
+  color: #31487a;
+
+  font-size: 1rem;
+  font-weight: 600;
 }
 
-.illustration-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
+/* ========================================
+   LADO DERECHO
+======================================== */
 
-/* --- Lado Derecho (Formulario Oscuro) --- */
 .split-right {
-    flex: 1; 
-    padding: 40px 60px; /* Un poco menos de padding vertical para acomodar los 3 inputs */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: #1E2E4F; 
+  flex: 1;
+
+  min-width: 0;
+  padding: 40px 60px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background: #1e2e4f;
+
+  box-sizing: border-box;
 }
 
 .main-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #ffffff; 
-    margin-bottom: 25px;
+  margin: 0 0 25px;
+
+  color: #ffffff;
+
+  font-size: 2.2rem;
+  font-weight: 700;
 }
 
-/* --- Agrupación de Inputs --- */
+/* ========================================
+   CAMPOS DEL FORMULARIO
+======================================== */
+
 .input-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .input-group label {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    color: #D9E1F1; 
-    font-weight: 600;
+  margin-bottom: 8px;
+
+  color: #d9e1f1;
+
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-/* --- Inputs Corregidos (Tamaños Exactos) --- */
 .premium-input {
-    --background: #31487A; 
-    --color: #ffffff;
-    --placeholder-color: #8FB3E2; 
-    --padding-start: 16px; 
-    --padding-end: 16px;
-    
-    height: 52px;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
+  width: 100%;
+  height: 52px;
+  margin: 0;
 
-    border-radius: 12px; 
-    --border-radius: 12px; 
-    border: 2px solid transparent; 
-    transition: border 0.3s ease;
+  --background: #31487a;
+  --color: #ffffff;
+
+  --placeholder-color: #8fb3e2;
+  --placeholder-opacity: 0.8;
+
+  --padding-start: 16px;
+  --padding-end: 12px;
+
+  --border-radius: 12px;
+
+  border: 2px solid transparent;
+  border-radius: 12px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .premium-input::part(native) {
-    height: 100%;
+  height: 100%;
 }
 
 .premium-input.ion-focused {
-    border: 2px solid #8FB3E2; 
+  border-color: #8fb3e2;
+
+  box-shadow: 0 0 0 3px rgba(143, 179, 226, 0.12);
 }
 
 .light-eye {
-    --color: #8FB3E2;
+  --color: #8fb3e2;
 }
 
-/* --- Mensajes de Error de Angular --- */
+/* ========================================
+   MENSAJES DE ERROR
+======================================== */
+
 .error-text {
-    color: #ff8787; /* Coral suave para resaltar sin lastimar la vista */
-    font-size: 0.8rem;
-    margin: 6px 0 0 12px;
-    font-weight: 600;
+  margin: 6px 0 0 12px;
+
+  color: #ff8787;
+
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-/* --- Botón de Acción --- */
+/* ========================================
+   BOTÓN DE REGISTRO
+======================================== */
+
 .neon-btn {
-    --background: #8FB3E2; 
-    --color: #192338; 
-    --border-radius: 12px; 
-    box-shadow: none; 
-    margin: 10px 0 20px 0;
-    font-weight: 800;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    height: 52px;
+  height: 52px;
+  margin: 10px 0 20px;
+
+  --background: #8fb3e2;
+  --background-hover: #a7c8ef;
+  --background-activated: #789bc8;
+
+  --color: #192338;
+  --border-radius: 12px;
+  --box-shadow: none;
+
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  box-shadow: none;
 }
 
-/* --- Footer --- */
+/* ========================================
+   ENLACE DE LOGIN
+======================================== */
+
 .forgot-container {
-    text-align: center;
-    font-size: 0.9rem;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 .text-secondary {
-    color: #D9E1F1; 
+  color: #d9e1f1;
 }
 
 .neon-link {
-    color: #8FB3E2; 
-    font-weight: 700;
-    text-decoration: none;
-    margin-left: 4px;
+  margin-left: 4px;
+
+  color: #8fb3e2;
+
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .neon-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media (max-width: 480px) {
+  .login-wrapper {
+    width: 100%;
+    min-height: 100%;
+    padding: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Coloca las secciones una debajo de otra */
+  .split-card {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 600px;
+    min-height: auto;
+
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  /* La sección clara aparece primero y arriba */
+  .split-left {
+    order: 1;
+    flex: none;
+
+    width: 100%;
+    padding: 1px 20px;
+
+    display: flex;
+
+    border-radius: 25px;
+
+    box-shadow: 0 8px 18px rgba(25, 35, 56, 0.18);
+  }
+
+  /* El formulario aparece debajo */
+  .split-right {
+    order: 2;
+    flex: none;
+
+    width: 100%;
+    padding: 28px 22px;
+
+    box-sizing: border-box;
+  }
+
+  /* Nombre a la izquierda y logo a la derecha */
+  .brand-container {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) 105px;
+    grid-template-rows: auto auto;
+
+    column-gap: 15px;
+
+    width: 100%;
+
+    align-items: center;
+    text-align: left;
+  }
+
+  .brand-title {
+    grid-column: 1;
+    grid-row: 1;
+
+    align-self: end;
+
+    margin: 0 0 4px;
+
+    font-size: 1.65rem;
+  }
+
+  .brand-subtitle {
+    grid-column: 1;
+    grid-row: 2;
+
+    align-self: start;
+
+    margin: 0;
+
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+
+  .brand-logo {
+    grid-column: 2;
+    grid-row: 1 / 3;
+
+    display: block;
+
+    width: 100%;
+    max-width: 105px;
+    height: auto;
+
+    margin: 0;
+
+    object-fit: contain;
+
+    justify-self: end;
+    align-self: center;
+  }
+
+  .main-title {
+    margin-bottom: 22px;
+
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .input-group {
+    margin-bottom: 17px;
+  }
+
+  .premium-input {
+    height: 50px;
+  }
+
+  .error-text {
+    margin-top: 5px;
+    margin-left: 8px;
+
+    font-size: 0.75rem;
+  }
+
+  .neon-btn {
+    height: 50px;
+    margin: 8px 0 18px;
+
+    font-size: 0.9rem;
+  }
+
+  .forgot-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    font-size: 0.85rem;
+  }
+
+  .neon-link {
+    margin-left: 0;
+  }
+}
+
+/* ========================================
+   CELULARES MUY PEQUEÑOS
+======================================== */
+
+@media (max-width: 350px) {
+  .login-wrapper {
+    padding: 10px;
+  }
+
+  .split-left {
+    padding: 1px 16px;
+  }
+
+  .brand-container {
+    grid-template-columns: minmax(0, 1fr) 80px;
+    column-gap: 10px;
+  }
+
+  .brand-title {
+    font-size: 1.4rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .brand-logo {
+    max-width: 80px;
+  }
+
+  .split-right {
+    padding: 24px 16px;
+  }
+
+  .main-title {
+    font-size: 1.6rem;
+  }
 }

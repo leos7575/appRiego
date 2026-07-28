@@ -1,23 +1,32 @@
 <ion-content [fullscreen]="true" class="desktop-bg">
   <div class="login-wrapper">
-    
+
     <div class="split-card">
-      
+
+      <!-- Sección del logo -->
       <div class="split-left">
         <div class="brand-container">
           <h2 class="brand-title">Aqua Control</h2>
-          <p class="brand-subtitle">Smart monitoring & optimization</p>
+
+          <p class="brand-subtitle">
+            Smart monitoring & optimization
+          </p>
+
+          <img
+            src="assets/img/logo.png"
+            alt="Logo de Aqua Control"
+            class="brand-logo"
+          />
         </div>
-        
-        <div class="illustration-container">
-          </div>
       </div>
 
+      <!-- Sección del formulario -->
       <div class="split-right">
         <h1 class="main-title">Create Account</h1>
 
         <div class="input-group">
           <label>Username</label>
+
           <ion-input
             [(ngModel)]="credenciales.usuario"
             name="username"
@@ -26,11 +35,15 @@
             required
             class="premium-input"
           ></ion-input>
-          <p *ngIf="errores.usuario" class="error-text">{{ errores.usuario }}</p>
+
+          <p *ngIf="errores.usuario" class="error-text">
+            {{ errores.usuario }}
+          </p>
         </div>
 
         <div class="input-group">
           <label>Email</label>
+
           <ion-input
             [(ngModel)]="credenciales.email"
             name="email"
@@ -39,11 +52,15 @@
             required
             class="premium-input"
           ></ion-input>
-          <p *ngIf="errores.email" class="error-text">{{ errores.email }}</p>
+
+          <p *ngIf="errores.email" class="error-text">
+            {{ errores.email }}
+          </p>
         </div>
 
         <div class="input-group">
           <label>Password</label>
+
           <ion-input
             [(ngModel)]="credenciales.password"
             name="password"
@@ -52,20 +69,35 @@
             required
             class="premium-input"
           >
-            <ion-input-password-toggle slot="end" class="light-eye"></ion-input-password-toggle>
+            <ion-input-password-toggle
+              slot="end"
+              class="light-eye"
+            ></ion-input-password-toggle>
           </ion-input>
-          <p *ngIf="errores.password" class="error-text">{{ errores.password }}</p>
+
+          <p *ngIf="errores.password" class="error-text">
+            {{ errores.password }}
+          </p>
         </div>
 
-        <ion-button (click)="insertar()" fill="solid" expand="block" class="neon-btn">
+        <ion-button
+          (click)="insertar()"
+          fill="solid"
+          expand="block"
+          class="neon-btn"
+        >
           REGISTER
         </ion-button>
 
         <div class="forgot-container">
-          <span class="text-secondary">I already have an account.</span>
-          <a href="login" class="neon-link">Login here</a>
-        </div>
+          <span class="text-secondary">
+            I already have an account.
+          </span>
 
+          <a href="login" class="neon-link">
+            Login here
+          </a>
+        </div>
       </div>
 
     </div>
