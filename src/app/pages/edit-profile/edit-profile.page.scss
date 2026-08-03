@@ -21,19 +21,22 @@ ion-content {
 
 /* Tarjetas */
 .sector-card {
+  padding: 25px;
+
   background: #1e2e4f;
   border: 1px solid #31487a;
   border-radius: 20px;
-  padding: 25px;
 }
 
-/* Tarjeta del usuario */
+/* Encabezado del usuario */
 .profile-card {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   margin-bottom: 25px;
   padding: 30px;
+
   text-align: center;
 }
 
@@ -55,6 +58,7 @@ ion-content {
 
 .profile-card h2 {
   margin: 0;
+
   color: #ffffff;
   font-size: 23px;
   font-weight: 700;
@@ -62,55 +66,76 @@ ion-content {
 
 .profile-card p {
   margin: 5px 0 0;
+
   color: #8fb3e2;
   opacity: 0.8;
 }
 
-/* Configuración */
-.settings-card {
-  padding: 10px;
+/* Formulario */
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
-.settings-card ion-list {
-  padding: 0;
-  background: transparent;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 }
 
-.custom-setting-item {
-  --background: transparent;
-  --min-height: 70px;
-}
-
-.custom-setting-item h3 {
+.input-group ion-label {
   color: #ffffff;
+  font-size: 15px;
   font-weight: 700;
 }
 
-.custom-setting-item p {
+.input-group ion-input {
+  min-height: 52px;
+
+  --background: #192338;
+  --border-color: #31487a;
+  --border-color-focused: #8fb3e2;
+  --border-radius: 12px;
+  --color: #ffffff;
+  --highlight-color-focused: #8fb3e2;
+  --padding-start: 15px;
+  --placeholder-color: #8fb3e2;
+  --placeholder-opacity: 0.6;
+}
+
+.input-help {
+  margin: 0;
+
   color: #8fb3e2;
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.8;
 }
 
 /* Botones */
-.profile-actions {
+.form-actions {
   margin-top: 30px;
 }
 
 .action-btn {
   height: 50px;
   font-weight: 700;
+
   --border-radius: 12px;
 }
 
-.btn-edit {
+.btn-save {
   margin-bottom: 15px;
+
   --background: #8fb3e2;
   --color: #192338;
 }
 
-.btn-logout {
+.btn-cancel {
   --background: transparent;
-  --background-activated: rgba(229, 99, 99, 0.1);
-  --border-color: #e56363;
+  --background-activated: rgba(143, 179, 226, 0.1);
+  --border-color: #8fb3e2;
   --border-width: 1px;
-  --color: #e56363;
+  --color: #8fb3e2;
 }

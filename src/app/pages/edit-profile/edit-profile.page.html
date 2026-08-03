@@ -1,0 +1,116 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="head-toolbar">
+
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/profile"
+        color="light">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Editar perfil</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="dashboard-wrapper">
+
+    <!-- Encabezado del usuario -->
+    <div class="sector-card profile-card">
+
+      <div class="profile-icon">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </div>
+
+      <h2>Editar información</h2>
+
+      <p>
+        Actualiza los datos de tu cuenta
+      </p>
+
+    </div>
+
+    <!-- Formulario -->
+    <div class="sector-card form-card">
+
+      <div class="input-group">
+
+        <ion-label>Nombre de usuario</ion-label>
+
+        <ion-input
+          type="text"
+          fill="outline"
+          placeholder="Escribe tu nombre de usuario"
+          [(ngModel)]="userName">
+        </ion-input>
+
+      </div>
+
+      <div class="input-group">
+
+        <ion-label>Correo electrónico</ion-label>
+
+        <ion-input
+          type="email"
+          fill="outline"
+          placeholder="Escribe tu correo electrónico"
+          [(ngModel)]="userEmail">
+        </ion-input>
+
+      </div>
+
+      <div class="input-group">
+
+        <ion-label>Nueva contraseña</ion-label>
+
+        <ion-input
+          type="password"
+          fill="outline"
+          placeholder="Déjala vacía para no cambiarla"
+          [(ngModel)]="newPassword">
+
+          <ion-input-password-toggle
+            slot="end">
+          </ion-input-password-toggle>
+
+        </ion-input>
+
+        <p class="input-help">
+          Completa este campo solamente si quieres cambiar tu contraseña.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- Botones -->
+    <div class="form-actions">
+
+      <ion-button
+        expand="block"
+        class="action-btn btn-save"
+        [disabled]="isLoading"
+        (click)="guardarCambios()">
+
+        {{ isLoading ? 'GUARDANDO...' : 'GUARDAR CAMBIOS' }}
+
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="action-btn btn-cancel"
+        [disabled]="isLoading"
+        (click)="cancelar()">
+
+        CANCELAR
+
+      </ion-button>
+
+    </div>
+
+  </div>
+
+</ion-content>

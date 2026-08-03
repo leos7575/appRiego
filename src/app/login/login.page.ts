@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UsuariosService } from '../services/usuarios.service';
@@ -20,8 +20,8 @@ import {
   imports: [
     CommonModule,
     FormsModule,
-    IonContent,
     RouterLink,
+    IonContent,
     IonButton,
     IonInput,
     IonInputPasswordToggle
@@ -29,37 +29,74 @@ import {
 })
 export class LoginPage implements OnInit {
 
+  // Datos del formulario para registrar un usuario.
   credenciales = {
     usuario: '',
     password: ''
   };
 
+  // Datos del formulario para iniciar sesión.
   usuariosCredes = {
     usuario: '',
     password: ''
   };
 
-  data: any;
+  // Aquí se guardan temporalmente los usuarios obtenidos.
+  data: any[] = [];
 
   constructor(
-    private fb: FormBuilder,
     private ruta: Router,
     private userS: UsuariosService,
     private toastController: ToastController
   ) {}
 
   ngOnInit() {
-    this.userS.getUsers().subscribe((res: any) => {
+    this.cargarUsuarios();
+  }
 
-      console.log("Respuesta completa:", res);
+  ionViewWillEnter() {
+  this.limpiarFormularioLogin();
+}
 
-      if (res?.Respuesta?.length > 0) {
-        this.data = res.Respuesta;
-        console.log("Usuarios cargados:", this.data);
-      } else {
-        console.error("No se recibieron usuarios válidos.");
+limpiarFormularioLogin() {
+  this.usuariosCredes = {
+    usuario: '',
+    password: ''
+  };
+}
+  cargarUsuarios() {
+
+    this.userS.getUsers().subscribe({
+
+      next: (res: any) => {
+
+        console.log('Respuesta completa:', res);
+
+        if (res?.Respuesta?.length > 0) {
+
+          this.data = res.Respuesta;
+
+          console.log('Usuarios cargados:', this.data);
+
+        } else {
+
+          this.data = [];
+
+          console.error('No se recibieron usuarios válidos.');
+        }
+      },
+
+      error: (error: any) => {
+
+        this.data = [];
+
+        console.error('Error al obtener usuarios:', error);
+
+        this.mostrarToast(
+          'Error loading users.',
+          'error'
+        );
       }
-
     });
   }
 
@@ -85,7 +122,10 @@ export class LoginPage implements OnInit {
 
   mostrar() {
 
-    console.log("Credenciales ingresadas:", this.usuariosCredes);
+    console.log(
+      'Credenciales ingresadas:',
+      this.usuariosCredes
+    );
 
     const usuarioEncontrado = this.data.find((user: any) =>
       user.user === this.usuariosCredes.usuario &&
@@ -94,26 +134,45 @@ export class LoginPage implements OnInit {
 
     if (usuarioEncontrado) {
 
-      console.log("Usuario autenticado:", usuarioEncontrado);
+      console.log(
+        'Usuario autenticado:',
+        usuarioEncontrado
+      );
+
+      // Solo guardamos los datos que necesita el perfil.
+      // No guardamos la contraseña.
+      const datosUsuario = {
+  id: usuarioEncontrado.id,
+  usuario: usuarioEncontrado.user,
+  email: usuarioEncontrado.email || 'Correo no registrado'
+};
+
+      localStorage.setItem(
+        'usuarioActual',
+        JSON.stringify(datosUsuario)
+      );
 
       this.mostrarToast(
-        "Login successful. Welcome!",
-        "success"
+        'Login successful. Welcome!',
+        'success'
       );
 
       setTimeout(() => {
-        this.ruta.navigate(['principal/tabs/tab1']);
+
+        this.ruta.navigate([
+          'principal/tabs/tab1'
+        ]);
+
       }, 1200);
 
     } else {
 
-      console.log("Acceso incorrecto");
+      console.log('Acceso incorrecto');
 
       this.mostrarToast(
-        "Incorrect username or password.",
-        "error"
+        'Incorrect username or password.',
+        'error'
       );
-
     }
   }
 
@@ -125,32 +184,42 @@ export class LoginPage implements OnInit {
       email: ''
     };
 
-    this.userS.postUsers(nuevoUsuario).subscribe(
+    this.userS.postUsers(nuevoUsuario).subscribe({
 
-      (res: any) => {
+      next: (res: any) => {
 
-        console.log("Usuario insertado:", res);
-
-        this.mostrarToast(
-          "User registered successfully.",
-          "success"
+        console.log(
+          'Usuario insertado:',
+          res
         );
 
+        this.mostrarToast(
+          'User registered successfully.',
+          'success'
+        );
+
+        // Limpiamos el formulario.
+        this.credenciales = {
+          usuario: '',
+          password: ''
+        };
+
+        // Volvemos a obtener los usuarios para incluir el nuevo.
+        this.cargarUsuarios();
       },
 
-      (err: any) => {
+      error: (error: any) => {
 
-        console.error("Error al insertar usuario:", err);
-
-        this.mostrarToast(
-          "An error occurred while registering the user.",
-          "error"
+        console.error(
+          'Error al insertar usuario:',
+          error
         );
 
+        this.mostrarToast(
+          'An error occurred while registering the user.',
+          'error'
+        );
       }
-
-    );
-
+    });
   }
-
 }
