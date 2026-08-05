@@ -41,6 +41,8 @@ addIcons({
   personCircleOutline
 });
 
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -51,7 +53,8 @@ addIcons({
     IonHeader,
     IonContent,
     IonButton,
-    IonIcon
+    IonIcon,
+    TranslatePipe
   ]
 })
 export class Tab1Page implements OnInit {
@@ -64,6 +67,9 @@ export class Tab1Page implements OnInit {
 
   private readonly toastController =
     inject(ToastController);
+
+  private readonly translate =
+    inject(TranslateService);
 
   estado1 = false;
   estado2 = false;
@@ -110,7 +116,7 @@ export class Tab1Page implements OnInit {
           );
 
           this.mostrarToast(
-            'No se pudo obtener el estado del Sector 1.',
+            this.translate.instant('TAB1.ERR_GET_STATUS_1'),
             'error'
           );
         }
@@ -154,7 +160,7 @@ export class Tab1Page implements OnInit {
           );
 
           this.mostrarToast(
-            'No se pudo obtener el estado del Sector 2.',
+            this.translate.instant('TAB1.ERR_GET_STATUS_2'),
             'error'
           );
         }
@@ -176,12 +182,12 @@ export class Tab1Page implements OnInit {
           response
         );
 
+        const statusStr = this.estado1
+          ? this.translate.instant('TAB1.STATUS_ACTIVATED')
+          : this.translate.instant('TAB1.STATUS_DEACTIVATED');
+
         this.mostrarToast(
-          `El Sector 1 está ${
-            this.estado1
-              ? 'activado'
-              : 'desactivado'
-          }.`,
+          this.translate.instant('TAB1.SECTOR_STATUS_UPDATED', { sector: '1', status: statusStr }),
           'success'
         );
       },
@@ -196,7 +202,7 @@ export class Tab1Page implements OnInit {
         this.estado1 = !this.estado1;
 
         this.mostrarToast(
-          'Hubo un problema al actualizar el Sector 1.',
+          this.translate.instant('TAB1.ERR_UPDATE_STATUS_1'),
           'error'
         );
       }
@@ -218,12 +224,12 @@ export class Tab1Page implements OnInit {
           response
         );
 
+        const statusStr = this.estado2
+          ? this.translate.instant('TAB1.STATUS_ACTIVATED')
+          : this.translate.instant('TAB1.STATUS_DEACTIVATED');
+
         this.mostrarToast(
-          `El Sector 2 está ${
-            this.estado2
-              ? 'activado'
-              : 'desactivado'
-          }.`,
+          this.translate.instant('TAB1.SECTOR_STATUS_UPDATED', { sector: '2', status: statusStr }),
           'success'
         );
       },
@@ -238,7 +244,7 @@ export class Tab1Page implements OnInit {
         this.estado2 = !this.estado2;
 
         this.mostrarToast(
-          'Hubo un problema al actualizar el Sector 2.',
+          this.translate.instant('TAB1.ERR_UPDATE_STATUS_2'),
           'error'
         );
       }

@@ -40,6 +40,8 @@ addIcons({
   personCircleOutline
 });
 
+import { TranslatePipe } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-generador',
   templateUrl: './generador.page.html',
@@ -50,7 +52,8 @@ addIcons({
     IonContent,
     IonHeader,
     IonIcon,
-    IonButton
+    IonButton,
+    TranslatePipe
   ]
 })
 export class GeneradorPage {
@@ -78,7 +81,7 @@ export class GeneradorPage {
           'Persona 9',
 
         observaciones:
-          'Revisión estructural: soporte del alternador, eje y balero axial estables. Sin vibraciones anormales.',
+          'GENERADOR.OBSERVATION_1',
 
         proximaFecha:
           '17 ago 2026'
@@ -91,7 +94,7 @@ export class GeneradorPage {
           'Persona 10',
 
         observaciones:
-          'Alineación de aspas, verificación de chumaceras y refuerzo de la protección contra lluvia.',
+          'GENERADOR.OBSERVATION_2',
 
         proximaFecha:
           '15 jul 2026'

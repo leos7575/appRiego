@@ -32,11 +32,11 @@
   <div class="page-title-section">
 
     <h1 class="header-title">
-      Generador de Energía
+      {{ 'GENERADOR.TITLE' | translate }}
     </h1>
 
     <p class="subtitle">
-      Mantenimiento y monitoreo de generación eléctrica
+      {{ 'GENERADOR.SUBTITLE' | translate }}
     </p>
 
   </div>
@@ -48,11 +48,17 @@
       <div class="status-text">
 
         <span class="label">
-          ESTADO DEL EQUIPO
+          {{ 'GENERADOR.STATUS_CARD_LABEL' | translate }}
         </span>
 
         <h2 class="status-value">
-          {{ estadoActual() }}
+          {{
+            estadoActual() === 'Funcionando'
+              ? ('GENERADOR.STATUS_RUNNING' | translate)
+              : estadoActual() === 'En mantenimiento'
+              ? ('GENERADOR.STATUS_MAINTENANCE' | translate)
+              : estadoActual()
+          }}
         </h2>
 
       </div>
@@ -70,11 +76,11 @@
   </div>
 
   <h3 class="section-title">
-    Telemetría Eléctrica
+    {{ 'GENERADOR.TELEMETRY_TITLE' | translate }}
   </h3>
 
   <p class="section-subtitle">
-    Módulos de medición listos para integración de hardware
+    {{ 'GENERADOR.TELEMETRY_SUBTITLE' | translate }}
   </p>
 
   <div class="telemetry-grid">
@@ -87,7 +93,7 @@
       ></ion-icon>
 
       <span class="card-label">
-        Voltaje
+        {{ 'GENERADOR.VOLTAGE' | translate }}
       </span>
 
       <span class="card-value">
@@ -104,7 +110,7 @@
       ></ion-icon>
 
       <span class="card-label">
-        Corriente
+        {{ 'GENERADOR.CURRENT' | translate }}
       </span>
 
       <span class="card-value">
@@ -121,7 +127,7 @@
       ></ion-icon>
 
       <span class="card-label">
-        Potencia
+        {{ 'GENERADOR.POWER' | translate }}
       </span>
 
       <span class="card-value">
@@ -138,7 +144,7 @@
       ></ion-icon>
 
       <span class="card-label">
-        Velocidad
+        {{ 'GENERADOR.SPEED' | translate }}
       </span>
 
       <span class="card-value">
@@ -152,7 +158,7 @@
   <div class="maint-header">
 
     <h3 class="section-title">
-      Bitácora de Revisiones
+      {{ 'GENERADOR.LOG_TITLE' | translate }}
     </h3>
 
   </div>
@@ -195,13 +201,13 @@
         </div>
 
         <p class="maint-desc">
-          {{ revision.observaciones }}
+          {{ revision.observaciones | translate }}
         </p>
 
         <div class="maint-footer">
 
           <span class="next-label">
-            PRÓXIMA INSPECCIÓN
+            {{ 'GENERADOR.LOG_NEXT_INSPECTION' | translate }}
           </span>
 
           <span class="next-date">
@@ -221,7 +227,7 @@
         ></ion-icon>
 
         <p>
-          No se registran mantenimientos recientes en la base de datos.
+          {{ 'GENERADOR.EMPTY_STATE' | translate }}
         </p>
 
       </div>
@@ -230,4 +236,4 @@
 
   </div>
 
-</ion-content>
+</ion-content>

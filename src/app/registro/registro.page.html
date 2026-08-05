@@ -1,5 +1,9 @@
 <ion-content [fullscreen]="true" class="desktop-bg">
 
+  <div style="position: absolute; top: 15px; right: 15px; z-index: 10;">
+    <app-language-selector></app-language-selector>
+  </div>
+
   <div class="login-wrapper">
 
     <div class="split-card">
@@ -9,14 +13,18 @@
         <div class="brand-container">
 
           <h2 class="brand-title">
-            Aqua Control
+            {{ 'LOGIN.BRAND_TITLE' | translate }}
           </h2>
 
           <p class="brand-subtitle">
-            Monitoreo y optimización inteligente
+            {{ 'LOGIN.BRAND_SUBTITLE' | translate }}
           </p>
 
-          <img src="assets/img/logo.png" alt="Logo de Aqua Control" class="brand-logo" />
+          <img
+            src="assets/img/logo.png"
+            [alt]="'LOGIN.BRAND_TITLE' | translate"
+            class="brand-logo"
+          />
 
         </div>
 
@@ -25,22 +33,27 @@
       <div class="split-right">
 
         <h1 class="main-title">
-          Crear cuenta
+          {{ 'REGISTRO.TITLE' | translate }}
         </h1>
 
         <div class="input-group">
 
           <label>
-            Usuario
+            {{ 'REGISTRO.USER_LABEL' | translate }}
           </label>
 
-          <ion-input [value]="usuario()" (ionInput)="actualizarUsuario($event)" placeholder="Elige un nombre de usuario"
-            type="text" class="premium-input"></ion-input>
+          <ion-input
+            [value]="usuario()"
+            (ionInput)="actualizarUsuario($event)"
+            [placeholder]="'REGISTRO.USER_PLACEHOLDER' | translate"
+            type="text"
+            class="premium-input"
+          ></ion-input>
 
           @if (errores.usuario) {
-          <p class="error-text">
-            {{ errores.usuario }}
-          </p>
+            <p class="error-text">
+              {{ errores.usuario }}
+            </p>
           }
 
         </div>
@@ -48,16 +61,21 @@
         <div class="input-group">
 
           <label>
-            Correo electrónico
+            {{ 'REGISTRO.EMAIL_LABEL' | translate }}
           </label>
 
-          <ion-input [value]="email()" (ionInput)="actualizarEmail($event)" placeholder="Ingresa tu correo electrónico"
-            type="email" class="premium-input"></ion-input>
+          <ion-input
+            [value]="email()"
+            (ionInput)="actualizarEmail($event)"
+            [placeholder]="'REGISTRO.EMAIL_PLACEHOLDER' | translate"
+            type="email"
+            class="premium-input"
+          ></ion-input>
 
           @if (errores.email) {
-          <p class="error-text">
-            {{ errores.email }}
-          </p>
+            <p class="error-text">
+              {{ errores.email }}
+            </p>
           }
 
         </div>
@@ -65,35 +83,54 @@
         <div class="input-group">
 
           <label>
-            Contraseña
+            {{ 'REGISTRO.PASSWORD_LABEL' | translate }}
           </label>
 
-          <ion-input [value]="password()" (ionInput)="actualizarPassword($event)" name="new-password"
-            autocomplete="new-password" placeholder="Crea una contraseña" type="password" required minlength="6"
-            class="premium-input">
-            <ion-input-password-toggle slot="end" class="light-eye"></ion-input-password-toggle>
+          <ion-input
+            [value]="password()"
+            (ionInput)="actualizarPassword($event)"
+            name="new-password"
+            autocomplete="new-password"
+            [placeholder]="'REGISTRO.PASSWORD_PLACEHOLDER' | translate"
+            type="password"
+            required
+            minlength="6"
+            class="premium-input"
+          >
+            <ion-input-password-toggle
+              slot="end"
+              class="light-eye"
+            ></ion-input-password-toggle>
           </ion-input>
 
           @if (errores.password) {
-          <p class="error-text">
-            {{ errores.password }}
-          </p>
+            <p class="error-text">
+              {{ errores.password }}
+            </p>
           }
 
         </div>
 
-        <ion-button (click)="insertar()" fill="solid" expand="block" class="neon-btn">
-          REGISTRARSE
+        <ion-button
+          (click)="insertar()"
+          fill="solid"
+          expand="block"
+          class="neon-btn"
+        >
+          {{ 'REGISTRO.BUTTON' | translate }}
         </ion-button>
 
         <div class="forgot-container">
 
           <span class="text-secondary">
-            Ya tengo una cuenta.
+            {{ 'REGISTRO.ALREADY_ACCOUNT' | translate }}
           </span>
 
-          <a routerLink="/login" class="neon-link">
-            Iniciar sesión
+          <a
+            routerLink="/login"
+            class="neon-link"
+          >
+            {{ 'REGISTRO.LOGIN_NOW' | translate }}
           </a>
 
         </div>

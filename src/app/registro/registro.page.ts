@@ -19,6 +19,9 @@ import {
   IonInputPasswordToggle
 } from '@ionic/angular/standalone';
 
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -29,7 +32,9 @@ import {
     IonContent,
     IonButton,
     IonInput,
-    IonInputPasswordToggle
+    IonInputPasswordToggle,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
 export class RegistroPage {
@@ -51,6 +56,9 @@ export class RegistroPage {
 
   private readonly toastController =
     inject(ToastController);
+
+  private readonly translate =
+    inject(TranslateService);
 
   actualizarUsuario(evento: any): void {
     const valor = evento.detail.value ?? '';
@@ -96,12 +104,12 @@ export class RegistroPage {
     // Valida el usuario
     if (!usuarioIngresado) {
       this.errores.usuario =
-        'El nombre de usuario es obligatorio.';
+        this.translate.instant('REGISTRO.ERR_USER_REQUIRED');
 
       valido = false;
     } else if (usuarioIngresado.length < 3) {
       this.errores.usuario =
-        'El usuario debe tener al menos 3 caracteres.';
+        this.translate.instant('REGISTRO.ERR_USER_SHORT');
 
       valido = false;
     }
@@ -112,12 +120,12 @@ export class RegistroPage {
     // Valida el correo
     if (!emailIngresado) {
       this.errores.email =
-        'El correo electrónico es obligatorio.';
+        this.translate.instant('REGISTRO.ERR_EMAIL_REQUIRED');
 
       valido = false;
     } else if (!emailPattern.test(emailIngresado)) {
       this.errores.email =
-        'Ingresa un correo electrónico válido.';
+        this.translate.instant('REGISTRO.ERR_EMAIL_INVALID');
 
       valido = false;
     }
@@ -125,12 +133,12 @@ export class RegistroPage {
     // Valida la contraseña
     if (!passwordIngresado) {
       this.errores.password =
-        'La contraseña es obligatoria.';
+        this.translate.instant('REGISTRO.ERR_PASSWORD_REQUIRED');
 
       valido = false;
     } else if (passwordIngresado.length < 6) {
       this.errores.password =
-        'La contraseña debe tener al menos 6 caracteres.';
+        this.translate.instant('REGISTRO.ERR_PASSWORD_SHORT');
 
       valido = false;
     }
@@ -179,7 +187,7 @@ export class RegistroPage {
         );
 
         this.mostrarToast(
-          '¡Cuenta creada correctamente!',
+          this.translate.instant('REGISTRO.SUCCESS_REGISTER'),
           'success'
         );
 
@@ -199,7 +207,7 @@ export class RegistroPage {
         );
 
         this.mostrarToast(
-          'Ocurrió un problema al crear la cuenta.',
+          this.translate.instant('REGISTRO.ERROR_REGISTER'),
           'error'
         );
       }
