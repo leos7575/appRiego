@@ -1,37 +1,62 @@
-<ion-header [translucent]="true" class="custom-header">
-  <ion-toolbar class="head-toolbar">
-    <div class="header-container-full">
-      <!-- Lado izquierdo: Logo, Título y Versión -->
-      <div class="brand-wrapper">
-        <div class="logo-indicator"></div>
-        <h1 class="main-header-title">
-          AquaControl
-        </h1>
-      </div>
-      <!-- Lado derecho: Botón de perfil empujado al extremo -->
-     <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
-        <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-button>
+<ion-header class="custom-header">
+
+  <div class="header-safe-area"></div>
+
+  <div class="header-row">
+
+    <div class="brand-wrapper">
+      <div class="logo-indicator"></div>
+
+      <h1 class="main-header-title">
+        AquaControl
+      </h1>
     </div>
-  </ion-toolbar>
+
+    <ion-button
+      fill="clear"
+      [routerLink]="['/profile']"
+      class="profile-btn"
+      aria-label="Abrir perfil"
+    >
+      <ion-icon
+        name="person-circle-outline"
+      ></ion-icon>
+    </ion-button>
+
+  </div>
+
 </ion-header>
 
 <ion-content class="custom-content ion-padding">
 
-  <!-- Título y subtítulo de la página -->
   <div class="page-title-section">
-    <h1 class="header-title">Generador de Energía</h1>
-    <p class="subtitle">Mantenimiento y monitoreo de generación eléctrica</p>
+
+    <h1 class="header-title">
+      Generador de Energía
+    </h1>
+
+    <p class="subtitle">
+      Mantenimiento y monitoreo de generación eléctrica
+    </p>
+
   </div>
 
-  <!-- SECCIÓN 1: Estado del Generador -->
   <div class="status-card">
+
     <div class="status-info">
+
       <div class="status-text">
-        <span class="label">ESTADO DEL EQUIPO</span>
-        <h2 class="status-value">{{ estadoActual() }}</h2>
+
+        <span class="label">
+          ESTADO DEL EQUIPO
+        </span>
+
+        <h2 class="status-value">
+          {{ estadoActual() }}
+        </h2>
+
       </div>
-      
+
       @if (estadoActual() === 'Funcionando') {
         <span class="indicator-dot active"></span>
       } @else if (estadoActual() === 'En mantenimiento') {
@@ -39,71 +64,170 @@
       } @else {
         <span class="indicator-dot inactive"></span>
       }
+
     </div>
+
   </div>
 
-  <!-- SECCIÓN 2: Telemetría Eléctrica -->
-  <h3 class="section-title">Telemetría Eléctrica</h3>
-  <p class="section-subtitle">Módulos de medición listos para integración de hardware</p>
-  
+  <h3 class="section-title">
+    Telemetría Eléctrica
+  </h3>
+
+  <p class="section-subtitle">
+    Módulos de medición listos para integración de hardware
+  </p>
+
   <div class="telemetry-grid">
+
     <div class="telemetry-card">
-      <ion-icon name="flash-outline" class="icon-voltaje"></ion-icon>
-      <span class="card-label">Voltaje</span>
-      <span class="card-value">{{ medicionesFuturas().voltaje }}</span>
+
+      <ion-icon
+        name="flash-outline"
+        class="icon-voltaje"
+      ></ion-icon>
+
+      <span class="card-label">
+        Voltaje
+      </span>
+
+      <span class="card-value">
+        {{ medicionesFuturas().voltaje }}
+      </span>
+
     </div>
 
     <div class="telemetry-card">
-      <ion-icon name="pulse-outline" class="icon-corriente"></ion-icon>
-      <span class="card-label">Corriente</span>
-      <span class="card-value">{{ medicionesFuturas().corriente }}</span>
+
+      <ion-icon
+        name="pulse-outline"
+        class="icon-corriente"
+      ></ion-icon>
+
+      <span class="card-label">
+        Corriente
+      </span>
+
+      <span class="card-value">
+        {{ medicionesFuturas().corriente }}
+      </span>
+
     </div>
 
     <div class="telemetry-card">
-      <ion-icon name="construct-outline" class="icon-potencia"></ion-icon>
-      <span class="card-label">Potencia</span>
-      <span class="card-value">{{ medicionesFuturas().potencia }}</span>
+
+      <ion-icon
+        name="construct-outline"
+        class="icon-potencia"
+      ></ion-icon>
+
+      <span class="card-label">
+        Potencia
+      </span>
+
+      <span class="card-value">
+        {{ medicionesFuturas().potencia }}
+      </span>
+
     </div>
 
     <div class="telemetry-card">
-      <ion-icon name="speedometer-outline" class="icon-rpm"></ion-icon>
-      <span class="card-label">Velocidad</span>
-      <span class="card-value">{{ medicionesFuturas().rpm }}</span>
+
+      <ion-icon
+        name="speedometer-outline"
+        class="icon-rpm"
+      ></ion-icon>
+
+      <span class="card-label">
+        Velocidad
+      </span>
+
+      <span class="card-value">
+        {{ medicionesFuturas().rpm }}
+      </span>
+
     </div>
+
   </div>
 
-  <!-- SECCIÓN 3: Bitácora de Mantenimiento -->
   <div class="maint-header">
-    <h3 class="section-title">Bitácora de Revisiones</h3>
+
+    <h3 class="section-title">
+      Bitácora de Revisiones
+    </h3>
+
   </div>
 
   <div class="maint-list">
-    @for (revision of historialMantenimiento(); track revision.fecha) {
+
+    @for (
+      revision of historialMantenimiento();
+      track revision.fecha
+    ) {
+
       <div class="maint-item">
+
         <div class="maint-top">
+
           <div class="maint-meta">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <span class="maint-date">{{ revision.fecha }}</span>
+
+            <ion-icon
+              name="calendar-outline"
+            ></ion-icon>
+
+            <span class="maint-date">
+              {{ revision.fecha }}
+            </span>
+
           </div>
+
           <div class="maint-meta">
-            <ion-icon name="person-outline"></ion-icon>
-            <span class="maint-user">{{ revision.responsable }}</span>
+
+            <ion-icon
+              name="person-outline"
+            ></ion-icon>
+
+            <span class="maint-user">
+              {{ revision.responsable }}
+            </span>
+
           </div>
+
         </div>
-        
-        <p class="maint-desc">{{ revision.observaciones }}</p>
-        
+
+        <p class="maint-desc">
+          {{ revision.observaciones }}
+        </p>
+
         <div class="maint-footer">
-          <span class="next-label">PRÓXIMA INSPECCIÓN</span>
-          <span class="next-date">{{ revision.proximaFecha }}</span>
+
+          <span class="next-label">
+            PRÓXIMA INSPECCIÓN
+          </span>
+
+          <span class="next-date">
+            {{ revision.proximaFecha }}
+          </span>
+
         </div>
+
       </div>
+
     } @empty {
+
       <div class="empty-state">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        <p>No se registran mantenimientos recientes en la base de datos.</p>
+
+        <ion-icon
+          name="alert-circle-outline"
+        ></ion-icon>
+
+        <p>
+          No se registran mantenimientos recientes en la base de datos.
+        </p>
+
       </div>
+
     }
+
   </div>
 
 </ion-content>

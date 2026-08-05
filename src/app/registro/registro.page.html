@@ -1,15 +1,19 @@
 <ion-content [fullscreen]="true" class="desktop-bg">
+
   <div class="login-wrapper">
 
     <div class="split-card">
 
-      <!-- Sección del logo -->
       <div class="split-left">
+
         <div class="brand-container">
-          <h2 class="brand-title">Aqua Control</h2>
+
+          <h2 class="brand-title">
+            Aqua Control
+          </h2>
 
           <p class="brand-subtitle">
-            Smart monitoring & optimization
+            Monitoreo y optimización inteligente
           </p>
 
           <img
@@ -17,56 +21,76 @@
             alt="Logo de Aqua Control"
             class="brand-logo"
           />
+
         </div>
+
       </div>
 
-      <!-- Sección del formulario -->
       <div class="split-right">
-        <h1 class="main-title">Create Account</h1>
+
+        <h1 class="main-title">
+          Crear cuenta
+        </h1>
 
         <div class="input-group">
-          <label>Username</label>
+
+          <label>
+            Usuario
+          </label>
 
           <ion-input
-            [(ngModel)]="credenciales.usuario"
-            name="username"
-            placeholder="Choose a username"
+            [value]="usuario()"
+            (ionInput)="actualizarUsuario($event)"
+            placeholder="Elige un nombre de usuario"
             type="text"
-            required
             class="premium-input"
           ></ion-input>
 
-          <p *ngIf="errores.usuario" class="error-text">
-            {{ errores.usuario }}
-          </p>
+          @if (errores.usuario) {
+            <p class="error-text">
+              {{ errores.usuario }}
+            </p>
+          }
+
         </div>
 
         <div class="input-group">
-          <label>Email</label>
+
+          <label>
+            Correo electrónico
+          </label>
 
           <ion-input
-            [(ngModel)]="credenciales.email"
-            name="email"
-            placeholder="Enter your email"
+            [value]="email()"
+            (ionInput)="actualizarEmail($event)"
+            placeholder="Ingresa tu correo electrónico"
             type="email"
-            required
             class="premium-input"
           ></ion-input>
 
-          <p *ngIf="errores.email" class="error-text">
-            {{ errores.email }}
-          </p>
+          @if (errores.email) {
+            <p class="error-text">
+              {{ errores.email }}
+            </p>
+          }
+
         </div>
 
         <div class="input-group">
-          <label>Password</label>
+
+          <label>
+            Contraseña
+          </label>
 
           <ion-input
-            [(ngModel)]="credenciales.password"
-            name="password"
-            placeholder="Create a password"
+            [value]="password()"
+            (ionInput)="actualizarPassword($event)"
+            name="new-password"
+            autocomplete="new-password"
+            placeholder="Crea una contraseña"
             type="password"
             required
+            minlength="6"
             class="premium-input"
           >
             <ion-input-password-toggle
@@ -75,9 +99,12 @@
             ></ion-input-password-toggle>
           </ion-input>
 
-          <p *ngIf="errores.password" class="error-text">
-            {{ errores.password }}
-          </p>
+          @if (errores.password) {
+            <p class="error-text">
+              {{ errores.password }}
+            </p>
+          }
+
         </div>
 
         <ion-button
@@ -86,20 +113,28 @@
           expand="block"
           class="neon-btn"
         >
-          REGISTER
+          REGISTRARSE
         </ion-button>
 
         <div class="forgot-container">
+
           <span class="text-secondary">
-            I already have an account.
+            Ya tengo una cuenta.
           </span>
 
-          <a href="login" class="neon-link">
-            Login here
+          <a
+            routerLink="/login"
+            class="neon-link"
+          >
+            Iniciar sesión
           </a>
+
         </div>
+
       </div>
 
     </div>
+
   </div>
+
 </ion-content>

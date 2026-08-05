@@ -1,181 +1,269 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router'; // 1. Importación que faltaba
+import {
+  Component,
+  OnInit,
+  inject
+} from '@angular/core';
+
+import {
+  RouterLink
+} from '@angular/router';
+
+import {
+  HttpClient
+} from '@angular/common/http';
+
+import {
+  ToastController
+} from '@ionic/angular';
+
 import {
   IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonButton,
   IonIcon
 } from '@ionic/angular/standalone';
 
-import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { UsuariosService } from '../services/usuarios.service';
+import {
+  UsuariosService
+} from '../services/usuarios.service';
 
-import { addIcons } from 'ionicons';
-import { water, trashOutline, addCircleOutline, personCircleOutline } from 'ionicons/icons';
+import {
+  addIcons
+} from 'ionicons';
+
+import {
+  water,
+  personCircleOutline
+} from 'ionicons/icons';
+
+addIcons({
+  water,
+  personCircleOutline
+});
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
+  standalone: true,
   imports: [
-    RouterLink,    // 2. Ya registrado en los imports del componente Standalone
+    RouterLink,
     IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonButton,
-    IonIcon,
-    CommonModule,
-  ],
+    IonIcon
+  ]
 })
 export class Tab1Page implements OnInit {
 
-  estado1: any;
-  estado2: any;
+  private readonly http =
+    inject(HttpClient);
 
-  constructor(
-    private http: HttpClient,
-    private bd: UsuariosService
-  ) {
-    addIcons({
-      water,
-      trashOutline,
-      addCircleOutline,
-      personCircleOutline
-    });
-  }
+  private readonly usuariosService =
+    inject(UsuariosService);
 
-  ngOnInit() {
+  private readonly toastController =
+    inject(ToastController);
+
+  estado1 = false;
+  estado2 = false;
+
+  ngOnInit(): void {
     this.obtenerEstadoSector1();
     this.obtenerEstadoSector2();
   }
 
-  obtenerEstadoSector1() {
-    this.bd
-      .getEstadoValvula('67bb6f2e85118d10af317f79')
+  obtenerEstadoSector1(): void {
+    this.usuariosService
+      .getEstadoValvula(
+        '67bb6f2e85118d10af317f79'
+      )
       .subscribe({
         next: (res: any) => {
-          console.log('Respuesta completa estado1:', res);
+          console.log(
+            'Respuesta completa estado1:',
+            res
+          );
 
-          if (
-            res &&
-            res.Respuesta &&
-            res.Respuesta.estado !== undefined
-          ) {
-            this.estado1 = res.Respuesta.estado;
-            console.log('Estado1 asignado:', this.estado1);
+          const estadoRecibido =
+            res?.Respuesta?.estado;
+
+          if (estadoRecibido !== undefined) {
+            this.estado1 =
+              Boolean(estadoRecibido);
+
+            console.log(
+              'Estado1 asignado:',
+              this.estado1
+            );
           } else {
             console.warn(
               'La respuesta no contiene la propiedad "estado".'
             );
           }
         },
-        error: (error) => {
+
+        error: (error: any) => {
           console.error(
             'Error al obtener el estado del Sector 1:',
             error
           );
+
+          this.mostrarToast(
+            'No se pudo obtener el estado del Sector 1.',
+            'error'
+          );
         }
       });
   }
 
-  obtenerEstadoSector2() {
-    this.bd
-      .getEstadoValvula('67bb79ac1c82e9d42d445882')
+  obtenerEstadoSector2(): void {
+    this.usuariosService
+      .getEstadoValvula(
+        '67bb79ac1c82e9d42d445882'
+      )
       .subscribe({
         next: (res: any) => {
-          console.log('Respuesta completa estado2:', res);
+          console.log(
+            'Respuesta completa estado2:',
+            res
+          );
 
-          if (
-            res &&
-            res.Respuesta &&
-            res.Respuesta.estado !== undefined
-          ) {
-            this.estado2 = res.Respuesta.estado;
-            console.log('Estado2 asignado:', this.estado2);
+          const estadoRecibido =
+            res?.Respuesta?.estado;
+
+          if (estadoRecibido !== undefined) {
+            this.estado2 =
+              Boolean(estadoRecibido);
+
+            console.log(
+              'Estado2 asignado:',
+              this.estado2
+            );
           } else {
             console.warn(
               'La respuesta no contiene la propiedad "estado".'
             );
           }
         },
-        error: (error) => {
+
+        error: (error: any) => {
           console.error(
             'Error al obtener el estado del Sector 2:',
             error
+          );
+
+          this.mostrarToast(
+            'No se pudo obtener el estado del Sector 2.',
+            'error'
           );
         }
       });
   }
 
-  toggleEstado1() {
+  toggleEstado1(): void {
     this.estado1 = !this.estado1;
 
-    const endpoint = this.estado1
-      ? 'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79'
-      : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb6f2e85118d10af317f79';
+    const endpoint =
+      this.estado1
+        ? 'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79'
+        : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb6f2e85118d10af317f79';
 
     this.http.put(endpoint, {}).subscribe({
-      next: (response) => {
-        console.log('Estado actualizado:', response);
+      next: (response: any) => {
+        console.log(
+          'Estado actualizado:',
+          response
+        );
 
-        this.mostrarAlerta(
-          'Estado actualizado',
+        this.mostrarToast(
           `El Sector 1 está ${
-            this.estado1 ? 'activado' : 'desactivado'
-          }.`
+            this.estado1
+              ? 'activado'
+              : 'desactivado'
+          }.`,
+          'success'
         );
       },
-      error: (error) => {
-        console.error('Error al actualizar estado:', error);
 
-        // Regresa visualmente al estado anterior.
+      error: (error: any) => {
+        console.error(
+          'Error al actualizar estado:',
+          error
+        );
+
+        // Recupera el estado anterior
         this.estado1 = !this.estado1;
 
-        this.mostrarAlerta(
-          'Error',
-          'Hubo un problema al actualizar el Sector 1.'
+        this.mostrarToast(
+          'Hubo un problema al actualizar el Sector 1.',
+          'error'
         );
       }
     });
   }
 
-  toggleEstado2() {
+  toggleEstado2(): void {
     this.estado2 = !this.estado2;
-    const endpoint = this.estado2
-      ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
-      : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb79ac1c82e9d42d445882';
+
+    const endpoint =
+      this.estado2
+        ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
+        : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb79ac1c82e9d42d445882';
 
     this.http.put(endpoint, {}).subscribe({
-      next: (response) => {
-        console.log('Estado actualizado:', response);
+      next: (response: any) => {
+        console.log(
+          'Estado actualizado:',
+          response
+        );
 
-        this.mostrarAlerta(
-          'Estado actualizado',
+        this.mostrarToast(
           `El Sector 2 está ${
-            this.estado2 ? 'activado' : 'desactivado'
-          }.`
+            this.estado2
+              ? 'activado'
+              : 'desactivado'
+          }.`,
+          'success'
         );
       },
-      error: (error) => {
-        console.error('Error al actualizar estado:', error);
 
-        // Regresa visualmente al estado anterior.
+      error: (error: any) => {
+        console.error(
+          'Error al actualizar estado:',
+          error
+        );
+
+        // Recupera el estado anterior
         this.estado2 = !this.estado2;
 
-        this.mostrarAlerta(
-          'Error',
-          'Hubo un problema al actualizar el Sector 2.'
+        this.mostrarToast(
+          'Hubo un problema al actualizar el Sector 2.',
+          'error'
         );
       }
     });
   }
 
-  mostrarAlerta(titulo: string, mensaje: string) {
-    alert(`${titulo}\n${mensaje}`);
-  }
+  async mostrarToast(
+    mensaje: string,
+    tipo: 'success' | 'error'
+  ): Promise<void> {
+    const toast =
+      await this.toastController.create({
+        message: mensaje,
+        duration: 2200,
+        position: 'top',
+        icon:
+          tipo === 'success'
+            ? 'checkmark-circle'
+            : 'close-circle',
+        cssClass:
+          tipo === 'success'
+            ? 'toast-success'
+            : 'toast-error'
+      });
 
+    await toast.present();
+  }
 }

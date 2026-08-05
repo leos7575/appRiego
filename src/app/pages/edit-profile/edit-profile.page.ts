@@ -1,16 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { UsuariosService } from '../../services/usuarios.service';
+import {
+  Component,
+  OnInit,
+  inject
+} from '@angular/core';
+
+import {
+  Router
+} from '@angular/router';
+
+import {
+  ToastController
+} from '@ionic/angular';
+
+import {
+  UsuariosService
+} from '../../services/usuarios.service';
 
 import {
   IonHeader,
-  IonToolbar,
-  IonButtons,
   IonBackButton,
-  IonTitle,
   IonContent,
   IonIcon,
   IonLabel,
@@ -25,13 +33,8 @@ import {
   styleUrls: ['./edit-profile.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     IonHeader,
-    IonToolbar,
-    IonButtons,
     IonBackButton,
-    IonTitle,
     IonContent,
     IonIcon,
     IonLabel,
@@ -40,7 +43,17 @@ import {
     IonButton
   ]
 })
-export class EditProfilePage implements OnInit {
+export class EditProfilePage
+  implements OnInit {
+
+  private readonly router =
+    inject(Router);
+
+  private readonly usuariosService =
+    inject(UsuariosService);
+
+  private readonly toastController =
+    inject(ToastController);
 
   public userId: string = '';
   public userName: string = '';
@@ -49,38 +62,75 @@ export class EditProfilePage implements OnInit {
 
   public isLoading: boolean = false;
 
-  constructor(
-    private router: Router,
-    private usuariosService: UsuariosService,
-    private toastController: ToastController
-  ) {}
+  ngOnInit(): void {
 
-  ngOnInit() {
     this.cargarDatosUsuario();
   }
 
-  cargarDatosUsuario() {
+  actualizarNombre(
+    evento: any
+  ): void {
+
+    this.userName =
+      evento.detail.value ?? '';
+  }
+
+  actualizarCorreo(
+    evento: any
+  ): void {
+
+    this.userEmail =
+      evento.detail.value ?? '';
+  }
+
+  actualizarPassword(
+    evento: any
+  ): void {
+
+    this.newPassword =
+      evento.detail.value ?? '';
+  }
+
+  cargarDatosUsuario(): void {
+
     const usuarioGuardado =
-      localStorage.getItem('usuarioActual');
+      localStorage.getItem(
+        'usuarioActual'
+      );
 
     if (!usuarioGuardado) {
-      this.router.navigate(['/login']);
+
+      this.router.navigate([
+        '/login'
+      ]);
+
       return;
     }
 
     let usuarioActual: any;
 
     try {
+
       usuarioActual =
-        JSON.parse(usuarioGuardado);
+        JSON.parse(
+          usuarioGuardado
+        );
+
     } catch (error) {
+
       console.error(
         'Error al leer la sesión:',
         error
       );
 
-      localStorage.removeItem('usuarioActual');
-      this.router.navigate(['/login']);
+      localStorage.removeItem(
+        'usuarioActual'
+      );
+
+      this.router.navigate([
+        '/login'
+      ]);
+
       return;
     }
 
@@ -90,22 +140,30 @@ export class EditProfilePage implements OnInit {
       '';
 
     if (!this.userId) {
+
       console.log(
         'El usuario guardado no tiene ID'
       );
 
-      this.router.navigate(['/login']);
+      this.router.navigate([
+        '/login'
+      ]);
+
       return;
     }
 
     this.isLoading = true;
 
     this.usuariosService
-      .getUsersId(this.userId)
+      .getUsersId(
+        this.userId
+      )
       .subscribe({
 
         next: (res: any) => {
-          this.isLoading = false;
+
+          this.isLoading =
+            false;
 
           console.log(
             'Datos actuales:',
@@ -113,11 +171,14 @@ export class EditProfilePage implements OnInit {
           );
 
           const usuario =
-            Array.isArray(res?.Respuesta)
+            Array.isArray(
+              res?.Respuesta
+            )
               ? res.Respuesta[0]
               : res?.Respuesta;
 
           if (usuario) {
+
             this.userName =
               usuario.user ||
               usuario.usuario ||
@@ -127,9 +188,11 @@ export class EditProfilePage implements OnInit {
               usuario.email ||
               '';
 
-            this.newPassword = '';
+            this.newPassword =
+              '';
 
           } else {
+
             this.mostrarToast(
               'No se encontró el usuario.',
               'error'
@@ -138,7 +201,9 @@ export class EditProfilePage implements OnInit {
         },
 
         error: (error: any) => {
-          this.isLoading = false;
+
+          this.isLoading =
+            false;
 
           console.error(
             'Error al cargar los datos:',
@@ -153,7 +218,8 @@ export class EditProfilePage implements OnInit {
       });
   }
 
-  guardarCambios() {
+  guardarCambios(): void {
+
     const nombreLimpio =
       this.userName.trim();
 
@@ -163,7 +229,11 @@ export class EditProfilePage implements OnInit {
     const passwordLimpia =
       this.newPassword.trim();
 
-    if (!nombreLimpio || !correoLimpio) {
+    if (
+      !nombreLimpio ||
+      !correoLimpio
+    ) {
+
       this.mostrarToast(
         'El nombre y el correo son obligatorios.',
         'error'
@@ -173,6 +243,7 @@ export class EditProfilePage implements OnInit {
     }
 
     if (!this.userId) {
+
       this.mostrarToast(
         'No se encontró el ID del usuario.',
         'error'
@@ -181,21 +252,22 @@ export class EditProfilePage implements OnInit {
       return;
     }
 
-    /*
-     * La contraseña solamente se envía cuando
-     * el usuario escribió una nueva.
-     */
     const datosActualizados: any = {
-      user: nombreLimpio,
-      email: correoLimpio
+      user:
+        nombreLimpio,
+
+      email:
+        correoLimpio
     };
 
     if (passwordLimpia) {
+
       datosActualizados.password =
         passwordLimpia;
     }
 
-    this.isLoading = true;
+    this.isLoading =
+      true;
 
     this.usuariosService
       .putUser(
@@ -205,26 +277,22 @@ export class EditProfilePage implements OnInit {
       .subscribe({
 
         next: (res: any) => {
-          this.isLoading = false;
+
+          this.isLoading =
+            false;
 
           console.log(
             'Respuesta de actualización:',
             res
           );
 
-          /*
-           * Acepta que Respuesta sea un objeto
-           * o un arreglo.
-           */
           const usuarioActualizado =
-            Array.isArray(res?.Respuesta)
+            Array.isArray(
+              res?.Respuesta
+            )
               ? res.Respuesta[0]
               : res?.Respuesta;
 
-          /*
-           * Si la API no devuelve el usuario completo,
-           * utilizamos los datos que acabamos de enviar.
-           */
           const nombreActualizado =
             usuarioActualizado?.user ||
             nombreLimpio;
@@ -239,14 +307,21 @@ export class EditProfilePage implements OnInit {
             this.userId;
 
           const datosSesion = {
-            id: idActualizado,
-            usuario: nombreActualizado,
-            email: correoActualizado
+            id:
+              idActualizado,
+
+            usuario:
+              nombreActualizado,
+
+            email:
+              correoActualizado
           };
 
           localStorage.setItem(
             'usuarioActual',
-            JSON.stringify(datosSesion)
+            JSON.stringify(
+              datosSesion
+            )
           );
 
           this.userName =
@@ -255,29 +330,31 @@ export class EditProfilePage implements OnInit {
           this.userEmail =
             correoActualizado;
 
-          this.newPassword = '';
+          this.newPassword =
+            '';
 
           this.mostrarToast(
             'Información actualizada correctamente.',
             'success'
           );
 
-          /*
-           * Al regresar a profile se ejecutará
-           * ionViewWillEnter() y cargará los cambios.
-           */
           setTimeout(() => {
+
             this.router.navigateByUrl(
               '/profile',
               {
-                replaceUrl: true
+                replaceUrl:
+                  true
               }
             );
+
           }, 1000);
         },
 
         error: (error: any) => {
-          this.isLoading = false;
+
+          this.isLoading =
+            false;
 
           console.error(
             'Error al actualizar:',
@@ -297,28 +374,40 @@ export class EditProfilePage implements OnInit {
       });
   }
 
-  cancelar() {
-    this.router.navigate(['/profile']);
+  cancelar(): void {
+
+    this.router.navigate([
+      '/profile'
+    ]);
   }
 
   async mostrarToast(
     mensaje: string,
     tipo: 'success' | 'error'
-  ) {
+  ): Promise<void> {
+
     const toast =
-      await this.toastController.create({
-        message: mensaje,
-        duration: 2200,
-        position: 'top',
-        icon:
-          tipo === 'success'
-            ? 'checkmark-circle'
-            : 'close-circle',
-        cssClass:
-          tipo === 'success'
-            ? 'toast-success'
-            : 'toast-error'
-      });
+      await this.toastController
+        .create({
+          message:
+            mensaje,
+
+          duration:
+            2200,
+
+          position:
+            'top',
+
+          icon:
+            tipo === 'success'
+              ? 'checkmark-circle'
+              : 'close-circle',
+
+          cssClass:
+            tipo === 'success'
+              ? 'toast-success'
+              : 'toast-error'
+        });
 
     await toast.present();
   }

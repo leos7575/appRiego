@@ -1,15 +1,26 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {
+  Component,
+  inject
+} from '@angular/core';
 
-import { addIcons } from 'ionicons';
-import { personCircleOutline } from 'ionicons/icons';
+import {
+  RouterLink
+} from '@angular/router';
+
+import {
+  ToastController
+} from '@ionic/angular';
+
+import {
+  addIcons
+} from 'ionicons';
+
+import {
+  personCircleOutline
+} from 'ionicons/icons';
 
 import {
   IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonGrid,
   IonRow,
@@ -22,7 +33,13 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 
-import { UsuariosService } from '../services/usuarios.service';
+import {
+  UsuariosService
+} from '../services/usuarios.service';
+
+addIcons({
+  personCircleOutline
+});
 
 @Component({
   selector: 'app-tab2',
@@ -30,12 +47,8 @@ import { UsuariosService } from '../services/usuarios.service';
   styleUrls: ['tab2.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     RouterLink,
     IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonGrid,
     IonRow,
@@ -50,50 +63,37 @@ import { UsuariosService } from '../services/usuarios.service';
 })
 export class Tab2Page {
 
-  /* ========================================
-     MODO DE CONFIGURACIÓN
-  ======================================== */
+  private readonly sectorService =
+    inject(UsuariosService);
 
-  modoConfiguracion: 'manual' | 'inteligente' = 'manual';
+  private readonly toastController =
+    inject(ToastController);
+
+  modoConfiguracion:
+    'manual' | 'inteligente' = 'manual';
 
   modoInteligenteSector1Activo = false;
-modoInteligenteSector2Activo = false;
+  modoInteligenteSector2Activo = false;
 
-/* Datos temporales del Sector 1 */
-lecturasSector1 = {
-  humedad: 35,
-  temperatura: 29,
-  lluvia: true
-};
+  lecturasSector1 = {
+    humedad: 35,
+    temperatura: 29,
+    lluvia: true
+  };
 
-/* Datos temporales del Sector 2 */
-lecturasSector2 = {
-  humedad: 62,
-  temperatura: 29,
-  lluvia: false
-};
+  lecturasSector2 = {
+    humedad: 62,
+    temperatura: 29,
+    lluvia: false
+  };
 
-  /* ========================================
-     CONFIGURACIÓN DEL SECTOR 1
-  ======================================== */
-
-  configuracion: {
-    estado: boolean;
-    fechaInicio: string;
-    fechaFin: string;
-    duracion: number;
-    dias: string[];
-    horaInicio: string;
-    pausas: number;
-    duracionPausa: number;
-    pausasHis: number;
-    duracionPausaHis: number;
-  } = {
+  configuracion: ConfiguracionSector = {
     fechaInicio: this.getLocalDate(),
     fechaFin: this.getLocalDate(),
     duracion: 0,
     dias: [],
-    horaInicio: this.getFormattedCurrentTime(),
+    horaInicio:
+      this.getFormattedCurrentTime(),
     pausas: 0,
     duracionPausa: 0,
     estado: false,
@@ -101,157 +101,153 @@ lecturasSector2 = {
     duracionPausaHis: 0
   };
 
-  /* ========================================
-     CONFIGURACIÓN DEL SECTOR 2
-  ======================================== */
-
-  configuracion2: {
-    estado: boolean;
-    fechaInicio: string;
-    fechaFin: string;
-    duracion: number;
-    dias: string[];
-    horaInicio: string;
-    pausas: number;
-    duracionPausa: number;
-    pausasHis: number;
-    duracionPausaHis: number;
-  } = {
+  configuracion2: ConfiguracionSector = {
     fechaInicio: this.getLocalDate(),
     fechaFin: this.getLocalDate(),
     duracion: 0,
     dias: [],
-    horaInicio: this.getFormattedCurrentTime(),
+    horaInicio:
+      this.getFormattedCurrentTime(),
     pausas: 0,
     duracionPausa: 0,
     estado: false,
     pausasHis: 0,
     duracionPausaHis: 0
   };
-
-  /* ========================================
-     DÍAS DEL SECTOR 1
-  ======================================== */
 
   diasSector1: Dia[] = [
     { nombre: 'Lunes', selected: false },
     { nombre: 'Martes', selected: false },
-    { nombre: 'Miercoles', selected: false },
+    { nombre: 'Miércoles', selected: false },
     { nombre: 'Jueves', selected: false },
     { nombre: 'Viernes', selected: false },
-    { nombre: 'Sabado', selected: false },
+    { nombre: 'Sábado', selected: false },
     { nombre: 'Domingo', selected: false }
   ];
-
-  /* ========================================
-     DÍAS DEL SECTOR 2
-  ======================================== */
 
   diasSector2: Dia[] = [
     { nombre: 'Lunes', selected: false },
     { nombre: 'Martes', selected: false },
-    { nombre: 'Miercoles', selected: false },
+    { nombre: 'Miércoles', selected: false },
     { nombre: 'Jueves', selected: false },
     { nombre: 'Viernes', selected: false },
-    { nombre: 'Sabado', selected: false },
+    { nombre: 'Sábado', selected: false },
     { nombre: 'Domingo', selected: false }
   ];
 
-  constructor(
-    private Sector: UsuariosService
-  ) {
-    addIcons({
-      personCircleOutline
-    });
-  }
-
-  ngOnInit() {}
-
-  /* ========================================
-     CAMBIAR MODO
-  ======================================== */
-
-  cambiarModo(modo: 'manual' | 'inteligente') {
+  cambiarModo(
+    modo: 'manual' | 'inteligente'
+  ): void {
     this.modoConfiguracion = modo;
   }
 
-  /* ========================================
-     ACTIVAR O DESACTIVAR MODELO
-  ======================================== */
+  actualizarNumero(
+    sector: 1 | 2,
+    campo: CampoNumerico,
+    evento: any
+  ): void {
+    const valorIngresado =
+      evento.detail.value;
 
-  activarModoInteligenteSector1() {
-  this.modoInteligenteSector1Activo =
-    !this.modoInteligenteSector1Activo;
+    const valorNumerico =
+      Number(valorIngresado ?? 0);
 
-  const estado = this.modoInteligenteSector1Activo
-    ? 'activado'
-    : 'desactivado';
+    const configuracionSeleccionada =
+      sector === 1
+        ? this.configuracion
+        : this.configuracion2;
 
-  this.mostrarAlerta(
-    `Modo inteligente ${estado}`,
-    `El control inteligente del Sector 1 fue ${estado}.`
-  );
-}
+    configuracionSeleccionada[campo] =
+      Number.isNaN(valorNumerico)
+        ? 0
+        : valorNumerico;
+  }
 
-activarModoInteligenteSector2() {
-  this.modoInteligenteSector2Activo =
-    !this.modoInteligenteSector2Activo;
+  activarModoInteligenteSector1(): void {
+    this.modoInteligenteSector1Activo =
+      !this.modoInteligenteSector1Activo;
 
-  const estado = this.modoInteligenteSector2Activo
-    ? 'activado'
-    : 'desactivado';
+    const estado =
+      this.modoInteligenteSector1Activo
+        ? 'activado'
+        : 'desactivado';
 
-  this.mostrarAlerta(
-    `Modo inteligente ${estado}`,
-    `El control inteligente del Sector 2 fue ${estado}.`
-  );
-}
+    this.mostrarToast(
+      `El modo inteligente del Sector 1 fue ${estado}.`,
+      'success'
+    );
+  }
 
-  /* ========================================
-     SELECCIÓN DE DÍAS
-  ======================================== */
+  activarModoInteligenteSector2(): void {
+    this.modoInteligenteSector2Activo =
+      !this.modoInteligenteSector2Activo;
 
-  toggleDia(dia: Dia) {
+    const estado =
+      this.modoInteligenteSector2Activo
+        ? 'activado'
+        : 'desactivado';
+
+    this.mostrarToast(
+      `El modo inteligente del Sector 2 fue ${estado}.`,
+      'success'
+    );
+  }
+
+  toggleDia(dia: Dia): void {
     dia.selected = !dia.selected;
-
     this.onDiasFinChangeSector1();
   }
 
-  toggleDia2(dia: Dia) {
+  toggleDia2(dia: Dia): void {
     dia.selected = !dia.selected;
-
     this.onDiasFinChangeSector2();
   }
 
-  getPrimeraLetra(dia: string): string {
+  getPrimeraLetra(
+    dia: string
+  ): string {
     return dia.charAt(0);
   }
 
-  /* ========================================
-     GUARDAR SECTOR 1
-  ======================================== */
-
-  guardar(idSector: string) {
+  guardar(
+    idSector: string
+  ): void {
     if (!idSector) {
-      this.mostrarAlerta(
-        'Error',
-        'No se proporcionó un ID para actualizar.'
+      this.mostrarToast(
+        'No se proporcionó un ID para actualizar.',
+        'error'
       );
 
       return;
     }
 
     const configuracionActualizada = {
-      fechaInicio: this.configuracion.fechaInicio,
-      fechaFin: this.configuracion.fechaFin,
-      duracion: this.configuracion.duracion,
-      dias: this.configuracion.dias,
-      horaInicio: this.configuracion.horaInicio,
-      pausas: this.configuracion.pausas,
-      duracionPausa: this.configuracion.duracionPausa,
-      estado: this.configuracion.estado,
+      fechaInicio:
+        this.configuracion.fechaInicio,
 
-      pausasHis: this.configuracion.pausas,
+      fechaFin:
+        this.configuracion.fechaFin,
+
+      duracion:
+        this.configuracion.duracion,
+
+      dias:
+        this.configuracion.dias,
+
+      horaInicio:
+        this.configuracion.horaInicio,
+
+      pausas:
+        this.configuracion.pausas,
+
+      duracionPausa:
+        this.configuracion.duracionPausa,
+
+      estado:
+        this.configuracion.estado,
+
+      pausasHis:
+        this.configuracion.pausas,
 
       duracionPausaHis:
         this.configuracion.duracionPausa
@@ -262,8 +258,11 @@ activarModoInteligenteSector2() {
       configuracionActualizada
     );
 
-    this.Sector
-      .putSector1(idSector, configuracionActualizada)
+    this.sectorService
+      .putSector1(
+        idSector,
+        configuracionActualizada
+      )
       .subscribe({
         next: (res: any) => {
           console.log(
@@ -271,9 +270,9 @@ activarModoInteligenteSector2() {
             res
           );
 
-          this.mostrarAlerta(
-            'Sector actualizado correctamente',
-            'El Sector 1 se actualizó con éxito.'
+          this.mostrarToast(
+            'El Sector 1 se actualizó correctamente.',
+            'success'
           );
         },
 
@@ -283,39 +282,50 @@ activarModoInteligenteSector2() {
             err
           );
 
-          this.mostrarAlerta(
-            'Error al actualizar sector',
-            'Hubo un problema al actualizar el Sector 1.'
+          this.mostrarToast(
+            'Hubo un problema al actualizar el Sector 1.',
+            'error'
           );
         }
       });
   }
 
-  /* ========================================
-     GUARDAR SECTOR 2
-  ======================================== */
-
-  guardar2(idSector: string) {
+  guardar2(
+    idSector: string
+  ): void {
     if (!idSector) {
-      this.mostrarAlerta(
-        'Error',
-        'No se proporcionó un ID para actualizar.'
+      this.mostrarToast(
+        'No se proporcionó un ID para actualizar.',
+        'error'
       );
 
       return;
     }
 
     const configuracionActualizada2 = {
-      fechaInicio: this.configuracion2.fechaInicio,
-      fechaFin: this.configuracion2.fechaFin,
-      duracion: this.configuracion2.duracion,
-      dias: this.configuracion2.dias,
-      horaInicio: this.configuracion2.horaInicio,
-      pausas: this.configuracion2.pausas,
+      fechaInicio:
+        this.configuracion2.fechaInicio,
+
+      fechaFin:
+        this.configuracion2.fechaFin,
+
+      duracion:
+        this.configuracion2.duracion,
+
+      dias:
+        this.configuracion2.dias,
+
+      horaInicio:
+        this.configuracion2.horaInicio,
+
+      pausas:
+        this.configuracion2.pausas,
+
       duracionPausa:
         this.configuracion2.duracionPausa,
 
-      estado: this.configuracion2.estado,
+      estado:
+        this.configuracion2.estado,
 
       pausasHis:
         this.configuracion2.pausas,
@@ -329,8 +339,11 @@ activarModoInteligenteSector2() {
       configuracionActualizada2
     );
 
-    this.Sector
-      .putSector1(idSector, configuracionActualizada2)
+    this.sectorService
+      .putSector1(
+        idSector,
+        configuracionActualizada2
+      )
       .subscribe({
         next: (res: any) => {
           console.log(
@@ -338,9 +351,9 @@ activarModoInteligenteSector2() {
             res
           );
 
-          this.mostrarAlerta(
-            'Sector actualizado correctamente',
-            'El Sector 2 se actualizó con éxito.'
+          this.mostrarToast(
+            'El Sector 2 se actualizó correctamente.',
+            'success'
           );
         },
 
@@ -350,147 +363,179 @@ activarModoInteligenteSector2() {
             err
           );
 
-          this.mostrarAlerta(
-            'Error al actualizar sector',
-            'Hubo un problema al actualizar el Sector 2.'
+          this.mostrarToast(
+            'Hubo un problema al actualizar el Sector 2.',
+            'error'
           );
         }
       });
   }
 
-  /* ========================================
-     CAMBIOS DE FECHA
-  ======================================== */
-
-  onFechaInicioChange(event: any) {
+  onFechaInicioChange(
+    evento: any
+  ): void {
     this.configuracion.fechaInicio =
-      this.formatDate(event.detail.value);
+      this.formatDate(
+        evento.detail.value
+      );
   }
 
-  onFechaInicioChange2(event: any) {
+  onFechaInicioChange2(
+    evento: any
+  ): void {
     this.configuracion2.fechaInicio =
-      this.formatDate(event.detail.value);
+      this.formatDate(
+        evento.detail.value
+      );
   }
 
-  onFechaFinChange(event: any) {
+  onFechaFinChange(
+    evento: any
+  ): void {
     this.configuracion.fechaFin =
-      this.formatDate(event.detail.value);
+      this.formatDate(
+        evento.detail.value
+      );
   }
 
-  onFechaFinChange2(event: any) {
+  onFechaFinChange2(
+    evento: any
+  ): void {
     this.configuracion2.fechaFin =
-      this.formatDate(event.detail.value);
+      this.formatDate(
+        evento.detail.value
+      );
   }
 
-  /* ========================================
-     CAMBIOS DE HORA
-  ======================================== */
-
-  onHoraInicioChange(event: any) {
+  onHoraInicioChange(
+    evento: any
+  ): void {
     this.configuracion.horaInicio =
-      this.formatTime(event.detail.value);
+      this.formatTime(
+        evento.detail.value
+      );
   }
 
-  onHoraInicioChange2(event: any) {
+  onHoraInicioChange2(
+    evento: any
+  ): void {
     this.configuracion2.horaInicio =
-      this.formatTime(event.detail.value);
+      this.formatTime(
+        evento.detail.value
+      );
   }
 
-  /* ========================================
-     GUARDAR DÍAS SELECCIONADOS
-  ======================================== */
-
-  onDiasFinChangeSector1() {
+  onDiasFinChangeSector1(): void {
     this.configuracion.dias =
       this.diasSector1
         .filter((dia) => dia.selected)
         .map((dia) => dia.nombre);
   }
 
-  onDiasFinChangeSector2() {
+  onDiasFinChangeSector2(): void {
     this.configuracion2.dias =
       this.diasSector2
         .filter((dia) => dia.selected)
         .map((dia) => dia.nombre);
   }
 
-  /* ========================================
-     FORMATEAR FECHA
-  ======================================== */
+  formatDate(
+    dateString: string
+  ): string {
+    const date =
+      new Date(dateString);
 
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-
-    const year = date.getFullYear();
+    const year =
+      date.getFullYear();
 
     const month =
-      ('0' + (date.getMonth() + 1)).slice(-2);
+      ('0' + (date.getMonth() + 1))
+        .slice(-2);
 
     const day =
-      ('0' + date.getDate()).slice(-2);
+      ('0' + date.getDate())
+        .slice(-2);
 
     return `${year}-${month}-${day}`;
   }
 
-  /* ========================================
-     FORMATEAR HORA
-  ======================================== */
+  formatTime(
+    timeString: string
+  ): string {
+    const date =
+      new Date(timeString);
 
-  formatTime(timeString: string): string {
-    const date = new Date(timeString);
-
-    let hours = date.getHours();
+    let hours =
+      date.getHours();
 
     const minutes =
-      ('0' + date.getMinutes()).slice(-2);
+      ('0' + date.getMinutes())
+        .slice(-2);
 
     const ampm =
-      hours >= 12 ? 'PM' : 'AM';
+      hours >= 12
+        ? 'PM'
+        : 'AM';
 
     hours = hours % 12;
-    hours = hours ? hours : 12;
+    hours = hours || 12;
 
-    return `${('0' + hours).slice(-2)}:${minutes} ${ampm}`;
+    return (
+      `${('0' + hours).slice(-2)}` +
+      `:${minutes} ${ampm}`
+    );
   }
-
-  /* ========================================
-     OBTENER HORA ACTUAL
-  ======================================== */
 
   getFormattedCurrentTime(): string {
-    const date = new Date();
+    const date =
+      new Date();
 
-    let hours = date.getHours();
+    let hours =
+      date.getHours();
 
     const minutes =
-      ('0' + date.getMinutes()).slice(-2);
+      ('0' + date.getMinutes())
+        .slice(-2);
 
     const ampm =
-      hours >= 12 ? 'PM' : 'AM';
+      hours >= 12
+        ? 'PM'
+        : 'AM';
 
     hours = hours % 12;
-    hours = hours ? hours : 12;
+    hours = hours || 12;
 
-    return `${('0' + hours).slice(-2)}:${minutes} ${ampm}`;
+    return (
+      `${('0' + hours).slice(-2)}` +
+      `:${minutes} ${ampm}`
+    );
   }
 
-  /* ========================================
-     MOSTRAR ALERTA
-  ======================================== */
+  async mostrarToast(
+    mensaje: string,
+    tipo: 'success' | 'error'
+  ): Promise<void> {
+    const toast =
+      await this.toastController.create({
+        message: mensaje,
+        duration: 2200,
+        position: 'top',
+        icon:
+          tipo === 'success'
+            ? 'checkmark-circle'
+            : 'close-circle',
+        cssClass:
+          tipo === 'success'
+            ? 'toast-success'
+            : 'toast-error'
+      });
 
-  mostrarAlerta(
-    titulo: string,
-    mensaje: string
-  ) {
-    alert(`${titulo}\n${mensaje}`);
+    await toast.present();
   }
-
-  /* ========================================
-     OBTENER FECHA LOCAL
-  ======================================== */
 
   getLocalDate(): string {
-    const date = new Date();
+    const date =
+      new Date();
 
     date.setMinutes(
       date.getMinutes() -
@@ -503,9 +548,23 @@ activarModoInteligenteSector2() {
   }
 }
 
-/* ========================================
-   INTERFAZ DE LOS DÍAS
-======================================== */
+interface ConfiguracionSector {
+  estado: boolean;
+  fechaInicio: string;
+  fechaFin: string;
+  duracion: number;
+  dias: string[];
+  horaInicio: string;
+  pausas: number;
+  duracionPausa: number;
+  pausasHis: number;
+  duracionPausaHis: number;
+}
+
+type CampoNumerico =
+  | 'duracion'
+  | 'pausas'
+  | 'duracionPausa';
 
 interface Dia {
   nombre: string;

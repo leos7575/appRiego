@@ -1,322 +1,489 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-/* ==========================================================================
-   1. CONFIGURACIÓN GENERAL Y FONDO
-   ========================================================================== */
+// Fondo
 .desktop-bg {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    --background: #192338; /* Oxford Blue: Fondo oscuro principal */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  --background: #192338;
 }
 
-/* ==========================================================================
-   2. HEADER / NAVBAR PREMIUM
-   ========================================================================== */
+// Header
 .custom-header {
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
-    background: #1E2E4F; 
+  display: block;
+
+  background: linear-gradient(
+    135deg,
+    #1e2e4f 0%,
+    #16223b 100%
+  );
+
+  box-shadow:
+    0 4px 25px rgba(0, 0, 0, 0.2);
+
+  z-index: 100;
 }
 
-.head-toolbar {
-    --background: linear-gradient(135deg, #1E2E4F 0%, #16223B 100%); 
-    --border-width: 0;
-    border-bottom: 1px solid rgba(143, 179, 226, 0.15); 
-    height: 70px;
-    --padding-start: 0;
-    --padding-end: 0;
+// Espacio exclusivo para la barra del teléfono
+.header-safe-area {
+  width: 100%;
+
+  height: max(
+    var(--ion-safe-area-top, 0px),
+    env(safe-area-inset-top, 0px)
+  );
+
+  background: #1e2e4f;
 }
 
-.header-container-full {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 32px; 
-    box-sizing: border-box;
+// Fila visible del header
+.header-row {
+  width: 100%;
+  height: 72px;
+  padding: 0 24px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  border-bottom: 1px solid
+    rgba(143, 179, 226, 0.15);
 }
 
 .brand-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  min-width: 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo-indicator {
-    width: 6px;
-    height: 22px;
-    background: #8FB3E2; 
-    border-radius: 4px;
-    box-shadow: 0 0 12px rgba(143, 179, 226, 0.6);
+  width: 6px;
+  height: 26px;
+  flex-shrink: 0;
+
+  background: #8fb3e2;
+  border-radius: 4px;
+
+  box-shadow:
+    0 0 12px rgba(143, 179, 226, 0.6);
 }
 
 .main-header-title {
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: -0.3px;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
 }
 
+// Perfil
+.profile-btn {
+  --color: #ffffff;
+  --background: transparent;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  --ripple-color: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
 
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
 
-/* ==========================================================================
-   3. CUERPO DEL DASHBOARD Y GRID
-   ========================================================================== */
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-btn ion-icon {
+  margin: 0;
+
+  color: #ffffff;
+  font-size: 38px;
+
+  filter:
+    drop-shadow(
+      0 0 10px rgba(143, 179, 226, 0.7)
+    );
+}
+
+// Contenido
 .dashboard-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  box-sizing: border-box;
 }
 
 .section-intro {
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 
 .section-title {
-    color: #ffffff;
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 0 0 8px 0;
+  margin: 0 0 8px;
+
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .section-subtitle {
-    color: #D9E1F1;
-    font-size: 1rem;
-    margin: 0;
-    opacity: 0.7;
+  margin: 0;
+
+  color: #d9e1f1;
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.7;
 }
 
 .title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 20px;
 }
 
 .sectors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-    width: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(300px, 1fr));
+
+  gap: 25px;
 }
 
-/* ==========================================================================
-   4. TARJETAS DE SECTORES
-   ========================================================================== */
+// Tarjetas
 .sector-card {
-    background: #1E2E4F; 
-    border: 1px solid #31487A; 
-    border-radius: 20px;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  min-width: 0;
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  background: #1e2e4f;
+  border: 1px solid #31487a;
+  border-radius: 20px;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .sector-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card-header-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
+  margin-bottom: 20px;
 
-.status-badge {
-    color: #7284a1; 
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .status-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  color: #7284a1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .status-dot {
-    width: 10px;
-    height: 10px;
-    background: #7284a1;
-    border-radius: 50%;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 10px;
+  height: 10px;
+
+  background: #7284a1;
+  border-radius: 50%;
+
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .status-dot.active {
-    background: #52D191; 
-    box-shadow:
-        0 0 5px #52D191,
-        0 0 10px #52D191,
-        0 0 18px rgba(82,209,145,.8);
-    animation: pulse 1.6s infinite;
+  background: #52d191;
+
+  box-shadow:
+    0 0 5px #52d191,
+    0 0 10px #52d191,
+    0 0 18px rgba(82, 209, 145, 0.8);
+
+  animation: pulse 1.6s infinite;
 }
 
 .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 25px;
-    flex-grow: 1;
+  margin-bottom: 25px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+
+  text-align: center;
 }
 
 .icon-box {
-    background: #31487A;
-    padding: 16px;
-    border-radius: 50%;
-    color: #7284a1;
-    font-size: 2.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 15px;
-    transition: all 0.3s ease;
+  padding: 16px;
+  margin-bottom: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #7284a1;
+  font-size: 2.2rem;
+
+  background: #31487a;
+  border-radius: 50%;
+
+  transition: all 0.3s ease;
 }
 
 .sector-name {
-    color: #ffffff;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 0 5px 0;
+  margin: 0 0 5px;
+
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .sector-details {
-    color: #D9E1F1;
-    font-size: 0.9rem;
-    margin: 0;
-    opacity: 0.5;
+  margin: 0;
+
+  color: #d9e1f1;
+  font-size: 0.9rem;
+  opacity: 0.5;
 }
 
-/* ==========================================================================
-   5. ESTADOS DINÁMICOS
-   ========================================================================== */
+// Estados
 .sector-card.is-active {
-    border-color: #8FB3E2; 
+  border-color: #8fb3e2;
 }
 
 .sector-card.is-active .status-badge {
-    color: #8FB3E2; 
+  color: #8fb3e2;
 }
 
 .sector-card.is-active .icon-box {
-    background: rgba(143, 179, 226, 0.15);
-    color: #8FB3E2; 
-    transform: scale(1.08);
+  color: #8fb3e2;
+  background: rgba(143, 179, 226, 0.15);
+
+  transform: scale(1.08);
 }
 
-/* ==========================================================================
-   6. BOTONES DE ACCIÓN
-   ========================================================================== */
+// Botones
 .action-btn {
-    height: 48px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    margin: 0;
+  height: 48px;
+  margin: 0;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .btn-off {
-    --background: #8FB3E2; 
-    --color: #192338;
-    --border-radius: 12px;
+  --background: #8fb3e2;
+  --color: #192338;
+  --border-radius: 12px;
 }
 
 .btn-on {
-    --background: #E56363; 
-    --color: #ffffff;
-    --border-radius: 12px;
+  --background: #e56363;
+  --color: #ffffff;
+  --border-radius: 12px;
 }
 
-/* ==========================================================================
-   7. ANIMACIONES DE INTERFAZ
-   ========================================================================== */
+// Animación
 @keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(82, 209, 145, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(82, 209, 145, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(82, 209, 145, 0); }
+  0% {
+    transform: scale(0.95);
+
+    box-shadow:
+      0 0 0 0 rgba(82, 209, 145, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+
+    box-shadow:
+      0 0 0 6px rgba(82, 209, 145, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+
+    box-shadow:
+      0 0 0 0 rgba(82, 209, 145, 0);
+  }
 }
 
-/* ==========================================================================
-   8. BOTÓN DE AGREGAR SECTOR
-   ========================================================================== */
-.add-sector-btn {
-    --background: linear-gradient(135deg, #8FB3E2 0%, #6EA5F7 100%);
-    --color: #192338;
-    --border-radius: 14px;
+// Tabletas
+@media (max-width: 768px) {
+  .header-row {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .dashboard-wrapper {
+    padding: 30px 18px;
+  }
+
+  .section-title {
+    font-size: 1.7rem;
+  }
+
+  .sectors-grid {
+    gap: 20px;
+  }
+}
+
+// Teléfonos
+@media (max-width: 480px) {
+  .header-row {
+    height: 72px;
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .brand-wrapper {
+    gap: 10px;
+  }
+
+  .logo-indicator {
+    width: 6px;
+    height: 25px;
+  }
+
+  .main-header-title {
+    font-size: 1.35rem;
+  }
+
+  .profile-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .profile-btn ion-icon {
+    font-size: 36px;
+  }
+
+  .dashboard-wrapper {
+    padding: 28px 14px 24px;
+  }
+
+  .section-intro {
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-size: 1.65rem;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 0.92rem;
+  }
+
+  .title-row {
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .sectors-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .sector-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .sector-card:hover {
+    transform: none;
+  }
+
+  .card-header-status {
+    margin-bottom: 18px;
+  }
+
+  .icon-box {
+    padding: 14px;
+    font-size: 2rem;
+  }
+
+  .sector-name {
+    font-size: 1.25rem;
+  }
+
+  .sector-details {
+    font-size: 0.85rem;
+  }
+
+  .action-btn {
     height: 46px;
-    font-weight: 700;
-    letter-spacing: .4px;
-    display: flex;
-    width: fit-content;
-    margin: 40px auto 0 auto; 
-    transition: .25s ease;
+    font-size: 0.85rem;
+  }
 }
 
-.add-sector-btn:hover {
-    transform: translateY(-2px);
-}
+// Teléfonos pequeños
+@media (max-width: 380px) {
+  .header-row {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
 
-.add-sector-btn ion-icon {
-    font-size: 20px;
-    margin-right: 4px;
-}
+  .main-header-title {
+    font-size: 1.2rem;
+  }
 
-/* ==========================================================================
-   9. BOTÓN ELIMINAR
-   ========================================================================== */
-.delete-btn {
-    --color: #D9E1F1;
-    --background: transparent;
-    --border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    transition: .25s ease;
-}
+  .profile-btn {
+    width: 48px;
+    height: 48px;
+  }
 
-.delete-btn:hover {
-    --background: rgba(229,99,99,.18);
-    --color: #ffffff;
-    transform: rotate(8deg) scale(1.1);
-}
+  .profile-btn ion-icon {
+    font-size: 33px;
+  }
 
-.delete-btn ion-icon {
-    font-size: 20px;
-}
+  .dashboard-wrapper {
+    padding: 24px 12px 20px;
+  }
 
-/* ==========================================================================
-   10. BOTÓN DE PERFIL
-   ========================================================================== */
-.profile-btn {
-    --color: #ffffff;
-    --background: transparent;
-    --ripple-color: transparent;
-    
-    width: 65px;
-    height: 65px;
-    margin-right: -15px; 
-    
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
+  .section-title {
+    font-size: 1.5rem;
+  }
 
-    &:hover {
-        --color: #8FB3E2;
-        transform: scale(1.1);
-    }
-
-    ion-icon {
-        font-size: 40px;
-        margin: 0;
-        filter: drop-shadow(0 0 10px rgba(143, 179, 226, 0.7));
-        transition: all 0.3s ease;
-    }
+  .sector-card {
+    padding: 18px 14px;
+  }
 }

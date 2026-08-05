@@ -1,9 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { UsuariosService } from '../services/usuarios.service';
+import {
+  Component,
+  inject,
+  signal
+} from '@angular/core';
+
+import {
+  Router,
+  RouterLink
+} from '@angular/router';
+
+import {
+  ToastController
+} from '@ionic/angular';
+
+import {
+  UsuariosService
+} from '../services/usuarios.service';
 
 import {
   IonContent,
@@ -18,8 +30,6 @@ import {
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     RouterLink,
     IonContent,
     IonButton,
@@ -27,73 +37,70 @@ import {
     IonInputPasswordToggle
   ]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
-  // Datos del formulario para registrar un usuario.
-  credenciales = {
-    usuario: '',
-    password: ''
-  };
+  private readonly ruta = inject(Router);
 
-  // Datos del formulario para iniciar sesión.
-  usuariosCredes = {
-    usuario: '',
-    password: ''
-  };
+  private readonly userS =
+    inject(UsuariosService);
 
-  // Aquí se guardan temporalmente los usuarios obtenidos.
+  private readonly toastController =
+    inject(ToastController);
+
+  usuario = signal('');
+  password = signal('');
+
   data: any[] = [];
 
-  constructor(
-    private ruta: Router,
-    private userS: UsuariosService,
-    private toastController: ToastController
-  ) {}
-
-  ngOnInit() {
+  ionViewWillEnter(): void {
+    this.limpiarFormularioLogin();
     this.cargarUsuarios();
   }
 
-  ionViewWillEnter() {
-  this.limpiarFormularioLogin();
-}
+  actualizarUsuario(evento: CustomEvent): void {
+    const valor = evento.detail.value ?? '';
+    this.usuario.set(valor);
+  }
 
-limpiarFormularioLogin() {
-  this.usuariosCredes = {
-    usuario: '',
-    password: ''
-  };
-}
-  cargarUsuarios() {
+  actualizarPassword(evento: CustomEvent): void {
+    const valor = evento.detail.value ?? '';
+    this.password.set(valor);
+  }
 
+  limpiarFormularioLogin(): void {
+    this.usuario.set('');
+    this.password.set('');
+  }
+
+  cargarUsuarios(): void {
     this.userS.getUsers().subscribe({
-
       next: (res: any) => {
-
-        console.log('Respuesta completa:', res);
-
         if (res?.Respuesta?.length > 0) {
-
           this.data = res.Respuesta;
 
-          console.log('Usuarios cargados:', this.data);
-
+          console.log(
+            'Usuarios actualizados:',
+            this.data
+          );
         } else {
-
           this.data = [];
 
-          console.error('No se recibieron usuarios válidos.');
+          console.error(
+            'No se recibieron usuarios válidos.'
+          );
         }
       },
 
       error: (error: any) => {
-
         this.data = [];
 
-        console.error('Error al obtener usuarios:', error);
+        console.error(
+          'Error al obtener usuarios:',
+          error
+        );
 
         this.mostrarToast(
-          'Error loading users.',
+          'Error al cargar los usuarios.',
           'error'
         );
       }
@@ -103,123 +110,97 @@ limpiarFormularioLogin() {
   async mostrarToast(
     mensaje: string,
     tipo: 'success' | 'error'
-  ) {
-
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: 2200,
-      position: 'top',
-      icon: tipo === 'success'
-        ? 'checkmark-circle'
-        : 'close-circle',
-      cssClass: tipo === 'success'
-        ? 'toast-success'
-        : 'toast-error'
-    });
+  ): Promise<void> {
+    const toast =
+      await this.toastController.create({
+        message: mensaje,
+        duration: 2200,
+        position: 'top',
+        icon:
+          tipo === 'success'
+            ? 'checkmark-circle'
+            : 'close-circle',
+        cssClass:
+          tipo === 'success'
+            ? 'toast-success'
+            : 'toast-error'
+      });
 
     await toast.present();
   }
 
-  mostrar() {
+  mostrar(): void {
+    const usuarioIngresado =
+      this.usuario().trim();
 
-    console.log(
-      'Credenciales ingresadas:',
-      this.usuariosCredes
-    );
+    const passwordIngresado =
+      this.password().trim();
 
-    const usuarioEncontrado = this.data.find((user: any) =>
-      user.user === this.usuariosCredes.usuario &&
-      user.password === this.usuariosCredes.password
-    );
-
-    if (usuarioEncontrado) {
-
-      console.log(
-        'Usuario autenticado:',
-        usuarioEncontrado
-      );
-
-      // Solo guardamos los datos que necesita el perfil.
-      // No guardamos la contraseña.
-      const datosUsuario = {
-  id: usuarioEncontrado.id,
-  usuario: usuarioEncontrado.user,
-  email: usuarioEncontrado.email || 'Correo no registrado'
-};
-
-      localStorage.setItem(
-        'usuarioActual',
-        JSON.stringify(datosUsuario)
-      );
-
+    if (!usuarioIngresado || !passwordIngresado) {
       this.mostrarToast(
-        'Login successful. Welcome!',
-        'success'
-      );
-
-      setTimeout(() => {
-
-        this.ruta.navigate([
-          'principal/tabs/tab1'
-        ]);
-
-      }, 1200);
-
-    } else {
-
-      console.log('Acceso incorrecto');
-
-      this.mostrarToast(
-        'Incorrect username or password.',
+        'Completa todos los campos.',
         'error'
       );
+
+      return;
     }
-  }
 
-  insertar() {
+    if (usuarioIngresado.length < 3) {
+      this.mostrarToast(
+        'El usuario debe tener al menos 3 caracteres.',
+        'error'
+      );
 
-    const nuevoUsuario = {
-      user: this.credenciales.usuario,
-      password: this.credenciales.password,
-      email: ''
+      return;
+    }
+
+    if (passwordIngresado.length < 6) {
+      this.mostrarToast(
+        'La contraseña debe tener al menos 6 caracteres.',
+        'error'
+      );
+
+      return;
+    }
+
+    const usuarioEncontrado =
+      this.data.find(
+        (user: any) =>
+          user.user === usuarioIngresado &&
+          user.password === passwordIngresado
+      );
+
+    if (!usuarioEncontrado) {
+      this.mostrarToast(
+        'Usuario o contraseña incorrectos.',
+        'error'
+      );
+
+      return;
+    }
+
+    const datosUsuario = {
+      id: usuarioEncontrado.id,
+      usuario: usuarioEncontrado.user,
+      email:
+        usuarioEncontrado.email ||
+        'Correo no registrado'
     };
 
-    this.userS.postUsers(nuevoUsuario).subscribe({
+    localStorage.setItem(
+      'usuarioActual',
+      JSON.stringify(datosUsuario)
+    );
 
-      next: (res: any) => {
+    this.mostrarToast(
+      'Inicio de sesión exitoso. ¡Bienvenido!',
+      'success'
+    );
 
-        console.log(
-          'Usuario insertado:',
-          res
-        );
-
-        this.mostrarToast(
-          'User registered successfully.',
-          'success'
-        );
-
-        // Limpiamos el formulario.
-        this.credenciales = {
-          usuario: '',
-          password: ''
-        };
-
-        // Volvemos a obtener los usuarios para incluir el nuevo.
-        this.cargarUsuarios();
-      },
-
-      error: (error: any) => {
-
-        console.error(
-          'Error al insertar usuario:',
-          error
-        );
-
-        this.mostrarToast(
-          'An error occurred while registering the user.',
-          'error'
-        );
-      }
-    });
+    setTimeout(() => {
+      this.ruta.navigate([
+        'principal/tabs/tab1'
+      ]);
+    }, 1200);
   }
 }

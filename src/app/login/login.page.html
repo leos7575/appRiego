@@ -1,15 +1,19 @@
 <ion-content [fullscreen]="true" class="desktop-bg">
+
   <div class="login-wrapper">
 
     <div class="split-card">
 
-      <!-- Sección del logo -->
       <div class="split-left">
+
         <div class="brand-container">
-          <h2 class="brand-title">Aqua Control</h2>
+
+          <h2 class="brand-title">
+            Aqua Control
+          </h2>
 
           <p class="brand-subtitle">
-            Smart monitoring & optimization
+            Monitoreo y optimización inteligente
           </p>
 
           <img
@@ -17,34 +21,45 @@
             alt="Logo de Aqua Control"
             class="brand-logo"
           />
+
         </div>
+
       </div>
 
-      <!-- Sección del formulario -->
       <div class="split-right">
-        <h1 class="main-title">LogIn</h1>
+
+        <h1 class="main-title">
+          Iniciar sesión
+        </h1>
 
         <div class="input-group">
-          <label>Username</label>
+
+          <label>
+            Usuario
+          </label>
 
           <ion-input
-            [(ngModel)]="usuariosCredes.usuario"
-            name="username"
-            placeholder="Enter your username"
+            [value]="usuario()"
+            (ionInput)="actualizarUsuario($event)"
+            placeholder="Ingresa tu usuario"
             type="text"
-            required
-            minlength="3"
             class="premium-input"
           ></ion-input>
+
         </div>
 
         <div class="input-group">
-          <label>Password</label>
+
+          <label>
+            Contraseña
+          </label>
 
           <ion-input
-            [(ngModel)]="usuariosCredes.password"
+            [value]="password()"
+            (ionInput)="actualizarPassword($event)"
             name="password"
-            placeholder="Enter your password"
+            autocomplete="current-password"
+            placeholder="Ingresa tu contraseña"
             type="password"
             required
             minlength="6"
@@ -56,33 +71,36 @@
             ></ion-input-password-toggle>
           </ion-input>
 
-          <div class="forgot-link-container">
-            <a href="#" class="forgot-link">
-              Forgot Password?
-            </a>
-          </div>
         </div>
 
         <ion-button
-          (click)="mostrar()"
           fill="solid"
           expand="block"
           class="neon-btn"
+          (click)="mostrar()"
         >
-          CLICK TO LOGIN
+          INICIAR SESIÓN
         </ion-button>
 
         <div class="forgot-container">
+
           <span class="text-secondary">
-            Don’t have an account?
+            ¿No tienes una cuenta?
           </span>
 
-          <a routerLink="/registro" class="neon-link">
-            Register Now
+          <a
+            routerLink="/registro"
+            class="neon-link"
+          >
+            Regístrate ahora
           </a>
+
         </div>
+
       </div>
 
     </div>
+
   </div>
+
 </ion-content>

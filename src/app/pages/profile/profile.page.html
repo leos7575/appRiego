@@ -1,85 +1,54 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="head-toolbar">
+<ion-header class="custom-header">
 
-    <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="/principal/tabs/tab1"
-        color="light">
-      </ion-back-button>
-    </ion-buttons>
+  <div class="header-safe-area"></div>
 
-    <ion-title>Perfil de Usuario</ion-title>
+  <div class="header-row">
 
-  </ion-toolbar>
+    <ion-back-button
+      defaultHref="/principal/tabs/tab1"
+      class="header-back-button"
+      aria-label="Regresar"
+    ></ion-back-button>
+
+    <h1 class="header-title">
+      Perfil de Usuario
+    </h1>
+
+  </div>
+
 </ion-header>
 
 <ion-content>
 
   <div class="dashboard-wrapper">
 
-    <!-- Tarjeta del perfil -->
     <div class="sector-card profile-card">
 
       <div class="profile-icon">
-        <ion-icon name="person-circle-outline"></ion-icon>
+
+        <ion-icon
+          name="person-circle-outline"
+        ></ion-icon>
+
       </div>
 
-      <!-- Nombre obtenido desde el login -->
-      <h2>{{ userName }}</h2>
+      <h2>
+        {{ userName }}
+      </h2>
 
-      <!-- Correo obtenido desde el login -->
-      <p>{{ userEmail }}</p>
-
-    </div>
-
-    <!-- Tarjeta de configuración -->
-    <div class="sector-card settings-card">
-
-      <ion-list lines="none">
-
-        <ion-item class="custom-setting-item">
-
-          <ion-label>
-            <h3>Notificaciones Push</h3>
-            <p>Recibir alertas de riego</p>
-          </ion-label>
-
-          <ion-toggle
-            slot="end"
-            color="primary"
-            [checked]="pushNotifications"
-            (ionChange)="toggleNotifications($event)">
-          </ion-toggle>
-
-        </ion-item>
-
-        <ion-item class="custom-setting-item">
-
-          <ion-label>
-            <h3>Modo Oscuro</h3>
-            <p>Interfaz del sistema</p>
-          </ion-label>
-
-          <ion-toggle
-            slot="end"
-            color="primary"
-            [checked]="darkMode"
-            (ionChange)="toggleDarkMode($event)">
-          </ion-toggle>
-
-        </ion-item>
-
-      </ion-list>
+      <p>
+        {{ userEmail }}
+      </p>
 
     </div>
 
-    <!-- Botones -->
     <div class="profile-actions">
 
       <ion-button
         expand="block"
         class="action-btn btn-edit"
-        (click)="onEditProfile()">
+        (click)="onEditProfile()"
+      >
         EDITAR INFORMACIÓN
       </ion-button>
 
@@ -87,7 +56,8 @@
         expand="block"
         fill="outline"
         class="action-btn btn-logout"
-        (click)="onLogout()">
+        (click)="onLogout()"
+      >
         CERRAR SESIÓN
       </ion-button>
 

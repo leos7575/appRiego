@@ -1,30 +1,40 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar class="head-toolbar">
+<ion-header class="custom-header">
 
-    <ion-buttons slot="start">
-      <ion-back-button
-        defaultHref="/profile"
-        color="light">
-      </ion-back-button>
-    </ion-buttons>
+  <div class="header-safe-area"></div>
 
-    <ion-title>Editar perfil</ion-title>
+  <div class="header-row">
 
-  </ion-toolbar>
+    <ion-back-button
+      defaultHref="/profile"
+      class="header-back-button"
+      aria-label="Regresar"
+    ></ion-back-button>
+
+    <h1 class="header-title">
+      Editar perfil
+    </h1>
+
+  </div>
+
 </ion-header>
 
 <ion-content>
 
   <div class="dashboard-wrapper">
 
-    <!-- Encabezado del usuario -->
     <div class="sector-card profile-card">
 
       <div class="profile-icon">
-        <ion-icon name="person-circle-outline"></ion-icon>
+
+        <ion-icon
+          name="person-circle-outline"
+        ></ion-icon>
+
       </div>
 
-      <h2>Editar información</h2>
+      <h2>
+        Editar información
+      </h2>
 
       <p>
         Actualiza los datos de tu cuenta
@@ -32,70 +42,80 @@
 
     </div>
 
-    <!-- Formulario -->
     <div class="sector-card form-card">
 
       <div class="input-group">
 
-        <ion-label>Nombre de usuario</ion-label>
+        <ion-label>
+          Nombre de usuario
+        </ion-label>
 
         <ion-input
           type="text"
           fill="outline"
           placeholder="Escribe tu nombre de usuario"
-          [(ngModel)]="userName">
-        </ion-input>
+          [value]="userName"
+          (ionInput)="actualizarNombre($event)"
+        ></ion-input>
 
       </div>
 
       <div class="input-group">
 
-        <ion-label>Correo electrónico</ion-label>
+        <ion-label>
+          Correo electrónico
+        </ion-label>
 
         <ion-input
           type="email"
           fill="outline"
           placeholder="Escribe tu correo electrónico"
-          [(ngModel)]="userEmail">
-        </ion-input>
+          [value]="userEmail"
+          (ionInput)="actualizarCorreo($event)"
+        ></ion-input>
 
       </div>
 
       <div class="input-group">
 
-        <ion-label>Nueva contraseña</ion-label>
+        <ion-label>
+          Nueva contraseña
+        </ion-label>
 
         <ion-input
           type="password"
           fill="outline"
           placeholder="Déjala vacía para no cambiarla"
-          [(ngModel)]="newPassword">
-
+          [value]="newPassword"
+          (ionInput)="actualizarPassword($event)"
+        >
           <ion-input-password-toggle
-            slot="end">
-          </ion-input-password-toggle>
-
+            slot="end"
+          ></ion-input-password-toggle>
         </ion-input>
 
         <p class="input-help">
-          Completa este campo solamente si quieres cambiar tu contraseña.
+          Completa este campo solamente si quieres
+          cambiar tu contraseña.
         </p>
 
       </div>
 
     </div>
 
-    <!-- Botones -->
     <div class="form-actions">
 
       <ion-button
         expand="block"
         class="action-btn btn-save"
         [disabled]="isLoading"
-        (click)="guardarCambios()">
-
-        {{ isLoading ? 'GUARDANDO...' : 'GUARDAR CAMBIOS' }}
-
+        (click)="guardarCambios()"
+      >
+        {{
+          isLoading
+            ? 'GUARDANDO...'
+            : 'GUARDAR CAMBIOS'
+        }}
       </ion-button>
 
       <ion-button
@@ -103,10 +123,9 @@
         fill="outline"
         class="action-btn btn-cancel"
         [disabled]="isLoading"
-        (click)="cancelar()">
-
+        (click)="cancelar()"
+      >
         CANCELAR
-
       </ion-button>
 
     </div>

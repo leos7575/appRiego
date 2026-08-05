@@ -10,6 +10,9 @@
  */
 
 /* Core CSS required for Ionic components to work properly */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 @import "@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
@@ -195,4 +198,10 @@
   border-radius: 6px;
   border: 1px solid rgba(143, 179, 226, 0.2);
   line-height: 1;       /* Asegura que no se desplace hacia abajo */
+}
+
+// Oculta controles nativos de contraseña
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none !important;
 }
