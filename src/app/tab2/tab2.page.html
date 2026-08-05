@@ -4,6 +4,7 @@
       <div class="brand-wrapper">
         <div class="logo-indicator"></div>
         <ion-title class="main-header-title">AquaControl</ion-title>
+        <app-language-selector></app-language-selector>
       </div>
 
       <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
@@ -20,12 +21,12 @@
     <section class="mode-section">
       <div class="mode-header">
         <div>
-          <h1 class="page-title">Configuración de riego</h1>
-          <p class="page-subtitle">Selecciona cómo deseas controlar el sistema.</p>
+          <h1 class="page-title">{{ 'TAB2.TITLE' | translate }}</h1>
+          <p class="page-subtitle">{{ 'TAB2.SUBTITLE' | translate }}</p>
         </div>
 
         <span class="mode-status" [class.intelligent]="modoConfiguracion === 'inteligente'">
-          {{ modoConfiguracion === 'manual' ? 'Modo manual' : 'Modo inteligente' }}
+          {{ modoConfiguracion === 'manual' ? ('TAB2.MODE_MANUAL' | translate) : ('TAB2.MODE_INTELLIGENT' | translate) }}
         </span>
       </div>
 
@@ -33,16 +34,16 @@
         <button type="button" class="mode-btn" [class.active]="modoConfiguracion === 'manual'" (click)="cambiarModo('manual')">
           <span class="mode-icon">⚙</span>
           <span class="mode-text">
-            <strong>Manual</strong>
-            <small>Programar fechas y horarios</small>
+            <strong>{{ 'TAB2.MODE_MANUAL' | translate }}</strong>
+            <small>{{ 'TAB2.MANUAL_DESC' | translate }}</small>
           </span>
         </button>
 
         <button type="button" class="mode-btn" [class.active]="modoConfiguracion === 'inteligente'" (click)="cambiarModo('inteligente')">
           <span class="mode-icon">✦</span>
           <span class="mode-text">
-            <strong>Inteligente</strong>
-            <small>Decisión automática del modelo</small>
+            <strong>{{ 'TAB2.MODE_INTELLIGENT' | translate }}</strong>
+            <small>{{ 'TAB2.INTELLIGENT_DESC' | translate }}</small>
           </span>
         </button>
       </div>
@@ -52,10 +53,10 @@
     @if (modoConfiguracion === 'manual') {
       <div class="manual-configuration">
         <div class="config-card">
-          <h2 class="sector-title">Sector 1</h2>
+          <h2 class="sector-title">{{ 'TAB2.SECTOR_1' | translate }}</h2>
           <ion-grid class="ion-no-padding">
             <ion-row class="control-row">
-              <ion-col size="6" class="label-col"><label>Fecha de inicio</label></ion-col>
+              <ion-col size="6" class="label-col"><label>{{ 'TAB2.START_DATE' | translate }}</label></ion-col>
               <ion-col size="6" class="component-col">
                 <ion-datetime-button datetime="datetime-inicio"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -65,7 +66,7 @@
             </ion-row>
 
             <ion-row class="control-row">
-              <ion-col size="6" class="label-col"><label>Fecha de fin</label></ion-col>
+              <ion-col size="6" class="label-col"><label>{{ 'TAB2.END_DATE' | translate }}</label></ion-col>
               <ion-col size="6" class="component-col">
                 <ion-datetime-button datetime="datetime-fin"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -76,7 +77,7 @@
           </ion-grid>
 
           <div class="days-container">
-            <label class="block-label">Días de la semana</label>
+            <label class="block-label">{{ 'TAB2.WEEK_DAYS' | translate }}</label>
             <ion-grid class="ion-no-padding">
               <ion-row class="ion-justify-content-center">
                 @for (dia of diasSector1; track dia.nombre) {
@@ -92,7 +93,7 @@
 
           <ion-grid class="ion-no-padding">
             <ion-row class="control-row">
-              <ion-col size="6" class="label-col"><label>Hora de apertura</label></ion-col>
+              <ion-col size="6" class="label-col"><label>{{ 'TAB2.OPEN_TIME' | translate }}</label></ion-col>
               <ion-col size="6" class="component-col">
                 <ion-datetime-button datetime="datetime-hora-apertura"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -103,30 +104,30 @@
           </ion-grid>
 
           <div class="input-group">
-            <label>Duración (min)</label>
+            <label>{{ 'TAB2.DURATION' | translate }}</label>
             <ion-input [value]="configuracion.duracion" (ionInput)="configuracion.duracion = +$event.detail.value!" name="duracionSector1" type="number" placeholder="Ej. 15" class="premium-input"></ion-input>
           </div>
 
           <div class="input-group">
-            <label>Pausas</label>
+            <label>{{ 'TAB2.PAUSES' | translate }}</label>
             <ion-input [value]="configuracion.pausas" (ionInput)="configuracion.pausas = +$event.detail.value!" name="pausasSector1" type="number" placeholder="Ej. 2" class="premium-input"></ion-input>
           </div>
 
           <div class="input-group">
-            <label>Tiempo entre pausas (min)</label>
+            <label>{{ 'TAB2.PAUSE_TIME' | translate }}</label>
             <ion-input [value]="configuracion.duracionPausa" (ionInput)="configuracion.duracionPausa = +$event.detail.value!" name="duracionPausaSector1" type="number" placeholder="Ej. 5" class="premium-input"></ion-input>
           </div>
 
           <ion-button class="neon-btn" expand="block" (click)="guardar('67bb6f2e85118d10af317f79')">
-            GUARDAR SECTOR 1
+            {{ 'TAB2.SAVE_SECTOR_1' | translate }}
           </ion-button>
         </div>
 
         <div class="config-card">
-          <h2 class="sector-title">Sector 2</h2>
+          <h2 class="sector-title">{{ 'TAB2.SECTOR_2' | translate }}</h2>
           <ion-grid class="ion-no-padding">
             <ion-row class="control-row">
-              <ion-col size="6" class="label-col"><label>Fecha de inicio</label></ion-col>
+              <ion-col size="6" class="label-col"><label>{{ 'TAB2.START_DATE' | translate }}</label></ion-col>
               <ion-col size="6" class="component-col">
                 <ion-datetime-button datetime="datetime-inicio2"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -136,7 +137,7 @@
             </ion-row>
 
             <ion-row class="control-row">
-              <ion-col size="6" class="label-col"><label>Fecha de fin</label></ion-col>
+              <ion-col size="6" class="label-col"><label>{{ 'TAB2.END_DATE' | translate }}</label></ion-col>
               <ion-col size="6" class="component-col">
                 <ion-datetime-button datetime="datetime-fin2"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -147,7 +148,7 @@
           </ion-grid>
 
           <div class="days-container">
-            <label class="block-label">Días de la semana</label>
+            <label class="block-label">{{ 'TAB2.WEEK_DAYS' | translate }}</label>
             <ion-grid class="ion-no-padding">
               <ion-row class="ion-justify-content-center">
                 @for (dia of diasSector2; track dia.nombre) {
@@ -163,7 +164,7 @@
 
           <ion-grid class="ion-no-padding">
             <ion-row class="control-row">
-              <ion-col size="6" class="label-col"><label>Hora de apertura</label></ion-col>
+              <ion-col size="6" class="label-col"><label>{{ 'TAB2.OPEN_TIME' | translate }}</label></ion-col>
               <ion-col size="6" class="component-col">
                 <ion-datetime-button datetime="datetime-hora-apertura2"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -174,22 +175,22 @@
           </ion-grid>
 
           <div class="input-group">
-            <label>Duración (min)</label>
+            <label>{{ 'TAB2.DURATION' | translate }}</label>
             <ion-input [value]="configuracion2.duracion" (ionInput)="configuracion2.duracion = +$event.detail.value!" name="duracionSector2" type="number" placeholder="Ej. 20" class="premium-input"></ion-input>
           </div>
 
           <div class="input-group">
-            <label>Pausas</label>
+            <label>{{ 'TAB2.PAUSES' | translate }}</label>
             <ion-input [value]="configuracion2.pausas" (ionInput)="configuracion2.pausas = +$event.detail.value!" name="pausasSector2" type="number" placeholder="Ej. 1" class="premium-input"></ion-input>
           </div>
 
           <div class="input-group">
-            <label>Tiempo entre pausas (min)</label>
+            <label>{{ 'TAB2.PAUSE_TIME' | translate }}</label>
             <ion-input [value]="configuracion2.duracionPausa" (ionInput)="configuracion2.duracionPausa = +$event.detail.value!" name="duracionPausaSector2" type="number" placeholder="Ej. 10" class="premium-input"></ion-input>
           </div>
 
           <ion-button class="neon-btn" expand="block" (click)="guardar2('67bb79ac1c82e9d42d445882')">
-            GUARDAR SECTOR 2
+            {{ 'TAB2.SAVE_SECTOR_2' | translate }}
           </ion-button>
         </div>
       </div>
@@ -201,8 +202,8 @@
         <div class="intelligent-intro">
           <div class="model-symbol">✦</div>
           <div>
-            <h2>Control inteligente por sector</h2>
-            <p>El modelo analiza las condiciones de cada sector y decide independientemente cuándo es necesario regar.</p>
+            <h2>{{ 'TAB2.AI_INTRO_TITLE' | translate }}</h2>
+            <p>{{ 'TAB2.AI_INTRO_DESC' | translate }}</p>
           </div>
         </div>
 
@@ -211,20 +212,20 @@
           <div class="intelligent-card">
             <div class="intelligent-sector-header">
               <div>
-                <span class="sector-label">Control automático</span>
+                <span class="sector-label">{{ 'TAB2.AUTOMATIC_CONTROL' | translate }}</span>
                 <h2>Sector 1</h2>
               </div>
               <div class="model-state compact-state">
                 <span class="state-dot" [class.active]="modoInteligenteSector1Activo"></span>
-                <span>{{ modoInteligenteSector1Activo ? 'Activo' : 'Desactivado' }}</span>
+                <span>{{ modoInteligenteSector1Activo ? ('TAB2.ACTIVE' | translate) : ('TAB2.DISABLED' | translate) }}</span>
               </div>
             </div>
 
-            <h3 class="sensor-section-title">Condiciones actuales</h3>
+            <h3 class="sensor-section-title">{{ 'TAB2.CURRENT_CONDITIONS' | translate }}</h3>
             <div class="sensor-grid">
               <article class="sensor-card">
                 <div class="sensor-icon">💧</div>
-                <span class="sensor-name">Humedad del suelo</span>
+                <span class="sensor-name">{{ 'TAB2.SOIL_MOISTURE' | translate }}</span>
                 <strong class="sensor-value">{{ lecturasSector1.humedad }}%</strong>
                 <small class="sensor-condition" [class.warning]="lecturasSector1.humedad < 40">
                   {{ lecturasSector1.humedad < 40 ? 'Suelo seco' : 'Humedad adecuada' }}
@@ -233,14 +234,14 @@
 
               <article class="sensor-card">
                 <div class="sensor-icon">🌡</div>
-                <span class="sensor-name">Temperatura</span>
+                <span class="sensor-name">{{ 'TAB2.TEMPERATURE' | translate }}</span>
                 <strong class="sensor-value">{{ lecturasSector1.temperatura }} °C</strong>
-                <small class="sensor-condition">Temperatura ambiental</small>
+                <small class="sensor-condition">{{ 'TAB2.AMBIENT_TEMP' | translate }}</small>
               </article>
 
               <article class="sensor-card">
                 <div class="sensor-icon">☁</div>
-                <span class="sensor-name">Sensor de lluvia</span>
+                <span class="sensor-name">{{ 'TAB2.RAIN_SENSOR' | translate }}</span>
                 <strong class="sensor-value">{{ lecturasSector1.lluvia ? 'Detectada' : 'Sin lluvia' }}</strong>
                 <small class="sensor-condition" [class.success]="lecturasSector1.lluvia">
                   {{ lecturasSector1.lluvia ? 'Riego suspendido' : 'No se detecta lluvia' }}
@@ -250,18 +251,18 @@
 
             <!-- Decisión Sector 1 -->
             <div class="model-decision">
-              <span class="decision-label">Decisión estimada para el Sector 1</span>
+              <span class="decision-label">{{ 'TAB2.ESTIMATED_DECISION_1' | translate }}</span>
               <strong>{{ decisionSector1Text }}</strong>
-              <p>Evaluación calculada con IA y telemetría en tiempo real de los sensores.</p>
+              <p>{{ 'TAB2.REALTIME_EVAL' | translate }}</p>
             </div>
           <!-- ESTADO Y TEMPORIZADOR SECTOR 1 -->
           @if (riegoEnEjecucion1) {
           <div class="timer-display" style="background: rgba(46, 204, 113, 0.15); padding: 15px; border-radius: 12px; margin: 10px 0; text-align: center; border: 1px solid #2ecc71;">
-            <span class="timer-badge" style="color: #2ecc71; font-weight: bold; font-size: 0.85rem;">RIEGO EN EJECUCIÓN</span>
+            <span class="timer-badge" style="color: #2ecc71; font-weight: bold; font-size: 0.85rem;">{{ 'TAB2.RUNNING_IRRIGATION' | translate }}</span>
             <h2 style="font-size: 2.2rem; color: #2ecc71; margin: 5px 0;">{{ timerSector1Formatted }}</h2>
             <div style="display: flex; justify-content: space-around; margin: 6px 0; font-size: 0.9rem; opacity: 0.95;">
-              <span>Transcurrido: <strong>{{ tiempoTranscurrido1Formatted }}</strong></span>
-              <span>Faltante: <strong>{{ timerSector1FaltanteBDFormatted }}</strong></span>
+              <span>{{ 'TAB2.ELAPSED' | translate }}: <strong>{{ tiempoTranscurrido1Formatted }}</strong></span>
+              <span>{{ 'TAB2.REMAINING' | translate }}: <strong>{{ timerSector1FaltanteBDFormatted }}</strong></span>
             </div>
             <p style="margin: 0; opacity: 0.8; font-size: 0.85rem;">Tiempo asignado IA: {{ duracionRecomendadaIA1 }} min</p>
           </div>
@@ -269,9 +270,9 @@
 
           @if (!riegoEnEjecucion1 && modoInteligenteSector1Activo) {
           <div class="standby-display" style="background: rgba(52, 152, 219, 0.15); padding: 12px; border-radius: 12px; margin: 10px 0; border: 1px solid #3498db;">
-            <span style="color: #3498db; font-size: 0.8rem; font-weight: bold;">EN ESPERA DE RIEGO</span>
-            <p style="margin: 4px 0 0 0; font-size: 0.95rem;">Próximo Riego: <strong>{{ proximoRiegoSector1 }}</strong></p>
-            <p style="margin: 2px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Sugerencia IA: <strong>{{ duracionRecomendadaIA1 }} min</strong></p>
+            <span style="color: #3498db; font-size: 0.8rem; font-weight: bold;">{{ 'TAB2.WAITING_IRRIGATION' | translate }}</span>
+            <p style="margin: 4px 0 0 0; font-size: 0.95rem;">{{ 'TAB2.NEXT_IRRIGATION' | translate }}: <strong>{{ proximoRiegoSector1 }}</strong></p>
+            <p style="margin: 2px 0 0 0; font-size: 0.9rem; opacity: 0.9;">{{ 'TAB2.AI_SUGGESTION' | translate }}: <strong>{{ duracionRecomendadaIA1 }} min</strong></p>
           </div>
           }
 
@@ -279,7 +280,7 @@
           @if (modoInteligenteSector1Activo) {
           <div class="action-buttons-group" style="margin: 10px 0;">
             <ion-button expand="block" color="danger" (click)="ejecutarParoEmergencia(1)" style="font-weight: bold; --border-radius: 10px; margin-bottom: 8px;">
-              DESACTIVAR IA (PARO DE EMERGENCIA)
+              {{ 'TAB2.STOP_EMERGENCY' | translate }}
             </ion-button>
             <ion-button expand="block" fill="outline" (click)="toggleEdicion(1)" style="--border-radius: 10px;">
               {{ mostrandoEdicion1 ? 'OCULTAR CARACTERÍSTICAS' : 'EDITAR CARACTERÍSTICAS' }}
@@ -379,20 +380,20 @@
           <div class="intelligent-card">
             <div class="intelligent-sector-header">
               <div>
-                <span class="sector-label">Control automático</span>
+                <span class="sector-label">{{ 'TAB2.AUTOMATIC_CONTROL' | translate }}</span>
                 <h2>Sector 2</h2>
               </div>
               <div class="model-state compact-state">
                 <span class="state-dot" [class.active]="modoInteligenteSector2Activo"></span>
-                <span>{{ modoInteligenteSector2Activo ? 'Activo' : 'Desactivado' }}</span>
+                <span>{{ modoInteligenteSector2Activo ? ('TAB2.ACTIVE' | translate) : ('TAB2.DISABLED' | translate) }}</span>
               </div>
             </div>
 
-            <h3 class="sensor-section-title">Condiciones actuales</h3>
+            <h3 class="sensor-section-title">{{ 'TAB2.CURRENT_CONDITIONS' | translate }}</h3>
             <div class="sensor-grid">
               <article class="sensor-card">
                 <div class="sensor-icon">💧</div>
-                <span class="sensor-name">Humedad del suelo</span>
+                <span class="sensor-name">{{ 'TAB2.SOIL_MOISTURE' | translate }}</span>
                 <strong class="sensor-value">{{ lecturasSector2.humedad }}%</strong>
                 <small class="sensor-condition" [class.warning]="lecturasSector2.humedad < 40">
                   {{ lecturasSector2.humedad < 40 ? 'Suelo seco' : 'Humedad adecuada' }}
@@ -401,14 +402,14 @@
 
               <article class="sensor-card">
                 <div class="sensor-icon">🌡</div>
-                <span class="sensor-name">Temperatura</span>
+                <span class="sensor-name">{{ 'TAB2.TEMPERATURE' | translate }}</span>
                 <strong class="sensor-value">{{ lecturasSector2.temperatura }} °C</strong>
-                <small class="sensor-condition">Temperatura ambiental</small>
+                <small class="sensor-condition">{{ 'TAB2.AMBIENT_TEMP' | translate }}</small>
               </article>
 
               <article class="sensor-card">
                 <div class="sensor-icon">☁</div>
-                <span class="sensor-name">Sensor de lluvia</span>
+                <span class="sensor-name">{{ 'TAB2.RAIN_SENSOR' | translate }}</span>
                 <strong class="sensor-value">{{ lecturasSector2.lluvia ? 'Detectada' : 'Sin lluvia' }}</strong>
                 <small class="sensor-condition" [class.success]="lecturasSector2.lluvia">
                   {{ lecturasSector2.lluvia ? 'Riego suspendido' : 'No se detecta lluvia' }}
@@ -418,18 +419,18 @@
 
             <!-- Decisión Sector 2 -->
             <div class="model-decision">
-              <span class="decision-label">Decisión estimada para el Sector 2</span>
+              <span class="decision-label">{{ 'TAB2.ESTIMATED_DECISION_2' | translate }}</span>
               <strong>{{ decisionSector2Text }}</strong>
-              <p>Evaluación calculada con IA y telemetría en tiempo real de los sensores.</p>
+              <p>{{ 'TAB2.REALTIME_EVAL' | translate }}</p>
             </div>
           <!-- ESTADO Y TEMPORIZADOR SECTOR 2 -->
           @if (riegoEnEjecucion2) {
           <div class="timer-display" style="background: rgba(46, 204, 113, 0.15); padding: 15px; border-radius: 12px; margin: 10px 0; text-align: center; border: 1px solid #2ecc71;">
-            <span class="timer-badge" style="color: #2ecc71; font-weight: bold; font-size: 0.85rem;">RIEGO EN EJECUCIÓN</span>
+            <span class="timer-badge" style="color: #2ecc71; font-weight: bold; font-size: 0.85rem;">{{ 'TAB2.RUNNING_IRRIGATION' | translate }}</span>
             <h2 style="font-size: 2.2rem; color: #2ecc71; margin: 5px 0;">{{ timerSector2Formatted }}</h2>
             <div style="display: flex; justify-content: space-around; margin: 6px 0; font-size: 0.9rem; opacity: 0.95;">
-              <span>Transcurrido: <strong>{{ tiempoTranscurrido2Formatted }}</strong></span>
-              <span>Faltante: <strong>{{ timerSector2FaltanteBDFormatted }}</strong></span>
+              <span>{{ 'TAB2.ELAPSED' | translate }}: <strong>{{ tiempoTranscurrido2Formatted }}</strong></span>
+              <span>{{ 'TAB2.REMAINING' | translate }}: <strong>{{ timerSector2FaltanteBDFormatted }}</strong></span>
             </div>
             <p style="margin: 0; opacity: 0.8; font-size: 0.85rem;">Tiempo asignado IA: {{ duracionRecomendadaIA2 }} min</p>
           </div>
@@ -437,9 +438,9 @@
 
           @if (!riegoEnEjecucion2 && modoInteligenteSector2Activo) {
           <div class="standby-display" style="background: rgba(52, 152, 219, 0.15); padding: 12px; border-radius: 12px; margin: 10px 0; border: 1px solid #3498db;">
-            <span style="color: #3498db; font-size: 0.8rem; font-weight: bold;">EN ESPERA DE RIEGO</span>
-            <p style="margin: 4px 0 0 0; font-size: 0.95rem;">Próximo Riego: <strong>{{ proximoRiegoSector2 }}</strong></p>
-            <p style="margin: 2px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Sugerencia IA: <strong>{{ duracionRecomendadaIA2 }} min</strong></p>
+            <span style="color: #3498db; font-size: 0.8rem; font-weight: bold;">{{ 'TAB2.WAITING_IRRIGATION' | translate }}</span>
+            <p style="margin: 4px 0 0 0; font-size: 0.95rem;">{{ 'TAB2.NEXT_IRRIGATION' | translate }}: <strong>{{ proximoRiegoSector2 }}</strong></p>
+            <p style="margin: 2px 0 0 0; font-size: 0.9rem; opacity: 0.9;">{{ 'TAB2.AI_SUGGESTION' | translate }}: <strong>{{ duracionRecomendadaIA2 }} min</strong></p>
           </div>
           }
 
@@ -447,7 +448,7 @@
           @if (modoInteligenteSector2Activo) {
           <div class="action-buttons-group" style="margin: 10px 0;">
             <ion-button expand="block" color="danger" (click)="ejecutarParoEmergencia(2)" style="font-weight: bold; --border-radius: 10px; margin-bottom: 8px;">
-              DESACTIVAR IA (PARO DE EMERGENCIA)
+              {{ 'TAB2.STOP_EMERGENCY' | translate }}
             </ion-button>
             <ion-button expand="block" fill="outline" (click)="toggleEdicion(2)" style="--border-radius: 10px;">
               {{ mostrandoEdicion2 ? 'OCULTAR CARACTERÍSTICAS' : 'EDITAR CARACTERÍSTICAS' }}

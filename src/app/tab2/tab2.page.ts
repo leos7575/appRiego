@@ -26,7 +26,7 @@ import { HttpClient } from '@angular/common/http';
 import { _URL_API } from '../config/config';
 import { UsuariosService } from '../services/usuarios.service';
 import { ToastController } from '@ionic/angular/standalone';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 
 @Component({
@@ -50,7 +50,9 @@ import { LanguageSelectorComponent } from '../components/language-selector/langu
     IonInput,
     IonIcon,
     IonSelect,
-    IonSelectOption
+    IonSelectOption,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
 export class Tab2Page {

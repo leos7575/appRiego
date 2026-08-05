@@ -18,6 +18,7 @@
         <ion-title class="main-header-title">
           AquaControl
         </ion-title>
+        <app-language-selector></app-language-selector>
       </div>
 
       <!-- ==============================================
@@ -56,7 +57,7 @@
         <div class="header-status">
           <ion-icon name="time-outline"></ion-icon>
           <div class="status-information">
-            <span>Última actualización</span>
+            <span>{{ 'TAB3.LAST_UPDATE' | translate }}</span>
             <strong>
               {{ ultimaActualizacion.toLocaleDateString() }} {{ ultimaActualizacion.toLocaleTimeString() }}
             </strong>

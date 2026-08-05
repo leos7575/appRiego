@@ -118,7 +118,9 @@ interface AlertaDashboard {
     IonSegmentButton,
     IonLabel,
     IonIcon,
-    IonTitle
+    IonTitle,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
 export class Tab3Page
