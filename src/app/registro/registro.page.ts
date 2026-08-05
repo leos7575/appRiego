@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UsuariosService } from '../services/usuarios.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -22,6 +22,7 @@ import {
     IonInputPasswordToggle,
     IonButton,
     IonInput,
+    RouterLink,
     TranslatePipe,
     LanguageSelectorComponent
   ]
