@@ -1,14 +1,11 @@
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
     <div class="header-container-full">
-      <!-- Izquierda: Logo, Título y Versión -->
       <div class="brand-wrapper">
         <div class="logo-indicator"></div>
         <ion-title class="main-header-title">AquaControl</ion-title>
-        <span class="version-tag">v2.1</span>
       </div>
 
-      <!-- Derecha: Botón de Perfil integrado -->
       <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
         <ion-icon name="person-circle-outline"></ion-icon>
       </ion-button>
@@ -19,175 +16,534 @@
 <ion-content [fullscreen]="true" class="premium-bg">
   <div class="page-container">
 
-    <div class="config-card">
-      <h2 class="sector-title">Sector 1</h2>
-      
-      <ion-grid class="ion-no-padding">
-        <ion-row class="control-row">
-          <ion-col size="6" class="label-col">
-            <label>Fecha de inicio</label>
-          </ion-col>
-          <ion-col size="6" class="component-col">
-            <ion-datetime-button datetime="datetime-inicio"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime-inicio" presentation="date" (ionChange)="onFechaInicioChange($event)"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-col>
-        </ion-row>
+    <!-- SELECTOR DE MODO -->
+    <section class="mode-section">
+      <div class="mode-header">
+        <div>
+          <h1 class="page-title">Configuración de riego</h1>
+          <p class="page-subtitle">Selecciona cómo deseas controlar el sistema.</p>
+        </div>
 
-        <ion-row class="control-row">
-          <ion-col size="6" class="label-col">
-            <label>Fecha de fin</label>
-          </ion-col>
-          <ion-col size="6" class="component-col">
-            <ion-datetime-button datetime="datetime-fin"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime-fin" presentation="date" (ionChange)="onFechaFinChange($event)"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <div class="days-container">
-        <label class="block-label">Días de la semana</label>
-        <ion-grid class="ion-no-padding">
-          <ion-row class="ion-justify-content-center">
-            <ion-col size="auto" *ngFor="let dia of diasSector1">
-              <button 
-                class="day-btn" 
-                [ngClass]="{'selected': dia.selected}" 
-                (click)="toggleDia(dia)">
-                {{ getPrimeraLetra(dia.nombre) }}
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <span class="mode-status" [class.intelligent]="modoConfiguracion === 'inteligente'">
+          {{ modoConfiguracion === 'manual' ? 'Modo manual' : 'Modo inteligente' }}
+        </span>
       </div>
 
-      <ion-grid class="ion-no-padding">
-        <ion-row class="control-row">
-          <ion-col size="6" class="label-col">
-            <label>Hora de apertura</label>
-          </ion-col>
-          <ion-col size="6" class="component-col">
-            <ion-datetime-button datetime="datetime-hora-apertura"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime-hora-apertura" presentation="time" (ionChange)="onHoraInicioChange($event)"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-col>
-        </ion-row>
+      <div class="mode-selector">
+        <button type="button" class="mode-btn" [class.active]="modoConfiguracion === 'manual'" (click)="cambiarModo('manual')">
+          <span class="mode-icon">⚙</span>
+          <span class="mode-text">
+            <strong>Manual</strong>
+            <small>Programar fechas y horarios</small>
+          </span>
+        </button>
 
-        <div class="input-group">
-          <label>Duración (min)</label>
-          <ion-input [(ngModel)]="configuracion.duracion" type="number" placeholder="Ej. 15" class="premium-input"></ion-input>
-        </div>
-
-        <div class="input-group">
-          <label>Pausas</label>
-          <ion-input [(ngModel)]="configuracion.pausas" type="number" placeholder="Ej. 2" class="premium-input"></ion-input>
-        </div>
-
-        <div class="input-group">
-          <label>Tiempo entre pausas (min)</label>
-          <ion-input [(ngModel)]="configuracion.duracionPausa" type="number" placeholder="Ej. 5" class="premium-input"></ion-input>
-        </div>
-      </ion-grid>
-
-      <ion-button class="neon-btn" expand="block" (click)="guardar('67bb6f2e85118d10af317f79')">
-        GUARDAR SECTOR 1
-      </ion-button>
-    </div>
-
-    <div class="config-card">
-      <h2 class="sector-title">Sector 2</h2>
-      
-      <ion-grid class="ion-no-padding">
-        <ion-row class="control-row">
-          <ion-col size="6" class="label-col">
-            <label>Fecha de inicio</label>
-          </ion-col>
-          <ion-col size="6" class="component-col">
-            <ion-datetime-button datetime="datetime-inicio2"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime-inicio2" presentation="date" (ionChange)="onFechaInicioChange2($event)"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="control-row">
-          <ion-col size="6" class="label-col">
-            <label>Fecha de fin</label>
-          </ion-col>
-          <ion-col size="6" class="component-col">
-            <ion-datetime-button datetime="datetime-fin2"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime-fin2" presentation="date" (ionChange)="onFechaFinChange2($event)"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <div class="days-container">
-        <label class="block-label">Días de la semana</label>
-        <ion-grid class="ion-no-padding">
-          <ion-row class="ion-justify-content-center">
-            <ion-col size="auto" *ngFor="let dia of diasSector2">
-              <button 
-                class="day-btn" 
-                [ngClass]="{'selected': dia.selected}" 
-                (click)="toggleDia2(dia)">
-                {{ getPrimeraLetra(dia.nombre) }}
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <button type="button" class="mode-btn" [class.active]="modoConfiguracion === 'inteligente'" (click)="cambiarModo('inteligente')">
+          <span class="mode-icon">✦</span>
+          <span class="mode-text">
+            <strong>Inteligente</strong>
+            <small>Decisión automática del modelo</small>
+          </span>
+        </button>
       </div>
+    </section>
 
-      <ion-grid class="ion-no-padding">
-        <ion-row class="control-row">
-          <ion-col size="6" class="label-col">
-            <label>Hora de apertura</label>
-          </ion-col>
-          <ion-col size="6" class="component-col">
-            <ion-datetime-button datetime="datetime-hora-apertura2"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime-hora-apertura2" presentation="time" (ionChange)="onHoraInicioChange2($event)"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-col>
-        </ion-row>
+    <!-- CONFIGURACIÓN MANUAL -->
+    @if (modoConfiguracion === 'manual') {
+      <div class="manual-configuration">
+        <div class="config-card">
+          <h2 class="sector-title">Sector 1</h2>
+          <ion-grid class="ion-no-padding">
+            <ion-row class="control-row">
+              <ion-col size="6" class="label-col"><label>Fecha de inicio</label></ion-col>
+              <ion-col size="6" class="component-col">
+                <ion-datetime-button datetime="datetime-inicio"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                    <ion-datetime id="datetime-inicio" presentation="date" (ionChange)="onFechaInicioChange($event)"></ion-datetime>
+                </ion-modal>
+              </ion-col>
+            </ion-row>
 
-        <div class="input-group">
-          <label>Duración (min)</label>
-          <ion-input [(ngModel)]="configuracion2.duracion" type="number" placeholder="Ej. 20" class="premium-input"></ion-input>
+            <ion-row class="control-row">
+              <ion-col size="6" class="label-col"><label>Fecha de fin</label></ion-col>
+              <ion-col size="6" class="component-col">
+                <ion-datetime-button datetime="datetime-fin"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                    <ion-datetime id="datetime-fin" presentation="date" (ionChange)="onFechaFinChange($event)"></ion-datetime>
+                </ion-modal>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="days-container">
+            <label class="block-label">Días de la semana</label>
+            <ion-grid class="ion-no-padding">
+              <ion-row class="ion-justify-content-center">
+                @for (dia of diasSector1; track dia.nombre) {
+                  <ion-col size="auto">
+                    <button type="button" class="day-btn" [class.selected]="dia.selected" (click)="toggleDia(dia)">
+                      {{ getPrimeraLetra(dia.nombre) }}
+                    </button>
+                  </ion-col>
+                }
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <ion-grid class="ion-no-padding">
+            <ion-row class="control-row">
+              <ion-col size="6" class="label-col"><label>Hora de apertura</label></ion-col>
+              <ion-col size="6" class="component-col">
+                <ion-datetime-button datetime="datetime-hora-apertura"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                    <ion-datetime id="datetime-hora-apertura" presentation="time" (ionChange)="onHoraInicioChange($event)"></ion-datetime>
+                </ion-modal>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="input-group">
+            <label>Duración (min)</label>
+            <ion-input [value]="configuracion.duracion" (ionInput)="configuracion.duracion = +$event.detail.value!" name="duracionSector1" type="number" placeholder="Ej. 15" class="premium-input"></ion-input>
+          </div>
+
+          <div class="input-group">
+            <label>Pausas</label>
+            <ion-input [value]="configuracion.pausas" (ionInput)="configuracion.pausas = +$event.detail.value!" name="pausasSector1" type="number" placeholder="Ej. 2" class="premium-input"></ion-input>
+          </div>
+
+          <div class="input-group">
+            <label>Tiempo entre pausas (min)</label>
+            <ion-input [value]="configuracion.duracionPausa" (ionInput)="configuracion.duracionPausa = +$event.detail.value!" name="duracionPausaSector1" type="number" placeholder="Ej. 5" class="premium-input"></ion-input>
+          </div>
+
+          <ion-button class="neon-btn" expand="block" (click)="guardar('67bb6f2e85118d10af317f79')">
+            GUARDAR SECTOR 1
+          </ion-button>
         </div>
 
-        <div class="input-group">
-          <label>Pausas</label>
-          <ion-input [(ngModel)]="configuracion2.pausas" type="number" placeholder="Ej. 1" class="premium-input"></ion-input>
+        <div class="config-card">
+          <h2 class="sector-title">Sector 2</h2>
+          <ion-grid class="ion-no-padding">
+            <ion-row class="control-row">
+              <ion-col size="6" class="label-col"><label>Fecha de inicio</label></ion-col>
+              <ion-col size="6" class="component-col">
+                <ion-datetime-button datetime="datetime-inicio2"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                    <ion-datetime id="datetime-inicio2" presentation="date" (ionChange)="onFechaInicioChange2($event)"></ion-datetime>
+                </ion-modal>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="control-row">
+              <ion-col size="6" class="label-col"><label>Fecha de fin</label></ion-col>
+              <ion-col size="6" class="component-col">
+                <ion-datetime-button datetime="datetime-fin2"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                    <ion-datetime id="datetime-fin2" presentation="date" (ionChange)="onFechaFinChange2($event)"></ion-datetime>
+                </ion-modal>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="days-container">
+            <label class="block-label">Días de la semana</label>
+            <ion-grid class="ion-no-padding">
+              <ion-row class="ion-justify-content-center">
+                @for (dia of diasSector2; track dia.nombre) {
+                  <ion-col size="auto">
+                    <button type="button" class="day-btn" [class.selected]="dia.selected" (click)="toggleDia2(dia)">
+                      {{ getPrimeraLetra(dia.nombre) }}
+                    </button>
+                  </ion-col>
+                }
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <ion-grid class="ion-no-padding">
+            <ion-row class="control-row">
+              <ion-col size="6" class="label-col"><label>Hora de apertura</label></ion-col>
+              <ion-col size="6" class="component-col">
+                <ion-datetime-button datetime="datetime-hora-apertura2"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                    <ion-datetime id="datetime-hora-apertura2" presentation="time" (ionChange)="onHoraInicioChange2($event)"></ion-datetime>
+                </ion-modal>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <div class="input-group">
+            <label>Duración (min)</label>
+            <ion-input [value]="configuracion2.duracion" (ionInput)="configuracion2.duracion = +$event.detail.value!" name="duracionSector2" type="number" placeholder="Ej. 20" class="premium-input"></ion-input>
+          </div>
+
+          <div class="input-group">
+            <label>Pausas</label>
+            <ion-input [value]="configuracion2.pausas" (ionInput)="configuracion2.pausas = +$event.detail.value!" name="pausasSector2" type="number" placeholder="Ej. 1" class="premium-input"></ion-input>
+          </div>
+
+          <div class="input-group">
+            <label>Tiempo entre pausas (min)</label>
+            <ion-input [value]="configuracion2.duracionPausa" (ionInput)="configuracion2.duracionPausa = +$event.detail.value!" name="duracionPausaSector2" type="number" placeholder="Ej. 10" class="premium-input"></ion-input>
+          </div>
+
+          <ion-button class="neon-btn" expand="block" (click)="guardar2('67bb79ac1c82e9d42d445882')">
+            GUARDAR SECTOR 2
+          </ion-button>
+        </div>
+      </div>
+    }
+
+    <!-- CONFIGURACIÓN INTELIGENTE -->
+    @if (modoConfiguracion === 'inteligente') {
+      <div class="intelligent-configuration">
+        <div class="intelligent-intro">
+          <div class="model-symbol">✦</div>
+          <div>
+            <h2>Control inteligente por sector</h2>
+            <p>El modelo analiza las condiciones de cada sector y decide independientemente cuándo es necesario regar.</p>
+          </div>
         </div>
 
-        <div class="input-group">
-          <label>Tiempo entre pausas (min)</label>
-          <ion-input [(ngModel)]="configuracion2.duracionPausa" type="number" placeholder="Ej. 10" class="premium-input"></ion-input>
+        <div class="intelligent-sectors">
+          <!-- SECTOR 1 INTELIGENTE -->
+          <div class="intelligent-card">
+            <div class="intelligent-sector-header">
+              <div>
+                <span class="sector-label">Control automático</span>
+                <h2>Sector 1</h2>
+              </div>
+              <div class="model-state compact-state">
+                <span class="state-dot" [class.active]="modoInteligenteSector1Activo"></span>
+                <span>{{ modoInteligenteSector1Activo ? 'Activo' : 'Desactivado' }}</span>
+              </div>
+            </div>
+
+            <h3 class="sensor-section-title">Condiciones actuales</h3>
+            <div class="sensor-grid">
+              <article class="sensor-card">
+                <div class="sensor-icon">💧</div>
+                <span class="sensor-name">Humedad del suelo</span>
+                <strong class="sensor-value">{{ lecturasSector1.humedad }}%</strong>
+                <small class="sensor-condition" [class.warning]="lecturasSector1.humedad < 40">
+                  {{ lecturasSector1.humedad < 40 ? 'Suelo seco' : 'Humedad adecuada' }}
+                </small>
+              </article>
+
+              <article class="sensor-card">
+                <div class="sensor-icon">🌡</div>
+                <span class="sensor-name">Temperatura</span>
+                <strong class="sensor-value">{{ lecturasSector1.temperatura }} °C</strong>
+                <small class="sensor-condition">Temperatura ambiental</small>
+              </article>
+
+              <article class="sensor-card">
+                <div class="sensor-icon">☁</div>
+                <span class="sensor-name">Sensor de lluvia</span>
+                <strong class="sensor-value">{{ lecturasSector1.lluvia ? 'Detectada' : 'Sin lluvia' }}</strong>
+                <small class="sensor-condition" [class.success]="lecturasSector1.lluvia">
+                  {{ lecturasSector1.lluvia ? 'Riego suspendido' : 'No se detecta lluvia' }}
+                </small>
+              </article>
+            </div>
+
+            <!-- Decisión Sector 1 -->
+            <div class="model-decision">
+              <span class="decision-label">Decisión estimada para el Sector 1</span>
+              <strong>{{ decisionSector1Text }}</strong>
+              <p>Evaluación calculada con IA y telemetría en tiempo real de los sensores.</p>
+            </div>
+          <!-- ESTADO Y TEMPORIZADOR SECTOR 1 -->
+          @if (riegoEnEjecucion1) {
+          <div class="timer-display" style="background: rgba(46, 204, 113, 0.15); padding: 15px; border-radius: 12px; margin: 10px 0; text-align: center; border: 1px solid #2ecc71;">
+            <span class="timer-badge" style="color: #2ecc71; font-weight: bold; font-size: 0.85rem;">RIEGO EN EJECUCIÓN</span>
+            <h2 style="font-size: 2.2rem; color: #2ecc71; margin: 5px 0;">{{ timerSector1Formatted }}</h2>
+            <div style="display: flex; justify-content: space-around; margin: 6px 0; font-size: 0.9rem; opacity: 0.95;">
+              <span>Transcurrido: <strong>{{ tiempoTranscurrido1Formatted }}</strong></span>
+              <span>Faltante: <strong>{{ timerSector1FaltanteBDFormatted }}</strong></span>
+            </div>
+            <p style="margin: 0; opacity: 0.8; font-size: 0.85rem;">Tiempo asignado IA: {{ duracionRecomendadaIA1 }} min</p>
+          </div>
+          }
+
+          @if (!riegoEnEjecucion1 && modoInteligenteSector1Activo) {
+          <div class="standby-display" style="background: rgba(52, 152, 219, 0.15); padding: 12px; border-radius: 12px; margin: 10px 0; border: 1px solid #3498db;">
+            <span style="color: #3498db; font-size: 0.8rem; font-weight: bold;">EN ESPERA DE RIEGO</span>
+            <p style="margin: 4px 0 0 0; font-size: 0.95rem;">Próximo Riego: <strong>{{ proximoRiegoSector1 }}</strong></p>
+            <p style="margin: 2px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Sugerencia IA: <strong>{{ duracionRecomendadaIA1 }} min</strong></p>
+          </div>
+          }
+
+          <!-- BOTONES DE CONTROL CUANDO IA ESTÁ ACTIVA -->
+          @if (modoInteligenteSector1Activo) {
+          <div class="action-buttons-group" style="margin: 10px 0;">
+            <ion-button expand="block" color="danger" (click)="ejecutarParoEmergencia(1)" style="font-weight: bold; --border-radius: 10px; margin-bottom: 8px;">
+              DESACTIVAR IA (PARO DE EMERGENCIA)
+            </ion-button>
+            <ion-button expand="block" fill="outline" (click)="toggleEdicion(1)" style="--border-radius: 10px;">
+              {{ mostrandoEdicion1 ? 'OCULTAR CARACTERÍSTICAS' : 'EDITAR CARACTERÍSTICAS' }}
+            </ion-button>
+          </div>
+          }
+
+          <!-- CONFIGURACIÓN DE IA DEL USUARIO PARA SECTOR 1 -->
+          @if (!modoInteligenteSector1Activo || mostrandoEdicion1) {
+          <div class="ai-selector-container">
+            <div class="input-group">
+              <label class="premium-label">Tipo de Cultivo</label>
+              <ion-select [value]="configuracion.cropType" (ionChange)="configuracion.cropType = $event.detail.value!" name="cropTypeSector1" interface="popover" class="premium-select">
+                <ion-select-option value="Jitomate">Jitomate</ion-select-option>
+                <ion-select-option value="Lechuga">Lechuga</ion-select-option>
+                <ion-select-option value="Maíz">Maíz</ion-select-option>
+                <ion-select-option value="Trigo">Trigo</ion-select-option>
+                <ion-select-option value="Algodón">Algodón</ion-select-option>
+                <ion-select-option value="Arroz">Arroz</ion-select-option>
+                <ion-select-option value="Caña de Azúcar">Caña de Azúcar</ion-select-option>
+                <ion-select-option value="Papa">Papa</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Etapa de Crecimiento</label>
+              <ion-select [value]="configuracion.cropGrowthStage" (ionChange)="configuracion.cropGrowthStage = $event.detail.value!" name="cropGrowthStageSector1" interface="popover" class="premium-select">
+                <ion-select-option value="Siembra">Siembra</ion-select-option>
+                <ion-select-option value="Crecimiento">Crecimiento</ion-select-option>
+                <ion-select-option value="Floración">Floración</ion-select-option>
+                <ion-select-option value="Cosecha">Cosecha</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Estación del Año</label>
+              <ion-select [value]="configuracion.season" (ionChange)="configuracion.season = $event.detail.value!" name="seasonSector1" interface="popover" class="premium-select">
+                <ion-select-option value="Verano">Verano</ion-select-option>
+                <ion-select-option value="Lluvias">Lluvias</ion-select-option>
+                <ion-select-option value="Invierno">Invierno</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Sistema de Riego</label>
+              <ion-select [value]="configuracion.irrigationType" (ionChange)="configuracion.irrigationType = $event.detail.value!; onIrrigationTypeChange(1)" name="irrigationTypeSector1" interface="popover" class="premium-select">
+                <ion-select-option value="Goteo">Goteo</ion-select-option>
+                <ion-select-option value="Hidropónico">Hidropónico</ion-select-option>
+                <ion-select-option value="Gravedad">Gravedad</ion-select-option>
+                <ion-select-option value="Aspersión">Aspersión</ion-select-option>
+                <ion-select-option value="Temporal">Temporal</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Tipo de Suelo {{ configuracion.irrigationType === 'Hidropónico' ? '(Sin suelo en Hidroponía)' : '' }}</label>
+              <ion-select [value]="configuracion.soilType" (ionChange)="configuracion.soilType = $event.detail.value!" [disabled]="configuracion.irrigationType === 'Hidropónico'" name="soilTypeSector1" interface="popover" class="premium-select">
+                <ion-select-option value="Franco">Franco</ion-select-option>
+                <ion-select-option value="Arcilloso">Arcilloso</ion-select-option>
+                <ion-select-option value="Limoso">Limoso</ion-select-option>
+                <ion-select-option value="Arenoso">Arenoso</ion-select-option>
+                <ion-select-option value="Sin Suelo">Sin Suelo</ion-select-option>
+              </ion-select>
+            </div>
+
+            <!-- Hora de Riego Diario para IA en cultivos no hidropónicos -->
+            @if (configuracion.irrigationType !== 'Hidropónico') {
+              <div class="input-group">
+              <label class="premium-label">Hora de Riego Diario (Programada)</label>
+              <ion-datetime-button datetime="datetime-hora-ia1" style="display: block; width: 100%;"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime
+                    id="datetime-hora-ia1"
+                    presentation="time"
+                    (ionChange)="onHoraInicioChange($event)"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </div>
+            }
+          </div>
+          }
+
+          @if (!modoInteligenteSector1Activo) {
+            <ion-button
+              expand="block"
+              class="intelligent-btn"
+              (click)="activarModoInteligenteSector1()"
+            >
+              ACTIVAR SECTOR 1
+            </ion-button>
+          }
+          </div>
+
+          <!-- SECTOR 2 INTELIGENTE -->
+          <div class="intelligent-card">
+            <div class="intelligent-sector-header">
+              <div>
+                <span class="sector-label">Control automático</span>
+                <h2>Sector 2</h2>
+              </div>
+              <div class="model-state compact-state">
+                <span class="state-dot" [class.active]="modoInteligenteSector2Activo"></span>
+                <span>{{ modoInteligenteSector2Activo ? 'Activo' : 'Desactivado' }}</span>
+              </div>
+            </div>
+
+            <h3 class="sensor-section-title">Condiciones actuales</h3>
+            <div class="sensor-grid">
+              <article class="sensor-card">
+                <div class="sensor-icon">💧</div>
+                <span class="sensor-name">Humedad del suelo</span>
+                <strong class="sensor-value">{{ lecturasSector2.humedad }}%</strong>
+                <small class="sensor-condition" [class.warning]="lecturasSector2.humedad < 40">
+                  {{ lecturasSector2.humedad < 40 ? 'Suelo seco' : 'Humedad adecuada' }}
+                </small>
+              </article>
+
+              <article class="sensor-card">
+                <div class="sensor-icon">🌡</div>
+                <span class="sensor-name">Temperatura</span>
+                <strong class="sensor-value">{{ lecturasSector2.temperatura }} °C</strong>
+                <small class="sensor-condition">Temperatura ambiental</small>
+              </article>
+
+              <article class="sensor-card">
+                <div class="sensor-icon">☁</div>
+                <span class="sensor-name">Sensor de lluvia</span>
+                <strong class="sensor-value">{{ lecturasSector2.lluvia ? 'Detectada' : 'Sin lluvia' }}</strong>
+                <small class="sensor-condition" [class.success]="lecturasSector2.lluvia">
+                  {{ lecturasSector2.lluvia ? 'Riego suspendido' : 'No se detecta lluvia' }}
+                </small>
+              </article>
+            </div>
+
+            <!-- Decisión Sector 2 -->
+            <div class="model-decision">
+              <span class="decision-label">Decisión estimada para el Sector 2</span>
+              <strong>{{ decisionSector2Text }}</strong>
+              <p>Evaluación calculada con IA y telemetría en tiempo real de los sensores.</p>
+            </div>
+          <!-- ESTADO Y TEMPORIZADOR SECTOR 2 -->
+          @if (riegoEnEjecucion2) {
+          <div class="timer-display" style="background: rgba(46, 204, 113, 0.15); padding: 15px; border-radius: 12px; margin: 10px 0; text-align: center; border: 1px solid #2ecc71;">
+            <span class="timer-badge" style="color: #2ecc71; font-weight: bold; font-size: 0.85rem;">RIEGO EN EJECUCIÓN</span>
+            <h2 style="font-size: 2.2rem; color: #2ecc71; margin: 5px 0;">{{ timerSector2Formatted }}</h2>
+            <div style="display: flex; justify-content: space-around; margin: 6px 0; font-size: 0.9rem; opacity: 0.95;">
+              <span>Transcurrido: <strong>{{ tiempoTranscurrido2Formatted }}</strong></span>
+              <span>Faltante: <strong>{{ timerSector2FaltanteBDFormatted }}</strong></span>
+            </div>
+            <p style="margin: 0; opacity: 0.8; font-size: 0.85rem;">Tiempo asignado IA: {{ duracionRecomendadaIA2 }} min</p>
+          </div>
+          }
+
+          @if (!riegoEnEjecucion2 && modoInteligenteSector2Activo) {
+          <div class="standby-display" style="background: rgba(52, 152, 219, 0.15); padding: 12px; border-radius: 12px; margin: 10px 0; border: 1px solid #3498db;">
+            <span style="color: #3498db; font-size: 0.8rem; font-weight: bold;">EN ESPERA DE RIEGO</span>
+            <p style="margin: 4px 0 0 0; font-size: 0.95rem;">Próximo Riego: <strong>{{ proximoRiegoSector2 }}</strong></p>
+            <p style="margin: 2px 0 0 0; font-size: 0.9rem; opacity: 0.9;">Sugerencia IA: <strong>{{ duracionRecomendadaIA2 }} min</strong></p>
+          </div>
+          }
+
+          <!-- BOTONES DE CONTROL CUANDO IA ESTÁ ACTIVA -->
+          @if (modoInteligenteSector2Activo) {
+          <div class="action-buttons-group" style="margin: 10px 0;">
+            <ion-button expand="block" color="danger" (click)="ejecutarParoEmergencia(2)" style="font-weight: bold; --border-radius: 10px; margin-bottom: 8px;">
+              DESACTIVAR IA (PARO DE EMERGENCIA)
+            </ion-button>
+            <ion-button expand="block" fill="outline" (click)="toggleEdicion(2)" style="--border-radius: 10px;">
+              {{ mostrandoEdicion2 ? 'OCULTAR CARACTERÍSTICAS' : 'EDITAR CARACTERÍSTICAS' }}
+            </ion-button>
+          </div>
+          }
+
+          <!-- CONFIGURACIÓN DE IA DEL USUARIO PARA SECTOR 2 -->
+          @if (!modoInteligenteSector2Activo || mostrandoEdicion2) {
+          <div class="ai-selector-container">
+            <div class="input-group">
+              <label class="premium-label">Tipo de Cultivo</label>
+              <ion-select [value]="configuracion2.cropType" (ionChange)="configuracion2.cropType = $event.detail.value!" name="cropTypeSector2" interface="popover" class="premium-select">
+                <ion-select-option value="Jitomate">Jitomate</ion-select-option>
+                <ion-select-option value="Lechuga">Lechuga</ion-select-option>
+                <ion-select-option value="Maíz">Maíz</ion-select-option>
+                <ion-select-option value="Trigo">Trigo</ion-select-option>
+                <ion-select-option value="Algodón">Algodón</ion-select-option>
+                <ion-select-option value="Arroz">Arroz</ion-select-option>
+                <ion-select-option value="Caña de Azúcar">Caña de Azúcar</ion-select-option>
+                <ion-select-option value="Papa">Papa</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Etapa de Crecimiento</label>
+              <ion-select [value]="configuracion2.cropGrowthStage" (ionChange)="configuracion2.cropGrowthStage = $event.detail.value!" name="cropGrowthStageSector2" interface="popover" class="premium-select">
+                <ion-select-option value="Siembra">Siembra</ion-select-option>
+                <ion-select-option value="Crecimiento">Crecimiento</ion-select-option>
+                <ion-select-option value="Floración">Floración</ion-select-option>
+                <ion-select-option value="Cosecha">Cosecha</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Estación del Año</label>
+              <ion-select [value]="configuracion2.season" (ionChange)="configuracion2.season = $event.detail.value!" name="seasonSector2" interface="popover" class="premium-select">
+                <ion-select-option value="Verano">Verano</ion-select-option>
+                <ion-select-option value="Lluvias">Lluvias</ion-select-option>
+                <ion-select-option value="Invierno">Invierno</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Sistema de Riego</label>
+              <ion-select [value]="configuracion2.irrigationType" (ionChange)="configuracion2.irrigationType = $event.detail.value!; onIrrigationTypeChange(2)" name="irrigationTypeSector2" interface="popover" class="premium-select">
+                <ion-select-option value="Goteo">Goteo</ion-select-option>
+                <ion-select-option value="Hidropónico">Hidropónico</ion-select-option>
+                <ion-select-option value="Gravedad">Gravedad</ion-select-option>
+                <ion-select-option value="Aspersión">Aspersión</ion-select-option>
+                <ion-select-option value="Temporal">Temporal</ion-select-option>
+              </ion-select>
+            </div>
+
+            <div class="input-group">
+              <label class="premium-label">Tipo de Suelo {{ configuracion2.irrigationType === 'Hidropónico' ? '(Sin suelo en Hidroponía)' : '' }}</label>
+              <ion-select [value]="configuracion2.soilType" (ionChange)="configuracion2.soilType = $event.detail.value!" [disabled]="configuracion2.irrigationType === 'Hidropónico'" name="soilTypeSector2" interface="popover" class="premium-select">
+                <ion-select-option value="Franco">Franco</ion-select-option>
+                <ion-select-option value="Arcilloso">Arcilloso</ion-select-option>
+                <ion-select-option value="Limoso">Limoso</ion-select-option>
+                <ion-select-option value="Arenoso">Arenoso</ion-select-option>
+                <ion-select-option value="Sin Suelo">Sin Suelo</ion-select-option>
+              </ion-select>
+            </div>
+
+            <!-- Hora de Riego Diario para IA en cultivos no hidropónicos -->
+            @if (configuracion2.irrigationType !== 'Hidropónico') {
+              <div class="input-group">
+              <label class="premium-label">Hora de Riego Diario (Programada)</label>
+              <ion-datetime-button datetime="datetime-hora-ia2" style="display: block; width: 100%;"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime
+                    id="datetime-hora-ia2"
+                    presentation="time"
+                    (ionChange)="onHoraInicioChange2($event)"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </div>
+            }
+          </div>
+          }
+
+          @if (!modoInteligenteSector2Activo) {
+            <ion-button
+              expand="block"
+              class="intelligent-btn"
+              (click)="activarModoInteligenteSector2()"
+            >
+              ACTIVAR SECTOR 2
+            </ion-button>
+          }
+          </div>
         </div>
-      </ion-grid>
-
-      <ion-button class="neon-btn" expand="block" (click)="guardar2('67bb79ac1c82e9d42d445882')">
-        GUARDAR SECTOR 2
-      </ion-button>
-    </div>
-
+      </div>
+    }
   </div>
 </ion-content>

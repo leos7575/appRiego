@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router'; // 1. Importación que faltaba
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -10,8 +10,12 @@ import {
 } from '@ionic/angular/standalone';
 
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { UsuariosService } from '../services/usuarios.service';
+import { _URL_API } from '../config/config';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
+
+import { ToastController } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
 import { water, trashOutline, addCircleOutline, personCircleOutline } from 'ionicons/icons';
@@ -21,34 +25,44 @@ import { water, trashOutline, addCircleOutline, personCircleOutline } from 'ioni
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   imports: [
-    RouterLink,    // 2. Ya registrado en los imports del componente Standalone
+    RouterLink,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
     IonButton,
     IonIcon,
-    CommonModule,
+    TranslatePipe
   ],
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page {
+  private readonly http = inject(HttpClient);
+  private readonly bd = inject(UsuariosService);
+  private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
+  private readonly toastController = inject(ToastController);
 
   estado1: any;
   estado2: any;
 
-  constructor(
-    private http: HttpClient,
-    private bd: UsuariosService
-  ) {
+  async mostrarToast(mensaje: string, tipo: 'success' | 'error' = 'success'): Promise<void> {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2200,
+      position: 'top',
+      icon: tipo === 'success' ? 'checkmark-circle' : 'close-circle',
+      cssClass: tipo === 'success' ? 'toast-success' : 'toast-error'
+    });
+    await toast.present();
+  }
+
+  ionViewWillEnter() {
     addIcons({
       water,
       trashOutline,
       addCircleOutline,
       personCircleOutline
     });
-  }
-
-  ngOnInit() {
     this.obtenerEstadoSector1();
     this.obtenerEstadoSector2();
   }
@@ -112,70 +126,47 @@ export class Tab1Page implements OnInit {
   }
 
   toggleEstado1() {
-    this.estado1 = !this.estado1;
-
-    const endpoint = this.estado1
-      ? 'https://apiriego.onrender.com/actualizarEstado/67bb6f2e85118d10af317f79'
-      : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb6f2e85118d10af317f79';
-
-    this.http.put(endpoint, {}).subscribe({
-      next: (response) => {
-        console.log('Estado actualizado:', response);
-
-        this.mostrarAlerta(
-          'Estado actualizado',
-          `El Sector 1 está ${
-            this.estado1 ? 'activado' : 'desactivado'
-          }.`
-        );
-      },
-      error: (error) => {
-        console.error('Error al actualizar estado:', error);
-
-        // Regresa visualmente al estado anterior.
-        this.estado1 = !this.estado1;
-
-        this.mostrarAlerta(
-          'Error',
-          'Hubo un problema al actualizar el Sector 1.'
-        );
-      }
-    });
+    if (this.estado1) {
+      // Si la válvula está activada -> DESACTIVAR (Paro de Emergencia en backend)
+      const endpoint = `${_URL_API}paroEmergencia/67bb6f2e85118d10af317f79`;
+      this.http.post(endpoint, {}).subscribe({
+        next: (response) => {
+          this.estado1 = false;
+          console.log('Sector 1 desactivado:', response);
+        },
+        error: (error) => {
+          console.error('Error al desactivar el Sector 1:', error);
+          this.estado1 = false;
+        }
+      });
+    } else {
+      // Si la válvula está inactiva -> Redirigir al Tab de Configuración (/tabs/tab2)
+      this.router.navigate(['/tabs/tab2']);
+    }
   }
 
   toggleEstado2() {
-    this.estado2 = !this.estado2;
-    const endpoint = this.estado2
-      ? 'https://apiriego.onrender.com/actualizarEstado/67bb79ac1c82e9d42d445882'
-      : 'https://apiriego.onrender.com/actualizarEstadoFalse/67bb79ac1c82e9d42d445882';
-
-    this.http.put(endpoint, {}).subscribe({
-      next: (response) => {
-        console.log('Estado actualizado:', response);
-
-        this.mostrarAlerta(
-          'Estado actualizado',
-          `El Sector 2 está ${
-            this.estado2 ? 'activado' : 'desactivado'
-          }.`
-        );
-      },
-      error: (error) => {
-        console.error('Error al actualizar estado:', error);
-
-        // Regresa visualmente al estado anterior.
-        this.estado2 = !this.estado2;
-
-        this.mostrarAlerta(
-          'Error',
-          'Hubo un problema al actualizar el Sector 2.'
-        );
-      }
-    });
+    if (this.estado2) {
+      // Si la válvula está activada -> DESACTIVAR (Paro de Emergencia en backend)
+      const endpoint = `${_URL_API}paroEmergencia/67bb79ac1c82e9d42d445882`;
+      this.http.post(endpoint, {}).subscribe({
+        next: (response) => {
+          this.estado2 = false;
+          console.log('Sector 2 desactivado:', response);
+        },
+        error: (error) => {
+          console.error('Error al desactivar el Sector 2:', error);
+          this.estado2 = false;
+        }
+      });
+    } else {
+      // Si la válvula está inactiva -> Redirigir al Tab de Configuración (/tabs/tab2)
+      this.router.navigate(['/tabs/tab2']);
+    }
   }
 
   mostrarAlerta(titulo: string, mensaje: string) {
-    alert(`${titulo}\n${mensaje}`);
+    this.mostrarToast(mensaje, 'success');
   }
 
 }

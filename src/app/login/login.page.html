@@ -1,27 +1,41 @@
 <ion-content [fullscreen]="true" class="desktop-bg">
+  <div style="position: absolute; top: 15px; right: 15px; z-index: 10;">
+    <app-language-selector></app-language-selector>
+  </div>
+
   <div class="login-wrapper">
-    
+
     <div class="split-card">
-      
+
+      <!-- Sección del logo -->
       <div class="split-left">
         <div class="brand-container">
-          <h2 class="brand-title">Aqua Control</h2>
-          <p class="brand-subtitle">Smart monitoring & optimization</p>
+          <h2 class="brand-title">{{ 'LOGIN.BRAND_TITLE' | translate }}</h2>
+
+          <p class="brand-subtitle">
+            {{ 'LOGIN.BRAND_SUBTITLE' | translate }}
+          </p>
+
+          <img
+            src="assets/img/logo.png"
+            alt="Logo de Aqua Control"
+            class="brand-logo"
+          />
         </div>
-        
-        <div class="illustration-container">
-          </div>
       </div>
 
+      <!-- Sección del formulario -->
       <div class="split-right">
-        <h1 class="main-title">LogIn</h1>
+        <h1 class="main-title">{{ 'LOGIN.TITLE' | translate }}</h1>
 
         <div class="input-group">
-          <label>Username</label>
+          <label>{{ 'LOGIN.USER_LABEL' | translate }}</label>
+
           <ion-input
-            [(ngModel)]="usuariosCredes.usuario"
+            [value]="usuariosCredes.usuario"
+            (ionInput)="usuariosCredes.usuario = $event.detail.value!"
             name="username"
-            placeholder="Enter your username"
+            [placeholder]="'LOGIN.USER_PLACEHOLDER' | translate"
             type="text"
             required
             minlength="3"
@@ -30,30 +44,42 @@
         </div>
 
         <div class="input-group">
-          <label>Password</label>
+          <label>{{ 'LOGIN.PASSWORD_LABEL' | translate }}</label>
+
           <ion-input
-            [(ngModel)]="usuariosCredes.password"
+            [value]="usuariosCredes.password"
+            (ionInput)="usuariosCredes.password = $event.detail.value!"
             name="password"
-            placeholder="Enter your password"
+            [placeholder]="'LOGIN.PASSWORD_PLACEHOLDER' | translate"
             type="password"
             required
             minlength="6"
             class="premium-input"
           >
-            <ion-input-password-toggle slot="end" class="light-eye"></ion-input-password-toggle>
+            <ion-input-password-toggle
+              slot="end"
+              class="light-eye"
+            ></ion-input-password-toggle>
           </ion-input>
-          <div class="forgot-link-container">
-            <a href="#" class="forgot-link">Forgot Password?</a>
-          </div>
         </div>
 
-        <ion-button (click)="mostrar()" fill="solid" expand="block" class="neon-btn">
-          CLICK TO LOGIN
+        <ion-button
+          (click)="mostrar()"
+          fill="solid"
+          expand="block"
+          class="neon-btn"
+        >
+          {{ 'LOGIN.BUTTON' | translate }}
         </ion-button>
 
         <div class="forgot-container">
-          <span class="text-secondary">Don’t have an account?</span>
-          <a href="registro" class="neon-link">Register Now</a>
+          <span class="text-secondary">
+            {{ 'LOGIN.NO_ACCOUNT' | translate }}
+          </span>
+
+          <a routerLink="/registro" class="neon-link">
+            {{ 'LOGIN.REGISTER_NOW' | translate }}
+          </a>
         </div>
       </div>
 

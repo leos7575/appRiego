@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { 
   flashOutline, 
@@ -11,7 +12,7 @@ import {
   checkmarkCircleOutline,
   alertCircleOutline,
   constructOutline,
-  personCircleOutline // <-- Icono con outline
+  personCircleOutline
 } from 'ionicons/icons';
 import { 
   IonContent, 
@@ -32,7 +33,8 @@ import {
     IonHeader,  
     IonToolbar, 
     IonIcon,
-    IonButton
+    IonButton,
+    TranslatePipe
   ]
 })
 export class GeneradorPage {
@@ -50,18 +52,18 @@ export class GeneradorPage {
     {
       fecha: '17 jul 2026',
       responsable: 'Persona 9',
-      observaciones: 'Revisión estructural: soporte del alternador, eje y balero axial estables. Sin vibraciones anormales.',
+      observaciones: 'GENERADOR.OBSERVATION_1',
       proximaFecha: '17 ago 2026'
     },
     {
       fecha: '15 jun 2026',
       responsable: 'Persona 10',
-      observaciones: 'Alineación de aspas, verificación de chumaceras y refuerzo de la protección contra lluvia.',
+      observaciones: 'GENERADOR.OBSERVATION_2',
       proximaFecha: '15 jul 2026'
     }
   ]);
 
-  constructor() {
+  ionViewWillEnter() {
     addIcons({
       flashOutline,
       pulseOutline,

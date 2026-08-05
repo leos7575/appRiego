@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-// Importamos todos los componentes que usas en el HTML
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonIcon, IonList, IonItem, IonLabel, IonToggle, IonButton } from "@ionic/angular/standalone";
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../components/language-selector/language-selector.component';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonIcon, IonButton } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-profile',
@@ -11,29 +11,18 @@ import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
   standalone: true, 
   imports: [
     IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, 
-    IonContent, IonIcon, IonList, IonItem, IonLabel, IonToggle, IonButton
+    IonContent, IonIcon, IonButton,
+    TranslatePipe, LanguageSelectorComponent
   ]
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
+  private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
   
   public userEmail: string = 'ingenieria@correo.com';
-  public pushNotifications: boolean = false;
-  public darkMode: boolean = true;
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  ionViewWillEnter() {
     console.log('Perfil inicializado');
-  }
-
-  toggleNotifications(event: any) {
-    this.pushNotifications = event.detail.checked;
-    console.log('Notificaciones:', this.pushNotifications);
-  }
-
-  toggleDarkMode(event: any) {
-    this.darkMode = event.detail.checked;
-    console.log('Modo Oscuro:', this.darkMode);
   }
 
   onEditProfile() {

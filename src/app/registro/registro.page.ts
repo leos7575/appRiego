@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UsuariosService } from '../services/usuarios.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 
 import {
   IonContent,
@@ -20,13 +20,18 @@ import {
   imports: [
     IonContent,
     IonInputPasswordToggle,
-    CommonModule,
-    FormsModule,
     IonButton,
-    IonInput
+    IonInput,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
-export class RegistroPage implements OnInit {
+export class RegistroPage {
+  private readonly ruta = inject(Router);
+  private readonly userS = inject(UsuariosService);
+  private readonly toastController = inject(ToastController);
+  private readonly translate = inject(TranslateService);
+
   credenciales = {
     usuario: '',
     password: '',
@@ -37,12 +42,6 @@ export class RegistroPage implements OnInit {
     password: '',
     email: ''
   };
-  constructor(
-    private ruta: Router,
-    private userS: UsuariosService,
-    private toastController: ToastController
-  ) {}
-  ngOnInit() {}
   limpiarErrores() {
     this.errores.usuario = '';
     this.errores.password = '';
@@ -52,24 +51,23 @@ export class RegistroPage implements OnInit {
     this.limpiarErrores();
     let valido = true;
     if (!this.credenciales.usuario) {
-      this.errores.usuario = 'Username is required.';
+      this.errores.usuario = this.translate.instant('REGISTRO.ERR_USER_REQUIRED');
       valido = false;
     }
     const emailPattern =
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!this.credenciales.email) {
-      this.errores.email = 'Email is required.';
+      this.errores.email = this.translate.instant('REGISTRO.ERR_EMAIL_REQUIRED');
       valido = false;
     } else if (!emailPattern.test(this.credenciales.email)) {
-      this.errores.email = 'Enter a valid email.';
+      this.errores.email = this.translate.instant('REGISTRO.ERR_EMAIL_INVALID');
       valido = false;
     }
     if (!this.credenciales.password) {
-      this.errores.password = 'Password is required.';
+      this.errores.password = this.translate.instant('REGISTRO.ERR_PASSWORD_REQUIRED');
       valido = false;
     } else if (this.credenciales.password.length < 6) {
-      this.errores.password =
-        'Password must contain at least 6 characters.';
+      this.errores.password = this.translate.instant('REGISTRO.ERR_PASSWORD_SHORT');
       valido = false;
     }
     return valido;
@@ -106,7 +104,7 @@ export class RegistroPage implements OnInit {
       (res: any) => {
         console.log('Usuario registrado:', res);
         this.mostrarToast(
-          'Account created successfully!',
+          this.translate.instant('REGISTRO.SUCCESS_REGISTER'),
           'success'
         );
         setTimeout(() => {
@@ -116,7 +114,7 @@ export class RegistroPage implements OnInit {
       (err: any) => {
         console.error(err);
         this.mostrarToast(
-          'There was a problem creating your account.',
+          this.translate.instant('REGISTRO.ERROR_REGISTER'),
           'error'
         );
       }

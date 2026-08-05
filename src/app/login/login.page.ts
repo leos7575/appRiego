@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UsuariosService } from '../services/usuarios.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 
 import {
   IonContent,
@@ -18,15 +18,20 @@ import {
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     IonContent,
+    RouterLink,
     IonButton,
     IonInput,
-    IonInputPasswordToggle
+    IonInputPasswordToggle,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
+  private readonly ruta = inject(Router);
+  private readonly userS = inject(UsuariosService);
+  private readonly toastController = inject(ToastController);
+  private readonly translate = inject(TranslateService);
 
   credenciales = {
     usuario: '',
@@ -40,14 +45,7 @@ export class LoginPage implements OnInit {
 
   data: any;
 
-  constructor(
-    private fb: FormBuilder,
-    private ruta: Router,
-    private userS: UsuariosService,
-    private toastController: ToastController
-  ) {}
-
-  ngOnInit() {
+  ionViewWillEnter() {
     this.userS.getUsers().subscribe((res: any) => {
 
       console.log("Respuesta completa:", res);
@@ -96,7 +94,7 @@ export class LoginPage implements OnInit {
       console.log("Usuario autenticado:", usuarioEncontrado);
 
       this.mostrarToast(
-        "Login successful. Welcome!",
+        this.translate.instant('LOGIN.SUCCESS_WELCOME'),
         "success"
       );
 
@@ -109,7 +107,7 @@ export class LoginPage implements OnInit {
       console.log("Acceso incorrecto");
 
       this.mostrarToast(
-        "Incorrect username or password.",
+        this.translate.instant('LOGIN.ERROR_INVALID_CREDENTIALS'),
         "error"
       );
 

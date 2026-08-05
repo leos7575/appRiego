@@ -1,13 +1,12 @@
 <ion-header [translucent]="true" class="custom-header">
   <ion-toolbar class="head-toolbar">
     <div class="header-container-full">
-      <!-- Lado izquierdo: Logo, Título y Versión -->
+      <!-- Lado izquierdo: Logo, Título y Selector de Idioma -->
       <div class="brand-wrapper">
         <div class="logo-indicator"></div>
         <ion-title class="main-header-title">
           AquaControl
         </ion-title>
-        <span class="version-tag">v2.1</span>
       </div>
       <!-- Lado derecho: Botón de perfil empujado al extremo por space-between -->
       <ion-button fill="clear" [routerLink]="['/profile']" class="profile-btn">
@@ -21,8 +20,8 @@
     <div class="section-intro">
       <div class="title-row">
         <div>
-          <h1 class="section-title">Control de Sectores</h1>
-          <p class="section-subtitle">Monitoreo y activación manual de válvulas de flujo</p>
+          <h1 class="section-title">{{ 'TAB1.TITLE' | translate }}</h1>
+          <p class="section-subtitle">{{ 'TAB1.SUBTITLE' | translate }}</p>
         </div>
       </div>
     </div>
@@ -34,18 +33,22 @@
 
       <div
         class="sector-card"
-        [ngClass]="{'is-active': estado1}">
+        [class.is-active]="estado1">
 
         <div class="card-header-status">
           <div class="status-info">
 
             <span
               class="status-dot"
-              [ngClass]="{'active': estado1}">
+              [class.active]="estado1">
             </span>
 
             <span class="status-badge">
-              {{ estado1 ? 'En línea' : 'Inactivo' }}
+              @if (estado1) {
+                {{ 'TAB1.STATUS_ONLINE' | translate }}
+              } @else {
+                {{ 'TAB1.STATUS_INACTIVE' | translate }}
+              }
             </span>
 
           </div>
@@ -56,22 +59,27 @@
           <div class="icon-box">
             <ion-icon name="water"></ion-icon>
           </div>
-          <h2 class="sector-name">Sector 01</h2>
-          <p class="sector-details">Válvula Principal Norte</p>
+          <h2 class="sector-name">{{ 'TAB1.SECTOR_1_NAME' | translate }}</h2>
+          <p class="sector-details">{{ 'TAB1.SECTOR_1_DETAILS' | translate }}</p>
         </div>
 
-        <ion-button
-          [ngClass]="{
-            'btn-on': estado1,
-            'btn-off': !estado1
-          }"
-          fill="solid"
-          expand="block"
-          class="action-btn"
-          (click)="toggleEstado1()">
-
-          {{ estado1 ? 'Desactivar' : 'Activar Válvula' }}
-        </ion-button>
+        @if (estado1) {
+          <ion-button
+            fill="solid"
+            expand="block"
+            class="action-btn btn-on"
+            (click)="toggleEstado1()">
+            {{ 'TAB1.BTN_DEACTIVATE' | translate }}
+          </ion-button>
+        } @else {
+          <ion-button
+            fill="solid"
+            expand="block"
+            class="action-btn btn-off"
+            [routerLink]="['/principal/tabs/tab2']">
+            {{ 'TAB1.BTN_CONFIG' | translate }}
+          </ion-button>
+        }
       </div>
 
       <!-- ========================= -->
@@ -80,18 +88,22 @@
 
       <div
         class="sector-card"
-        [ngClass]="{'is-active': estado2}">
+        [class.is-active]="estado2">
 
         <div class="card-header-status">
           <div class="status-info">
 
             <span
               class="status-dot"
-              [ngClass]="{'active': estado2}">
+              [class.active]="estado2">
             </span>
 
             <span class="status-badge">
-              {{ estado2 ? 'En línea' : 'Inactivo' }}
+              @if (estado2) {
+                {{ 'TAB1.STATUS_ONLINE' | translate }}
+              } @else {
+                {{ 'TAB1.STATUS_INACTIVE' | translate }}
+              }
             </span>
 
           </div>
@@ -102,23 +114,27 @@
           <div class="icon-box">
             <ion-icon name="water"></ion-icon>
           </div>
-          <h2 class="sector-name">Sector 02</h2>
-          <p class="sector-details">Válvula de Aspersión Sur</p>
+          <h2 class="sector-name">{{ 'TAB1.SECTOR_2_NAME' | translate }}</h2>
+          <p class="sector-details">{{ 'TAB1.SECTOR_2_DETAILS' | translate }}</p>
         </div>
 
-        <ion-button
-          [ngClass]="{
-            'btn-on': estado2,
-            'btn-off': !estado2
-          }"
-          fill="solid"
-          expand="block"
-          class="action-btn"
-          (click)="toggleEstado2()">
-
-          {{ estado2 ? 'Desactivar' : 'Activar Válvula' }}
-
-        </ion-button>
+        @if (estado2) {
+          <ion-button
+            fill="solid"
+            expand="block"
+            class="action-btn btn-on"
+            (click)="toggleEstado2()">
+            {{ 'TAB1.BTN_DEACTIVATE' | translate }}
+          </ion-button>
+        } @else {
+          <ion-button
+            fill="solid"
+            expand="block"
+            class="action-btn btn-off"
+            [routerLink]="['/principal/tabs/tab2']">
+            {{ 'TAB1.BTN_CONFIG' | translate }}
+          </ion-button>
+        }
       </div>
     </div>
 

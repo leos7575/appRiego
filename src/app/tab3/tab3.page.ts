@@ -1,14 +1,11 @@
 import {
-  AfterViewInit,
   Component,
   HostListener,
-  OnDestroy,
-  OnInit
+  inject
 } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 
 import {
   IonContent,
@@ -20,10 +17,16 @@ import {
   IonSegment,
   IonSegmentButton,
   IonToolbar,
-  IonTitle
+  IonTitle,
+  ViewDidEnter,
+  ViewDidLeave,
+  ViewWillEnter
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
+import { _URL_API } from '../config/config';
 
 import {
   analyticsOutline,
@@ -83,6 +86,10 @@ interface HistorialRiego {
   dias: string[];
   sector: string;
   estadoValvula: boolean;
+  modo?: string;
+  pausasRealizadas?: number;
+  sector_id?: string;
+  duracionPausa?: number;
 }
 
 interface AlertaDashboard {
@@ -90,6 +97,10 @@ interface AlertaDashboard {
   descripcion: string;
   tipo: TipoAlerta;
   icono: string;
+  id?: string;
+  mensaje?: string;
+  tiempo?: string;
+  sector?: Sector;
 }
 
 @Component({
@@ -98,8 +109,6 @@ interface AlertaDashboard {
   styleUrls: ['tab3.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     IonHeader,
     IonToolbar,
     IonContent,
@@ -113,7 +122,10 @@ interface AlertaDashboard {
   ]
 })
 export class Tab3Page
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements ViewWillEnter, ViewDidEnter, ViewDidLeave {
+  public http = inject(HttpClient);
+  public router = inject(Router);
+  public translate = inject(TranslateService);
 
   sectorSeleccionado: Sector = 'sector1';
 
@@ -144,56 +156,56 @@ export class Tab3Page
   };
 
   dashboardSector1: DashboardData = {
-    humedadAmbiente: 45,
-    temperaturaAmbiente: 28,
+    humedadAmbiente: 0,
+    temperaturaAmbiente: 0,
 
-    humedadCaja: 38,
-    temperaturaCaja: 32.6,
+    humedadCaja: 0,
+    temperaturaCaja: 0,
 
-    humedadSuelo: 35,
+    humedadSuelo: 0,
     lluvia: false,
 
-    flujoActual: 3.2,
-    riegoActivo: true,
+    flujoActual: 0,
+    riegoActivo: false,
 
     voltaje: 12.1,
-    aguaHoy: 13.5,
-    precisionIA: 92,
+    aguaHoy: 0,
+    precisionIA: 96.1,
 
     bateria: 84,
     generacion: 7.3,
 
-    estadoAmbiente: 'Condiciones óptimas',
-    modeloIA: 'Regresión'
+    estadoAmbiente: 'Esperando lecturas de sensores',
+    modeloIA: 'RandomForest-V2 (IA)'
   };
 
   dashboardSector2: DashboardData = {
-    humedadAmbiente: 53,
-    temperaturaAmbiente: 26,
+    humedadAmbiente: 0,
+    temperaturaAmbiente: 0,
 
-    humedadCaja: 40,
-    temperaturaCaja: 30.4,
+    humedadCaja: 0,
+    temperaturaCaja: 0,
 
-    humedadSuelo: 49,
+    humedadSuelo: 0,
     lluvia: false,
 
     flujoActual: 0,
     riegoActivo: false,
 
     voltaje: 11.9,
-    aguaHoy: 12.7,
-    precisionIA: 89,
+    aguaHoy: 0,
+    precisionIA: 96.1,
 
     bateria: 81,
     generacion: 6.9,
 
-    estadoAmbiente: 'Condiciones óptimas',
-    modeloIA: 'Regresión'
+    estadoAmbiente: 'Esperando lecturas de sensores',
+    modeloIA: 'RandomForest-V2 (IA)'
   };
 
   dashboard: DashboardData = this.dashboardSector1;
 
-  constructor(private http: HttpClient) {
+  ionViewWillEnter(): void {
     addIcons({
       analyticsOutline,
       batteryHalfOutline,
@@ -214,26 +226,50 @@ export class Tab3Page
       waterOutline,
       wifiOutline
     });
-  }
 
-  ngOnInit(): void {
     this.actualizarDashboard();
     this.actualizarAlertas();
     this.iniciarActualizacionAutomatica();
   }
 
-  ngAfterViewInit(): void {
+  ionViewDidEnter(): void {
     this.loadGoogleCharts();
     this.getHistorialRiego();
   }
 
-  ngOnDestroy(): void {
+  ionViewDidLeave(): void {
     if (this.autoUpdateTimer) {
       clearInterval(this.autoUpdateTimer);
     }
 
     if (this.resizeTimer) {
       clearTimeout(this.resizeTimer);
+    }
+  }
+
+  onValveCardClick(sectorNum: number): void {
+    const isActivo = sectorNum === 1 ? this.valvulaSector1 : this.valvulaSector2;
+
+    if (isActivo) {
+      // Si la bomba está ENCENDIDA: Desactivar inmediatamente con Paro de Emergencia en la BD y apagar relé
+      const id = sectorNum === 1 ? '67bb6f2e85118d10af317f79' : '67bb79ac1c82e9d42d445882';
+      this.http.post<any>(`${_URL_API}paroEmergencia/${id}`, {}).subscribe({
+        next: (res) => {
+          if (sectorNum === 1) {
+            this.valvulaSector1 = false;
+            this.dashboardSector1.riegoActivo = false;
+          } else {
+            this.valvulaSector2 = false;
+            this.dashboardSector2.riegoActivo = false;
+          }
+          console.log(`[Tab3] Riego en sector ${sectorNum} desactivado correctamente.`);
+          this.actualizarDashboard();
+        },
+        error: (err) => console.error('[Tab3 Error] Error al apagar bomba:', err)
+      });
+    } else {
+      // Si la bomba está APAGADA: Redirigir al usuario al Tab de Configuración (/principal/tabs/tab2)
+      this.router.navigateByUrl('/principal/tabs/tab2');
     }
   }
 
@@ -263,7 +299,10 @@ export class Tab3Page
      CAMBIO DE SECTOR
   ===================================== */
 
-  onSectorChange(): void {
+  onSectorChange(event?: any): void {
+    if (event && event.detail && event.detail.value) {
+      this.sectorSeleccionado = event.detail.value as Sector;
+    }
     this.actualizarDashboard();
     this.actualizarAlertas();
 
@@ -284,111 +323,104 @@ export class Tab3Page
   ===================================== */
 
   private iniciarActualizacionAutomatica(): void {
-  this.autoUpdateTimer = setInterval(() => {
-    this.simularEstadoComunicacion();
+    this.cargarTodosLosDatosReales();
+    this.autoUpdateTimer = setInterval(() => {
+      this.cargarTodosLosDatosReales();
+    }, 5000);
+  }
 
-    if (this.esp32Conectado) {
-      this.simularTodosLosDatos();
-    }
+  private cargarTodosLosDatosReales(): void {
+    const id1 = this.sectorIds.sector1;
+    const id2 = this.sectorIds.sector2;
 
-    this.actualizarAlertas();
-  }, 5000);
-}
+    this.http.get<any>(`${_URL_API}config1/${id1}`).subscribe({
+      next: (res) => {
+        if (res && res.Respuesta && res.Respuesta.length > 0) {
+          const config = res.Respuesta[0];
+          
+          // Verificar si el ESP32 ha enviado lecturas en los últimos 2 minutos
+          if (config.ultimasLecturas && config.ultimasLecturas.fecha) {
+            const fechaUltima = new Date(config.ultimasLecturas.fecha.replace(' ', 'T')).getTime();
+            const ahora = new Date().getTime();
+            const diffMins = (ahora - fechaUltima) / (1000 * 60);
+            this.esp32Conectado = diffMins <= 2.0;
+          } else {
+            this.esp32Conectado = false;
+          }
 
-//Este metodo debe obtener DATOS REALES DE LA API 
-private simularEstadoComunicacion(): void { 
-  this.ciclosComunicacion++;
+          this.actualizarSectorConRespuesta(this.dashboardSector1, config);
+        } else {
+          this.esp32Conectado = false;
+        }
+        this.actualizarDashboard();
+        this.actualizarAlertas();
+      },
+      error: (err) => {
+        console.error('Error al obtener telemetría Sector 1:', err);
+        this.esp32Conectado = false;
+      }
+    });
 
-  // Cada seis actualizaciones se simula una falla.
-  // Como cada actualización tarda cinco segundos,
-  // la falla aparecerá aproximadamente cada 30 segundos.
-  this.esp32Conectado =
-    this.ciclosComunicacion % 6 !== 0;
-}
-
-  private simularTodosLosDatos(): void {
-    this.simularDatosSector(this.dashboardSector1);
-    this.simularDatosSector(this.dashboardSector2);
+    this.http.get<any>(`${_URL_API}config1/${id2}`).subscribe({
+      next: (res) => {
+        if (res && res.Respuesta && res.Respuesta.length > 0) {
+          this.actualizarSectorConRespuesta(this.dashboardSector2, res.Respuesta[0]);
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener telemetría Sector 2:', err);
+      }
+    });
 
     this.ultimaActualizacion = new Date();
   }
 
-  private simularDatosSector(datos: DashboardData): void {
-    datos.humedadAmbiente = this.limitarRedondear(
-      datos.humedadAmbiente + this.variacion(2),
-      25,
-      85
-    );
+  private actualizarSectorConRespuesta(datos: DashboardData, config: any): void {
+    if (config.ultimasLecturas) {
+      datos.humedadAmbiente = Math.round(config.ultimasLecturas.humedadAire ?? config.ultimasLecturas.humedad ?? datos.humedadAmbiente);
+      datos.temperaturaAmbiente = Number((config.ultimasLecturas.temperatura ?? datos.temperaturaAmbiente).toFixed(1));
 
-    datos.temperaturaAmbiente = this.limitarDecimal(
-      datos.temperaturaAmbiente + this.variacion(0.5),
-      15,
-      42,
-      1
-    );
-
-    datos.humedadCaja = this.limitarRedondear(
-      datos.humedadCaja + this.variacion(1),
-      15,
-      80
-    );
-
-    datos.temperaturaCaja = this.limitarDecimal(
-      datos.temperaturaCaja + this.variacion(0.4),
-      18,
-      50,
-      1
-    );
-
-    datos.humedadSuelo = this.limitarRedondear(
-      datos.humedadSuelo + this.variacion(1),
-      10,
-      95
-    );
-
-    datos.voltaje = this.limitarDecimal(
-      datos.voltaje + this.variacion(0.04),
-      11.2,
-      13.2,
-      1
-    );
-
-    datos.generacion = this.limitarDecimal(
-      datos.generacion + this.variacion(0.15),
-      0,
-      12,
-      1
-    );
-
-    datos.precisionIA = this.limitarRedondear(
-      datos.precisionIA + this.variacion(0.5),
-      80,
-      99
-    );
-
-    datos.bateria = this.limitarRedondear(
-      datos.bateria + this.variacion(0.3),
-      10,
-      100
-    );
-
-    if (datos.riegoActivo && !datos.lluvia) {
-      datos.flujoActual = this.limitarDecimal(
-        datos.flujoActual + this.variacion(0.15),
-        1.5,
-        6,
-        1
-      );
-
-      const litrosEnCincoSegundos =
-        (datos.flujoActual / 60) * 5;
-
-      datos.aguaHoy = Number(
-        (datos.aguaHoy + litrosEnCincoSegundos).toFixed(1)
-      );
-    } else {
-      datos.flujoActual = 0;
+      const humedadAnalog = config.ultimasLecturas.suelo ?? 2500;
+      let pctHumedad = 35;
+      if (humedadAnalog > 1023) {
+        const val_norm = Math.max(0, Math.min(4095, humedadAnalog));
+        pctHumedad = Math.round(((3200 - val_norm) * 100) / (3200 - 1400));
+      } else {
+        pctHumedad = Math.round(((1023 - humedadAnalog) * 100) / 1023);
+      }
+      datos.humedadSuelo = Math.max(0, Math.min(100, pctHumedad));
+      datos.lluvia = (config.ultimasLecturas.lluvia ?? 4095) < 2500;
     }
+
+    // Si el ESP32 está desconectado, forzar estados físicos inactivos (sin flujo y bomba apagada)
+    if (!this.esp32Conectado) {
+      datos.riegoActivo = false;
+      datos.flujoActual = 0.0;
+      this.valvulaSector1 = false;
+      this.valvulaSector2 = false;
+    } else {
+      const hayLluvia = datos.lluvia;
+      const minutosIa = config.recomendacionIA?.minutosCalculados ?? 0;
+      const duracionActiva = Number(config.duracion) > 0 || (config.modoRiego === 'IA' && minutosIa > 0);
+      datos.riegoActivo = Boolean(config.estadoValvula) || (config.estado && duracionActiva && !hayLluvia);
+      
+      const caudalLectura = config.ultimasLecturas?.caudal !== undefined ? Number(config.ultimasLecturas.caudal) : 0.0;
+      datos.flujoActual = Number(caudalLectura.toFixed(1));
+      
+      this.valvulaSector1 = this.dashboardSector1.riegoActivo;
+      this.valvulaSector2 = this.dashboardSector2.riegoActivo;
+    }
+
+    datos.modeloIA = config.modoRiego === 'IA' ? 'RandomForest-V2 (IA)' : 'Manual';
+
+    // Generador eólico mantiene simulación por requerimiento
+    this.simularDatosGenerador(datos);
+  }
+
+  private simularDatosGenerador(datos: DashboardData): void {
+    datos.voltaje = this.limitarDecimal(datos.voltaje + this.variacion(0.04), 11.2, 13.2, 1);
+    datos.generacion = this.limitarDecimal(datos.generacion + this.variacion(0.15), 0, 12, 1);
+    datos.bateria = this.limitarRedondear(datos.bateria + this.variacion(0.3), 10, 100);
   }
 
   private variacion(maximo: number): number {
@@ -427,16 +459,16 @@ private simularEstadoComunicacion(): void {
     if (!this.esp32Conectado) {
       nuevasAlertas.push({
         titulo: 'ESP32 desconectado',
-        descripcion: 'No se están recibiendo datos del dispositivo.',
+        descripcion: 'No se están recibiendo datos en tiempo real.',
         tipo: 'danger',
         icono: 'warning-outline'
       });
     }
 
-    if (this.dashboard.bateria < 30) {
+    if (this.dashboard.bateria < 20) {
       nuevasAlertas.push({
-        titulo: 'Batería baja',
-        descripcion: `La batería se encuentra al ${this.dashboard.bateria}%.`,
+        titulo: 'Batería del sistema baja',
+        descripcion: `Nivel actual de batería: ${this.dashboard.bateria}%.`,
         tipo: 'warning',
         icono: 'warning-outline'
       });
@@ -444,8 +476,8 @@ private simularEstadoComunicacion(): void {
 
     if (this.dashboard.humedadSuelo < 30) {
       nuevasAlertas.push({
-        titulo: 'Humedad del suelo baja',
-        descripcion: `${this.nombreSectorSeleccionado} necesita riego.`,
+        titulo: 'Humedad del suelo crítica',
+        descripcion: `Nivel actual: ${this.dashboard.humedadSuelo}%.`,
         tipo: 'warning',
         icono: 'information-circle-outline'
       });
@@ -453,35 +485,10 @@ private simularEstadoComunicacion(): void {
 
     if (this.dashboard.lluvia) {
       nuevasAlertas.push({
-        titulo: 'Lluvia detectada',
-        descripcion: 'El riego debe mantenerse detenido.',
+        titulo: 'Lluvia detectada en el sector',
+        descripcion: 'El riego se ha pausado por seguridad.',
         tipo: 'info',
         icono: 'rainy-outline'
-      });
-    }
-
-    if (this.dashboard.temperaturaCaja >= 38) {
-      nuevasAlertas.push({
-        titulo: 'Temperatura elevada en la caja',
-        descripcion: 'Revise la ventilación de la caja electrónica.',
-        tipo: 'warning',
-        icono: 'warning-outline'
-      });
-    }
-
-    if (nuevasAlertas.length === 0) {
-      nuevasAlertas.push({
-        titulo: 'Sistema funcionando correctamente',
-        descripcion: 'No se detectaron errores ni alertas.',
-        tipo: 'success',
-        icono: 'checkmark-circle-outline'
-      });
-
-      nuevasAlertas.push({
-        titulo: 'Comunicación estable',
-        descripcion: 'Los datos del ESP32 se reciben correctamente.',
-        tipo: 'info',
-        icono: 'wifi-outline'
       });
     }
 
@@ -494,7 +501,7 @@ private simularEstadoComunicacion(): void {
 
   getHistorialRiego(): void {
     this.http
-      .get<any>('https://apiriego.onrender.com/historial')
+      .get<any>(`${_URL_API}historial`)
       .subscribe({
         next: response => {
           if (
@@ -528,6 +535,21 @@ private simularEstadoComunicacion(): void {
                     : false
               })
             );
+
+            // Calcular agua utilizada hoy a partir del historial real en BD
+            const hoy = new Date();
+            const yyyy = hoy.getFullYear();
+            const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+            const dd = String(hoy.getDate()).padStart(2, '0');
+            const hoyLocalStr = `${yyyy}-${mm}-${dd}`;
+
+            const minutosHoy = this.riegos
+              .filter(r => (r.fechaInicio === hoyLocalStr || r.fechaInicio.includes(hoyLocalStr)) && r.duracion > 0 && r.duracion <= 60)
+              .reduce((sum, r) => sum + Number(r.duracion), 0);
+            
+            const litrosCalculados = Number((minutosHoy * 2.5).toFixed(1));
+            this.dashboardSector1.aguaHoy = litrosCalculados;
+            this.dashboardSector2.aguaHoy = litrosCalculados;
           }
 
           this.drawChart();
@@ -701,31 +723,28 @@ private simularEstadoComunicacion(): void {
     grafica.draw(datosGrafica, opciones);
   }
 
-  private obtenerFilasGrafica():
-    Array<[string, number]> {
-
-    const sectorId =
-      this.sectorIds[this.sectorSeleccionado];
+  private obtenerFilasGrafica(): Array<[string, number]> {
+    const sectorId = this.sectorIds[this.sectorSeleccionado];
 
     const registrosSector = this.riegos.filter(
-      riego => riego.sector === sectorId
+      riego => riego.sector === sectorId && Number(riego.duracion) > 0
     );
 
-    const filas: Array<[string, number]> = [];
+    // Agrupar duraciones acumuladas por cada fecha única (Día DD/MM)
+    const agrupadoPorDia: Record<string, number> = {};
 
     registrosSector.forEach(riego => {
-      const etiquetas =
-        riego.dias.length > 0
-          ? riego.dias
-          : [this.formatearFecha(riego.fechaInicio)];
-
-      etiquetas.forEach(dia => {
-        filas.push([
-          dia,
-          Number(riego.duracion) || 0
-        ]);
-      });
+      const diaEtiqueta = this.formatearFecha(riego.fechaInicio);
+      if (!agrupadoPorDia[diaEtiqueta]) {
+        agrupadoPorDia[diaEtiqueta] = 0;
+      }
+      agrupadoPorDia[diaEtiqueta] += Number(riego.duracion) || 0;
     });
+
+    const filas: Array<[string, number]> = Object.keys(agrupadoPorDia).map(dia => [
+      dia,
+      Number(agrupadoPorDia[dia].toFixed(1))
+    ]);
 
     if (filas.length > 0) {
       return filas.slice(-7);
@@ -787,7 +806,7 @@ private simularEstadoComunicacion(): void {
   ===================================== */
 
   handleRefresh(event: CustomEvent): void {
-    this.simularTodosLosDatos();
+    this.cargarTodosLosDatosReales();
     this.actualizarDashboard();
     this.actualizarAlertas();
     this.getHistorialRiego();

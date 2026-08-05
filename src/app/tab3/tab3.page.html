@@ -18,14 +18,13 @@
         <ion-title class="main-header-title">
           AquaControl
         </ion-title>
-        <span class="version-tag">v2.1</span>
       </div>
 
       <!-- ==============================================
            BLOQUE 2: SELECTOR DE SECTORES
            ============================================== -->
       <div class="segment-container">
-        <ion-segment [(ngModel)]="sectorSeleccionado" (ionChange)="onSectorChange()" mode="md" class="premium-segment">
+        <ion-segment [value]="sectorSeleccionado" (ionChange)="onSectorChange($event)" mode="md" class="premium-segment">
           <ion-segment-button value="sector1">
             <ion-label>SECTOR 01</ion-label>
           </ion-segment-button>
@@ -59,7 +58,7 @@
           <div class="status-information">
             <span>Última actualización</span>
             <strong>
-              {{ ultimaActualizacion | date:'dd/MM/yyyy HH:mm:ss' }}
+              {{ ultimaActualizacion.toLocaleDateString() }} {{ ultimaActualizacion.toLocaleTimeString() }}
             </strong>
           </div>
         </div>
@@ -450,50 +449,50 @@
 
           <div class="valves-grid">
 
-            <!-- VÁLVULA 1 -->
+            <!-- BOMBA SECTOR 1 -->
 
-            <div class="dashboard-card valve-card" [class.valve-open]="valvulaSector1">
+            <div class="dashboard-card valve-card" [class.valve-open]="valvulaSector1" (click)="onValveCardClick(1)" style="cursor: pointer;">
 
               <div class="valve-title">
 
-                <ion-icon name="git-branch-outline"></ion-icon>
+                <ion-icon name="flash-outline"></ion-icon>
 
                 <span>
-                  Válvula Sector 1
+                  Bomba Sector 1
                 </span>
 
               </div>
 
               <strong>
-                {{ valvulaSector1 ? 'Abierta' : 'Cerrada' }}
+                {{ valvulaSector1 ? 'Encendida' : 'Apagada' }}
               </strong>
 
               <small>
-                Estado estimado
+                {{ valvulaSector1 ? 'Toca para desactivar' : 'Toca para configurar' }}
               </small>
 
             </div>
 
-            <!-- VÁLVULA 2 -->
+            <!-- BOMBA SECTOR 2 -->
 
-            <div class="dashboard-card valve-card" [class.valve-open]="valvulaSector2">
+            <div class="dashboard-card valve-card" [class.valve-open]="valvulaSector2" (click)="onValveCardClick(2)" style="cursor: pointer;">
 
               <div class="valve-title">
 
-                <ion-icon name="git-branch-outline"></ion-icon>
+                <ion-icon name="flash-outline"></ion-icon>
 
                 <span>
-                  Válvula Sector 2
+                  Bomba Sector 2
                 </span>
 
               </div>
 
               <strong>
-                {{ valvulaSector2 ? 'Abierta' : 'Cerrada' }}
+                {{ valvulaSector2 ? 'Encendida' : 'Apagada' }}
               </strong>
 
               <small>
-                Estado estimado
+                {{ valvulaSector2 ? 'Toca para desactivar' : 'Toca para configurar' }}
               </small>
 
             </div>
@@ -686,37 +685,40 @@
 
         <div class="alerts-list">
 
-          <div class="alert-item" *ngFor="let alerta of alertas" [ngClass]="'alert-' + alerta.tipo">
+          @for (alerta of alertas; track alerta.titulo || $index) {
+            <div [class]="'alert-item alert-' + alerta.tipo">
 
-            <ion-icon [name]="alerta.icono"></ion-icon>
+              <ion-icon [name]="alerta.icono"></ion-icon>
 
-            <div>
-              <strong>
-                {{ alerta.titulo }}
-              </strong>
+              <div>
+                <strong>
+                  {{ alerta.titulo }}
+                </strong>
 
-              <span>
-                {{ alerta.descripcion }}
-              </span>
+                <span>
+                  {{ alerta.descripcion }}
+                </span>
+              </div>
+
             </div>
+          }
 
-          </div>
+          @if (!alertas || alertas.length === 0) {
+            <div class="empty-alerts">
 
-          <div class="empty-alerts" *ngIf="!alertas || alertas.length === 0">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
 
-            <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <div>
+                <strong>
+                  El sistema funciona correctamente
+                </strong>
 
-            <div>
-              <strong>
-                El sistema funciona correctamente
-              </strong>
-
-              <span>
-                No existen alertas en este momento.
-              </span>
+                <span>
+                  No existen alertas en este momento.
+                </span>
+              </div>
             </div>
-
-          </div>
+          }
 
         </div>
 
