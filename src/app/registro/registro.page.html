@@ -16,11 +16,7 @@
             Monitoreo y optimización inteligente
           </p>
 
-          <img
-            src="assets/img/logo.png"
-            alt="Logo de Aqua Control"
-            class="brand-logo"
-          />
+          <img src="assets/img/logo.png" alt="Logo de Aqua Control" class="brand-logo" />
 
         </div>
 
@@ -38,18 +34,13 @@
             Usuario
           </label>
 
-          <ion-input
-            [value]="usuario()"
-            (ionInput)="actualizarUsuario($event)"
-            placeholder="Elige un nombre de usuario"
-            type="text"
-            class="premium-input"
-          ></ion-input>
+          <ion-input [value]="usuario()" (ionInput)="actualizarUsuario($event)" placeholder="Elige un nombre de usuario"
+            type="text" class="premium-input"></ion-input>
 
           @if (errores.usuario) {
-            <p class="error-text">
-              {{ errores.usuario }}
-            </p>
+          <p class="error-text">
+            {{ errores.usuario }}
+          </p>
           }
 
         </div>
@@ -60,18 +51,13 @@
             Correo electrónico
           </label>
 
-          <ion-input
-            [value]="email()"
-            (ionInput)="actualizarEmail($event)"
-            placeholder="Ingresa tu correo electrónico"
-            type="email"
-            class="premium-input"
-          ></ion-input>
+          <ion-input [value]="email()" (ionInput)="actualizarEmail($event)" placeholder="Ingresa tu correo electrónico"
+            type="email" class="premium-input"></ion-input>
 
           @if (errores.email) {
-            <p class="error-text">
-              {{ errores.email }}
-            </p>
+          <p class="error-text">
+            {{ errores.email }}
+          </p>
           }
 
         </div>
@@ -82,37 +68,21 @@
             Contraseña
           </label>
 
-          <ion-input
-            [value]="password()"
-            (ionInput)="actualizarPassword($event)"
-            name="new-password"
-            autocomplete="new-password"
-            placeholder="Crea una contraseña"
-            type="password"
-            required
-            minlength="6"
-            class="premium-input"
-          >
-            <ion-input-password-toggle
-              slot="end"
-              class="light-eye"
-            ></ion-input-password-toggle>
+          <ion-input [value]="password()" (ionInput)="actualizarPassword($event)" name="new-password"
+            autocomplete="new-password" placeholder="Crea una contraseña" type="password" required minlength="6"
+            class="premium-input">
+            <ion-input-password-toggle slot="end" class="light-eye"></ion-input-password-toggle>
           </ion-input>
 
           @if (errores.password) {
-            <p class="error-text">
-              {{ errores.password }}
-            </p>
+          <p class="error-text">
+            {{ errores.password }}
+          </p>
           }
 
         </div>
 
-        <ion-button
-          (click)="insertar()"
-          fill="solid"
-          expand="block"
-          class="neon-btn"
-        >
+        <ion-button (click)="insertar()" fill="solid" expand="block" class="neon-btn">
           REGISTRARSE
         </ion-button>
 
@@ -122,10 +92,7 @@
             Ya tengo una cuenta.
           </span>
 
-          <a
-            routerLink="/login"
-            class="neon-link"
-          >
+          <a routerLink="/login" class="neon-link">
             Iniciar sesión
           </a>
 

@@ -1,23 +1,12 @@
-import {
-  Component,
-  inject
-} from '@angular/core';
+import {Component, inject} from '@angular/core';
 
-import {
-  RouterLink
-} from '@angular/router';
+import {RouterLink} from '@angular/router';
 
-import {
-  ToastController
-} from '@ionic/angular';
+import {ToastController} from '@ionic/angular';
 
-import {
-  addIcons
-} from 'ionicons';
+import {addIcons} from 'ionicons';
 
-import {
-  personCircleOutline
-} from 'ionicons/icons';
+import {personCircleOutline} from 'ionicons/icons';
 
 import {
   IonHeader,
@@ -33,9 +22,7 @@ import {
   IonIcon
 } from '@ionic/angular/standalone';
 
-import {
-  UsuariosService
-} from '../services/usuarios.service';
+import {UsuariosService} from '../services/usuarios.service';
 
 addIcons({
   personCircleOutline

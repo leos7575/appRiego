@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -16,7 +16,7 @@ import {
 })
 export class UsuariosService {
 
-  constructor(private http: HttpClient) {}
+  private readonly http = inject(HttpClient);
 
   public getUsers(): Observable<any> {
     return this.http.get(_URL_USERS);
@@ -35,12 +35,11 @@ export class UsuariosService {
     );
   }
 
-  // Actualizar usuario.
+  // Actualizar usuario
   public putUser(
     id: string,
     userData: any
   ): Observable<any> {
-
     return this.http.put(
       `${_URL_USERS_UPDATE}${id}`,
       userData
@@ -57,7 +56,6 @@ export class UsuariosService {
     id: string,
     sector1Data: any
   ): Observable<any> {
-
     return this.http.put(
       `${_URL_SECTOR1}${id}`,
       sector1Data
@@ -67,7 +65,6 @@ export class UsuariosService {
   public postSector2(
     sector2Data: any
   ): Observable<any> {
-
     return this.http.post(
       _URL_SECTOR2,
       sector2Data
