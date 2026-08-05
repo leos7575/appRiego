@@ -1,5 +1,9 @@
 <ion-content [fullscreen]="true" class="desktop-bg">
 
+  <div style="position: absolute; top: 15px; right: 15px; z-index: 10;">
+    <app-language-selector></app-language-selector>
+  </div>
+
   <div class="login-wrapper">
 
     <div class="split-card">
@@ -9,16 +13,16 @@
         <div class="brand-container">
 
           <h2 class="brand-title">
-            Aqua Control
+            {{ 'LOGIN.BRAND_TITLE' | translate }}
           </h2>
 
           <p class="brand-subtitle">
-            Monitoreo y optimización inteligente
+            {{ 'LOGIN.BRAND_SUBTITLE' | translate }}
           </p>
 
           <img
             src="assets/img/logo.png"
-            alt="Logo de Aqua Control"
+            [alt]="'LOGIN.BRAND_TITLE' | translate"
             class="brand-logo"
           />
 
@@ -29,19 +33,19 @@
       <div class="split-right">
 
         <h1 class="main-title">
-          Crear cuenta
+          {{ 'REGISTRO.TITLE' | translate }}
         </h1>
 
         <div class="input-group">
 
           <label>
-            Usuario
+            {{ 'REGISTRO.USER_LABEL' | translate }}
           </label>
 
           <ion-input
             [value]="usuario()"
             (ionInput)="actualizarUsuario($event)"
-            placeholder="Elige un nombre de usuario"
+            [placeholder]="'REGISTRO.USER_PLACEHOLDER' | translate"
             type="text"
             class="premium-input"
           ></ion-input>
@@ -57,13 +61,13 @@
         <div class="input-group">
 
           <label>
-            Correo electrónico
+            {{ 'REGISTRO.EMAIL_LABEL' | translate }}
           </label>
 
           <ion-input
             [value]="email()"
             (ionInput)="actualizarEmail($event)"
-            placeholder="Ingresa tu correo electrónico"
+            [placeholder]="'REGISTRO.EMAIL_PLACEHOLDER' | translate"
             type="email"
             class="premium-input"
           ></ion-input>
@@ -79,7 +83,7 @@
         <div class="input-group">
 
           <label>
-            Contraseña
+            {{ 'REGISTRO.PASSWORD_LABEL' | translate }}
           </label>
 
           <ion-input
@@ -87,7 +91,7 @@
             (ionInput)="actualizarPassword($event)"
             name="new-password"
             autocomplete="new-password"
-            placeholder="Crea una contraseña"
+            [placeholder]="'REGISTRO.PASSWORD_PLACEHOLDER' | translate"
             type="password"
             required
             minlength="6"
@@ -113,20 +117,20 @@
           expand="block"
           class="neon-btn"
         >
-          REGISTRARSE
+          {{ 'REGISTRO.BUTTON' | translate }}
         </ion-button>
 
         <div class="forgot-container">
 
           <span class="text-secondary">
-            Ya tengo una cuenta.
+            {{ 'REGISTRO.ALREADY_ACCOUNT' | translate }}
           </span>
 
           <a
             routerLink="/login"
             class="neon-link"
           >
-            Iniciar sesión
+            {{ 'REGISTRO.LOGIN_NOW' | translate }}
           </a>
 
         </div>
@@ -137,4 +141,4 @@
 
   </div>
 
-</ion-content>
+</ion-content>

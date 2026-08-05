@@ -38,11 +38,11 @@
         <div>
 
           <h1 class="section-title">
-            Control de Sectores
+            {{ 'TAB1.TITLE' | translate }}
           </h1>
 
           <p class="section-subtitle">
-            Monitoreo y activación manual de válvulas de flujo
+            {{ 'TAB1.SUBTITLE' | translate }}
           </p>
 
         </div>
@@ -72,8 +72,8 @@
             <span class="status-badge">
               {{
                 estado1
-                  ? 'En línea'
-                  : 'Inactivo'
+                  ? ('TAB1.STATUS_ONLINE' | translate)
+                  : ('TAB1.STATUS_INACTIVE' | translate)
               }}
             </span>
 
@@ -88,11 +88,11 @@
           </div>
 
           <h2 class="sector-name">
-            Sector 01
+            {{ 'TAB1.SECTOR_1_NAME' | translate }}
           </h2>
 
           <p class="sector-details">
-            Válvula Principal Norte
+            {{ 'TAB1.SECTOR_1_DETAILS' | translate }}
           </p>
 
         </div>
@@ -107,8 +107,8 @@
         >
           {{
             estado1
-              ? 'Desactivar'
-              : 'Activar Válvula'
+              ? ('TAB1.BTN_DEACTIVATE' | translate)
+              : ('TAB1.BTN_ACTIVATE' | translate)
           }}
         </ion-button>
 
@@ -133,8 +133,8 @@
             <span class="status-badge">
               {{
                 estado2
-                  ? 'En línea'
-                  : 'Inactivo'
+                  ? ('TAB1.STATUS_ONLINE' | translate)
+                  : ('TAB1.STATUS_INACTIVE' | translate)
               }}
             </span>
 
@@ -149,11 +149,11 @@
           </div>
 
           <h2 class="sector-name">
-            Sector 02
+            {{ 'TAB1.SECTOR_2_NAME' | translate }}
           </h2>
 
           <p class="sector-details">
-            Válvula de Aspersión Sur
+            {{ 'TAB1.SECTOR_2_DETAILS' | translate }}
           </p>
 
         </div>
@@ -168,8 +168,8 @@
         >
           {{
             estado2
-              ? 'Desactivar'
-              : 'Activar Válvula'
+              ? ('TAB1.BTN_DEACTIVATE' | translate)
+              : ('TAB1.BTN_ACTIVATE' | translate)
           }}
         </ion-button>
 
@@ -179,4 +179,4 @@
 
   </div>
 
-</ion-content>
+</ion-content>

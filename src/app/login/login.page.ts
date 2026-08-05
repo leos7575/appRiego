@@ -24,6 +24,9 @@ import {
   IonInputPasswordToggle
 } from '@ionic/angular/standalone';
 
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -34,7 +37,9 @@ import {
     IonContent,
     IonButton,
     IonInput,
-    IonInputPasswordToggle
+    IonInputPasswordToggle,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
 export class LoginPage {
@@ -46,6 +51,9 @@ export class LoginPage {
 
   private readonly toastController =
     inject(ToastController);
+
+  private readonly translate =
+    inject(TranslateService);
 
   usuario = signal('');
   password = signal('');
@@ -100,7 +108,7 @@ export class LoginPage {
         );
 
         this.mostrarToast(
-          'Error al cargar los usuarios.',
+          this.translate.instant('LOGIN.ERROR_LOADING_USERS'),
           'error'
         );
       }
@@ -138,7 +146,7 @@ export class LoginPage {
 
     if (!usuarioIngresado || !passwordIngresado) {
       this.mostrarToast(
-        'Completa todos los campos.',
+        this.translate.instant('LOGIN.ERROR_EMPTY_FIELDS'),
         'error'
       );
 
@@ -147,7 +155,7 @@ export class LoginPage {
 
     if (usuarioIngresado.length < 3) {
       this.mostrarToast(
-        'El usuario debe tener al menos 3 caracteres.',
+        this.translate.instant('LOGIN.ERROR_USER_SHORT'),
         'error'
       );
 
@@ -156,7 +164,7 @@ export class LoginPage {
 
     if (passwordIngresado.length < 6) {
       this.mostrarToast(
-        'La contraseña debe tener al menos 6 caracteres.',
+        this.translate.instant('LOGIN.ERROR_PASSWORD_SHORT'),
         'error'
       );
 
@@ -172,7 +180,7 @@ export class LoginPage {
 
     if (!usuarioEncontrado) {
       this.mostrarToast(
-        'Usuario o contraseña incorrectos.',
+        this.translate.instant('LOGIN.ERROR_INVALID_CREDENTIALS'),
         'error'
       );
 
@@ -184,7 +192,7 @@ export class LoginPage {
       usuario: usuarioEncontrado.user,
       email:
         usuarioEncontrado.email ||
-        'Correo no registrado'
+        this.translate.instant('LOGIN.NO_EMAIL_REGISTERED')
     };
 
     localStorage.setItem(
@@ -193,7 +201,7 @@ export class LoginPage {
     );
 
     this.mostrarToast(
-      'Inicio de sesión exitoso. ¡Bienvenido!',
+      this.translate.instant('LOGIN.SUCCESS_WELCOME'),
       'success'
     );
 

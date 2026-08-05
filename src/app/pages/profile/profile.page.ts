@@ -19,6 +19,9 @@ import {
   IonButton
 } from '@ionic/angular/standalone';
 
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../components/language-selector/language-selector.component';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -29,7 +32,9 @@ import {
     IonBackButton,
     IonContent,
     IonIcon,
-    IonButton
+    IonButton,
+    TranslatePipe,
+    LanguageSelectorComponent
   ]
 })
 export class ProfilePage {
@@ -40,8 +45,11 @@ export class ProfilePage {
   private readonly usuariosService =
     inject(UsuariosService);
 
+  private readonly translate =
+    inject(TranslateService);
+
   public userName: string =
-    'Cargando...';
+    '';
 
   public userEmail: string =
     '';
@@ -116,7 +124,7 @@ export class ProfilePage {
     }
 
     this.userName =
-      'Cargando...';
+      this.translate.instant('PROFILE.LOADING');
 
     this.userEmail =
       '';
@@ -153,7 +161,7 @@ export class ProfilePage {
 
             this.userEmail =
               usuario.email ||
-              'Correo no registrado';
+              this.translate.instant('LOGIN.NO_EMAIL_REGISTERED');
 
             const datosSesion = {
               id:
@@ -178,7 +186,7 @@ export class ProfilePage {
           } else {
 
             this.userName =
-              'Usuario no encontrado';
+              this.translate.instant('PROFILE.USER_NOT_FOUND');
 
             this.userEmail =
               '';
@@ -193,7 +201,7 @@ export class ProfilePage {
           );
 
           this.userName =
-            'Error al cargar usuario';
+            this.translate.instant('PROFILE.ERR_LOAD_USER');
 
           this.userEmail =
             '';

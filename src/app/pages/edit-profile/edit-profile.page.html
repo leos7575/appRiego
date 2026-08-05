@@ -11,7 +11,7 @@
     ></ion-back-button>
 
     <h1 class="header-title">
-      Editar perfil
+      {{ 'EDIT_PROFILE.TITLE' | translate }}
     </h1>
 
   </div>
@@ -33,11 +33,11 @@
       </div>
 
       <h2>
-        Editar información
+        {{ 'EDIT_PROFILE.CARD_TITLE' | translate }}
       </h2>
 
       <p>
-        Actualiza los datos de tu cuenta
+        {{ 'EDIT_PROFILE.CARD_SUBTITLE' | translate }}
       </p>
 
     </div>
@@ -47,13 +47,13 @@
       <div class="input-group">
 
         <ion-label>
-          Nombre de usuario
+          {{ 'EDIT_PROFILE.USER_LABEL' | translate }}
         </ion-label>
 
         <ion-input
           type="text"
           fill="outline"
-          placeholder="Escribe tu nombre de usuario"
+          [placeholder]="'EDIT_PROFILE.USER_PLACEHOLDER' | translate"
           [value]="userName"
           (ionInput)="actualizarNombre($event)"
         ></ion-input>
@@ -63,13 +63,13 @@
       <div class="input-group">
 
         <ion-label>
-          Correo electrónico
+          {{ 'EDIT_PROFILE.EMAIL_LABEL' | translate }}
         </ion-label>
 
         <ion-input
           type="email"
           fill="outline"
-          placeholder="Escribe tu correo electrónico"
+          [placeholder]="'EDIT_PROFILE.EMAIL_PLACEHOLDER' | translate"
           [value]="userEmail"
           (ionInput)="actualizarCorreo($event)"
         ></ion-input>
@@ -79,13 +79,13 @@
       <div class="input-group">
 
         <ion-label>
-          Nueva contraseña
+          {{ 'EDIT_PROFILE.PASSWORD_LABEL' | translate }}
         </ion-label>
 
         <ion-input
           type="password"
           fill="outline"
-          placeholder="Déjala vacía para no cambiarla"
+          [placeholder]="'EDIT_PROFILE.PASSWORD_PLACEHOLDER' | translate"
           [value]="newPassword"
           (ionInput)="actualizarPassword($event)"
         >
@@ -95,8 +95,7 @@
         </ion-input>
 
         <p class="input-help">
-          Completa este campo solamente si quieres
-          cambiar tu contraseña.
+          {{ 'EDIT_PROFILE.PASSWORD_HELP' | translate }}
         </p>
 
       </div>
@@ -113,8 +112,8 @@
       >
         {{
           isLoading
-            ? 'GUARDANDO...'
-            : 'GUARDAR CAMBIOS'
+            ? ('EDIT_PROFILE.BTN_SAVING' | translate)
+            : ('EDIT_PROFILE.BTN_SAVE' | translate)
         }}
       </ion-button>
 
@@ -125,11 +124,11 @@
         [disabled]="isLoading"
         (click)="cancelar()"
       >
-        CANCELAR
+        {{ 'EDIT_PROFILE.BTN_CANCEL' | translate }}
       </ion-button>
 
     </div>
 
   </div>
 
-</ion-content>
+</ion-content>

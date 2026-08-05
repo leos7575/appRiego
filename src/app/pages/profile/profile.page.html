@@ -11,8 +11,12 @@
     ></ion-back-button>
 
     <h1 class="header-title">
-      Perfil de Usuario
+      {{ 'PROFILE.TITLE' | translate }}
     </h1>
+
+    <div style="margin-left: auto; margin-right: 10px;">
+      <app-language-selector></app-language-selector>
+    </div>
 
   </div>
 
@@ -49,7 +53,7 @@
         class="action-btn btn-edit"
         (click)="onEditProfile()"
       >
-        EDITAR INFORMACIÓN
+        {{ 'PROFILE.EDIT_INFO' | translate }}
       </ion-button>
 
       <ion-button
@@ -58,11 +62,11 @@
         class="action-btn btn-logout"
         (click)="onLogout()"
       >
-        CERRAR SESIÓN
+        {{ 'PROFILE.LOGOUT' | translate }}
       </ion-button>
 
     </div>
 
   </div>
 
-</ion-content>
+</ion-content>

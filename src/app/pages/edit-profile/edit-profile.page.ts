@@ -27,6 +27,8 @@ import {
   IonButton
 } from '@ionic/angular/standalone';
 
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.page.html',
@@ -40,7 +42,8 @@ import {
     IonLabel,
     IonInput,
     IonInputPasswordToggle,
-    IonButton
+    IonButton,
+    TranslatePipe
   ]
 })
 export class EditProfilePage
@@ -54,6 +57,9 @@ export class EditProfilePage
 
   private readonly toastController =
     inject(ToastController);
+
+  private readonly translate =
+    inject(TranslateService);
 
   public userId: string = '';
   public userName: string = '';
@@ -194,7 +200,7 @@ export class EditProfilePage
           } else {
 
             this.mostrarToast(
-              'No se encontró el usuario.',
+              this.translate.instant('EDIT_PROFILE.ERR_NOT_FOUND'),
               'error'
             );
           }
@@ -211,7 +217,7 @@ export class EditProfilePage
           );
 
           this.mostrarToast(
-            'No se pudieron cargar los datos.',
+            this.translate.instant('EDIT_PROFILE.ERR_LOAD_DATA'),
             'error'
           );
         }
@@ -235,7 +241,7 @@ export class EditProfilePage
     ) {
 
       this.mostrarToast(
-        'El nombre y el correo son obligatorios.',
+        this.translate.instant('EDIT_PROFILE.ERR_FIELDS_REQUIRED'),
         'error'
       );
 
@@ -245,7 +251,7 @@ export class EditProfilePage
     if (!this.userId) {
 
       this.mostrarToast(
-        'No se encontró el ID del usuario.',
+        this.translate.instant('EDIT_PROFILE.ERR_NO_ID'),
         'error'
       );
 
@@ -334,7 +340,7 @@ export class EditProfilePage
             '';
 
           this.mostrarToast(
-            'Información actualizada correctamente.',
+            this.translate.instant('EDIT_PROFILE.SUCCESS_UPDATED'),
             'success'
           );
 
