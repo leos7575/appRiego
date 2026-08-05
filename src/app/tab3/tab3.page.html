@@ -44,9 +44,9 @@
         <div class="header-status" [class.status-offline]="!esp32Conectado">
           <ion-icon name="wifi-outline"></ion-icon>
           <div class="status-information">
-            <span>ESP32</span>
+            <span>{{ 'TAB3.ESP32' | translate }}</span>
             <strong>
-              {{ esp32Conectado ? 'Conectado' : 'Desconectado' }}
+              {{ esp32Conectado ? ('TAB3.CONNECTED' | translate) : ('TAB3.DISCONNECTED' | translate) }}
             </strong>
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="header-status">
           <ion-icon name="hardware-chip-outline"></ion-icon>
           <div class="status-information">
-            <span>Modo de riego</span>
+            <span>{{ 'TAB3.IRRIGATION_MODE' | translate }}</span>
             <strong>
               {{ modoRiego }}
             </strong>
@@ -92,8 +92,8 @@
 
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
 
-    <ion-refresher-content pullingText="Desliza para actualizar" refreshingSpinner="circles"
-      refreshingText="Actualizando datos...">
+    <ion-refresher-content [pullingText]="'TAB3.PULL_TO_REFRESH' | translate" refreshingSpinner="circles"
+      [refreshingText]="'TAB3.REFRESHING' | translate">
     </ion-refresher-content>
 
   </ion-refresher>
@@ -103,7 +103,7 @@
 
       <span class="title-indicator"></span>
 
-      <h1>Dashboard Inteligente</h1>
+      <h1>{{ 'TAB3.MAIN_TITLE' | translate }}</h1>
 
     </div>
     <div class="dashboard-views">
@@ -122,17 +122,17 @@
 
         <div>
           <span class="section-label">
-            Monitoreo
+            {{ 'TAB3.MONITORING' | translate }}
           </span>
 
           <h2>
-            Información en tiempo real
+            {{ 'TAB3.REALTIME_INFO' | translate }}
           </h2>
         </div>
 
         <div class="auto-update-label">
           <span class="pulse-dot"></span>
-          Actualización cada 5 segundos
+          {{ 'TAB3.AUTO_UPDATE' | translate }}
         </div>
 
       </div>
@@ -155,11 +155,11 @@
 
             <div>
               <span class="card-category">
-                Sensor AHT10
+                {{ 'TAB3.SENSOR_AHT10' | translate }}
               </span>
 
               <h3>
-                Ambiente exterior
+                {{ 'TAB3.OUTSIDE_ENV' | translate }}
               </h3>
             </div>
 
@@ -168,7 +168,7 @@
           <div class="double-metric">
 
             <div class="metric-box">
-              <span>Temperatura</span>
+              <span>{{ 'TAB3.TEMPERATURE' | translate }}</span>
 
               <strong>
                 {{ dashboard.temperaturaAmbiente }}°C
@@ -178,7 +178,7 @@
             <div class="metric-divider"></div>
 
             <div class="metric-box">
-              <span>Humedad</span>
+              <span>{{ 'TAB3.HUMIDITY' | translate }}</span>
 
               <strong>
                 {{ dashboard.humedadAmbiente }}%
@@ -206,16 +206,16 @@
 
             <div>
               <span class="card-category">
-                Sensor AHT10
+                {{ 'TAB3.SENSOR_AHT10' | translate }}
               </span>
 
               <h3>
-                Caja electrónica
+                {{ 'TAB3.ELECTRONIC_BOX' | translate }}
               </h3>
             </div>
 
             <span class="optional-badge">
-              Opcional
+              {{ 'TAB3.OPTIONAL' | translate }}
             </span>
 
           </div>
@@ -223,7 +223,7 @@
           <div class="double-metric">
 
             <div class="metric-box">
-              <span>Temperatura</span>
+              <span>{{ 'TAB3.TEMPERATURE' | translate }}</span>
 
               <strong [class.metric-warning]="dashboard.temperaturaCaja >= 38">
 
@@ -235,7 +235,7 @@
             <div class="metric-divider"></div>
 
             <div class="metric-box">
-              <span>Humedad</span>
+              <span>{{ 'TAB3.HUMIDITY' | translate }}</span>
 
               <strong>
                 {{ dashboard.humedadCaja }}%
@@ -267,11 +267,11 @@
 
               <div>
                 <span class="card-category">
-                  Sensor de suelo
+                  {{ 'TAB3.SOIL_SENSOR' | translate }}
                 </span>
 
                 <h3>
-                  Humedad del suelo
+                  {{ 'TAB3.SOIL_MOISTURE' | translate }}
                 </h3>
               </div>
 
@@ -312,7 +312,7 @@
 
               <div>
                 <span class="card-category">
-                  Sensor de lluvia
+                  {{ 'TAB3.RAIN_SENSOR' | translate }}
                 </span>
 
                 <h3>
@@ -326,8 +326,8 @@
 
               {{
               dashboard.lluvia
-              ? 'Lluvia detectada'
-              : 'Sin lluvia'
+              ? ('TAB3.RAIN_DETECTED' | translate)
+              : ('TAB3.NO_RAIN' | translate)
               }}
 
             </div>
@@ -340,8 +340,8 @@
 
               {{
               dashboard.lluvia
-              ? 'El riego debe detenerse'
-              : 'Riego permitido'
+              ? ('TAB3.STOP_IRRIGATION' | translate)
+              : ('TAB3.IRRIGATION_ALLOWED' | translate)
               }}
 
             </div>
@@ -360,11 +360,11 @@
 
               <div>
                 <span class="card-category">
-                  Caudalímetro
+                  {{ 'TAB3.FLOW_METER' | translate }}
                 </span>
 
                 <h3>
-                  Flujo actual
+                  {{ 'TAB3.CURRENT_FLOW' | translate }}
                 </h3>
               </div>
 
@@ -382,8 +382,8 @@
 
               {{
               dashboard.flujoActual > 0
-              ? 'Agua circulando'
-              : 'Sin flujo de agua'
+              ? ('TAB3.WATER_FLOWING' | translate)
+              : ('TAB3.NO_WATER_FLOW' | translate)
               }}
 
             </div>
@@ -402,7 +402,7 @@
 
               <div>
                 <span class="card-category">
-                  Estado actual
+                  {{ 'TAB3.CURRENT_STATE' | translate }}
                 </span>
 
                 <h3>
@@ -416,8 +416,8 @@
 
               {{
               dashboard.riegoActivo
-              ? 'Riego activo'
-              : 'Riego detenido'
+              ? ('TAB3.IRRIGATION_ACTIVE' | translate)
+              : ('TAB3.IRRIGATION_STOPPED' | translate)
               }}
 
             </div>
@@ -459,17 +459,17 @@
                 <ion-icon name="flash-outline"></ion-icon>
 
                 <span>
-                  Bomba Sector 1
+                  {{ 'TAB3.PUMP_SECTOR_1' | translate }}
                 </span>
 
               </div>
 
               <strong>
-                {{ valvulaSector1 ? 'Encendida' : 'Apagada' }}
+                {{ valvulaSector1 ? ('TAB3.PUMP_ON' | translate) : ('TAB3.PUMP_OFF' | translate) }}
               </strong>
 
               <small>
-                {{ valvulaSector1 ? 'Toca para desactivar' : 'Toca para configurar' }}
+                {{ valvulaSector1 ? ('TAB3.TAP_TO_DEACTIVATE' | translate) : ('TAB3.TAP_TO_CONFIGURE' | translate) }}
               </small>
 
             </div>
@@ -483,17 +483,17 @@
                 <ion-icon name="flash-outline"></ion-icon>
 
                 <span>
-                  Bomba Sector 2
+                  {{ 'TAB3.PUMP_SECTOR_2' | translate }}
                 </span>
 
               </div>
 
               <strong>
-                {{ valvulaSector2 ? 'Encendida' : 'Apagada' }}
+                {{ valvulaSector2 ? ('TAB3.PUMP_ON' | translate) : ('TAB3.PUMP_OFF' | translate) }}
               </strong>
 
               <small>
-                {{ valvulaSector2 ? 'Toca para desactivar' : 'Toca para configurar' }}
+                {{ valvulaSector2 ? ('TAB3.TAP_TO_DEACTIVATE' | translate) : ('TAB3.TAP_TO_CONFIGURE' | translate) }}
               </small>
 
             </div>
@@ -508,14 +508,14 @@
 
               <ion-icon name="flash-outline"></ion-icon>
 
-              Estado energético
+              {{ 'TAB3.ENERGY_STATE' | translate }}
 
             </h3>
 
             <div class="energy-item">
 
               <span>
-                Batería
+                {{ 'TAB3.BATTERY' | translate }}
               </span>
 
               <div class="battery-value">
@@ -536,7 +536,7 @@
             <div class="energy-item">
 
               <span>
-                Voltaje
+                {{ 'TAB3.VOLTAGE' | translate }}
               </span>
 
               <strong>
@@ -548,7 +548,7 @@
             <div class="energy-item">
 
               <span>
-                Generación
+                {{ 'TAB3.GENERATION' | translate }}
               </span>
 
               <strong>
@@ -560,7 +560,7 @@
             <div class="energy-item">
 
               <span>
-                Agua utilizada hoy
+                {{ 'TAB3.WATER_USED_TODAY' | translate }}
               </span>
 
               <strong>
@@ -581,16 +581,16 @@
 
             <div>
               <span class="section-label">
-                Historial
+                {{ 'TAB3.HISTORY' | translate }}
               </span>
 
               <h2>
-                Duración del riego — {{ nombreSectorSeleccionado }}
+                {{ 'TAB3.IRRIGATION_DURATION' | translate }} — {{ nombreSectorSeleccionado }}
               </h2>
             </div>
 
             <div class="chart-period">
-              Últimos 7 registros
+              {{ 'TAB3.LAST_7_LOGS' | translate }}
             </div>
 
           </div>
@@ -620,11 +620,11 @@
 
             <div>
               <span>
-                Inteligencia Artificial
+                {{ 'TAB3.AI_LABEL' | translate }}
               </span>
 
               <strong>
-                Modelo activo
+                {{ 'TAB3.ACTIVE_MODEL' | translate }}
               </strong>
             </div>
 
@@ -633,7 +633,7 @@
           <div class="ai-data">
 
             <div>
-              <span>Modelo</span>
+              <span>{{ 'TAB3.MODEL' | translate }}</span>
 
               <strong>
                 {{ dashboard.modeloIA }}
@@ -641,7 +641,7 @@
             </div>
 
             <div>
-              <span>Precisión</span>
+              <span>{{ 'TAB3.ACCURACY' | translate }}</span>
 
               <strong>
                 {{ dashboard.precisionIA }}%
@@ -649,7 +649,7 @@
             </div>
 
             <div>
-              <span>Modo actual</span>
+              <span>{{ 'TAB3.CURRENT_MODE' | translate }}</span>
 
               <strong>
                 {{ modoRiego }}
@@ -674,12 +674,12 @@
 
             <ion-icon name="notifications-outline"></ion-icon>
 
-            Alertas y errores
+            {{ 'TAB3.ALERTS_AND_ERRORS' | translate }}
 
           </h3>
 
           <span class="optional-badge">
-            Opcional
+            {{ 'TAB3.OPTIONAL' | translate }}
           </span>
 
         </div>
@@ -711,11 +711,11 @@
 
               <div>
                 <strong>
-                  El sistema funciona correctamente
+                  {{ 'TAB3.SYSTEM_OK' | translate }}
                 </strong>
 
                 <span>
-                  No existen alertas en este momento.
+                  {{ 'TAB3.NO_ALERTS' | translate }}
                 </span>
               </div>
             </div>
