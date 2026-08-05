@@ -1,4 +1,3 @@
-<!-- Forzamos el fondo del header aquí también -->
 <ion-header class="ion-no-border" style="--background: #1E2E4F;">
   <ion-toolbar class="head-toolbar" style="--background: #1E2E4F; --color: #ffffff;">
     <ion-buttons slot="start">
@@ -8,7 +7,6 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- Forzamos el fondo oscuro aquí -->
 <ion-content style="--background: #192338;">
   <div class="dashboard-wrapper" style="max-width: 600px; margin: 0 auto; padding-top: 20px;">
     
@@ -17,9 +15,77 @@
       <div style="width: 80px; height: 80px; background: #31487A; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #8FB3E2; font-size: 3rem; margin-bottom: 15px;">
         <ion-icon name="person-circle-outline"></ion-icon>
       </div>
-      <h2 style="color: #ffffff; margin: 0; font-weight: 700;">Usuario AquaControl</h2>
+      <h2 style="color: #ffffff; margin: 0; font-weight: 700;">{{ userName }}</h2>
       <p style="color: #8FB3E2; margin: 5px 0 0 0; opacity: 0.8;">{{ userEmail }}</p>
     </div>
+
+    <!-- Formulario de Edición -->
+    @if (mostrandoEdicion) {
+      <div class="sector-card" style="background: #1E2E4F; border: 1px solid #31487A; padding: 25px; border-radius: 20px; margin-bottom: 20px;">
+        <h3 style="color: #ffffff; margin: 0 0 15px 0; font-weight: 700; font-size: 1.1rem;">
+          {{ 'EDIT_PROFILE.CARD_TITLE' | translate }}
+        </h3>
+        
+        <div class="input-group" style="margin-bottom: 15px;">
+          <label style="color: #8FB3E2; font-size: 0.85rem; margin-bottom: 6px; display: block;">{{ 'EDIT_PROFILE.USER_LABEL' | translate }}</label>
+          <ion-input
+            [value]="editForm.user"
+            (ionInput)="editForm.user = $event.detail.value!"
+            [placeholder]="'EDIT_PROFILE.USER_PLACEHOLDER' | translate"
+            type="text"
+            class="premium-input"
+            style="--background: #192338; --color: #ffffff; --padding-start: 14px; border-radius: 10px; border: 1px solid #31487A;"
+          ></ion-input>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 15px;">
+          <label style="color: #8FB3E2; font-size: 0.85rem; margin-bottom: 6px; display: block;">{{ 'EDIT_PROFILE.EMAIL_LABEL' | translate }}</label>
+          <ion-input
+            [value]="editForm.email"
+            (ionInput)="editForm.email = $event.detail.value!"
+            [placeholder]="'EDIT_PROFILE.EMAIL_PLACEHOLDER' | translate"
+            type="email"
+            class="premium-input"
+            style="--background: #192338; --color: #ffffff; --padding-start: 14px; border-radius: 10px; border: 1px solid #31487A;"
+          ></ion-input>
+        </div>
+
+        <div class="input-group" style="margin-bottom: 20px;">
+          <label style="color: #8FB3E2; font-size: 0.85rem; margin-bottom: 6px; display: block;">{{ 'EDIT_PROFILE.PASSWORD_LABEL' | translate }}</label>
+          <ion-input
+            [value]="editForm.password"
+            (ionInput)="editForm.password = $event.detail.value!"
+            [placeholder]="'EDIT_PROFILE.PASSWORD_PLACEHOLDER' | translate"
+            type="password"
+            class="premium-input"
+            style="--background: #192338; --color: #ffffff; --padding-start: 14px; border-radius: 10px; border: 1px solid #31487A;"
+          ></ion-input>
+          <small style="color: #8FB3E2; opacity: 0.7; font-size: 0.75rem; margin-top: 4px; display: block;">
+            {{ 'EDIT_PROFILE.PASSWORD_HELP' | translate }}
+          </small>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <ion-button
+            expand="block"
+            (click)="guardarPerfil()"
+            [disabled]="guardando"
+            style="--background: #2ecc71; --color: #ffffff; height: 45px; font-weight: 700; border-radius: 10px; flex: 1;"
+          >
+            {{ guardando ? ('EDIT_PROFILE.BTN_SAVING' | translate) : ('EDIT_PROFILE.BTN_SAVE' | translate) }}
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            fill="outline"
+            (click)="toggleEdit()"
+            style="--border-color: #8FB3E2; --color: #8FB3E2; height: 45px; font-weight: 700; border-radius: 10px;"
+          >
+            {{ 'EDIT_PROFILE.BTN_CANCEL' | translate }}
+          </ion-button>
+        </div>
+      </div>
+    }
 
     <!-- Tarjeta de Selección de Idioma -->
     <div class="sector-card" style="background: #1E2E4F; border: 1px solid #31487A; padding: 20px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
@@ -30,10 +96,14 @@
       <app-language-selector></app-language-selector>
     </div>
 
-    <!-- Botones -->
+    <!-- Botones Principales -->
     <div style="margin-top: 15px;">
-      <ion-button expand="block" (click)="onEditProfile()" style="--background: #8FB3E2; --color: #192338; height: 50px; font-weight: 700; border-radius: 12px; margin-bottom: 15px;">{{ 'PROFILE.EDIT_INFO' | translate }}</ion-button>
-      <ion-button expand="block" (click)="onLogout()" style="--background: transparent; --color: #E56363; height: 50px; font-weight: 700; border: 1px solid #E56363; border-radius: 12px;">{{ 'PROFILE.LOGOUT' | translate }}</ion-button>
+      <ion-button expand="block" (click)="toggleEdit()" style="--background: #8FB3E2; --color: #192338; height: 50px; font-weight: 700; border-radius: 12px; margin-bottom: 15px;">
+        {{ mostrandoEdicion ? ('EDIT_PROFILE.BTN_CANCEL' | translate) : ('PROFILE.EDIT_INFO' | translate) }}
+      </ion-button>
+      <ion-button expand="block" (click)="onLogout()" style="--background: transparent; --color: #E56363; height: 50px; font-weight: 700; border: 1px solid #E56363; border-radius: 12px;">
+        {{ 'PROFILE.LOGOUT' | translate }}
+      </ion-button>
     </div>
 
   </div>

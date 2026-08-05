@@ -104,6 +104,14 @@ export class RegistroPage {
     this.userS.postUsers(nuevoUsuario).subscribe(
       (res: any) => {
         console.log('Usuario registrado:', res);
+        const userId = res.id || res._id?.$oid || res._id;
+        const userToSave = {
+          _id: userId,
+          user: this.credenciales.usuario,
+          email: this.credenciales.email
+        };
+        localStorage.setItem('usuarioActual', JSON.stringify(userToSave));
+
         this.mostrarToast(
           this.translate.instant('REGISTRO.SUCCESS_REGISTER'),
           'success'

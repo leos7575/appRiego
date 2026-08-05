@@ -30,4 +30,8 @@ export class UsuariosService {
   public postSector2(sector2Data:any):Observable<any>{
     return this.http.post(_URL_SECTOR2,sector2Data)
   }
+
+  public updateUser(id: string, userData: any): Observable<any> {
+    return this.http.put(`${_URL_API}update_user/${id}`, userData);
+  }
 }

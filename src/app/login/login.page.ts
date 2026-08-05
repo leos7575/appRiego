@@ -90,8 +90,15 @@ export class LoginPage {
     );
 
     if (usuarioEncontrado) {
-
       console.log("Usuario autenticado:", usuarioEncontrado);
+
+      const userId = usuarioEncontrado._id?.$oid || usuarioEncontrado._id || usuarioEncontrado.id;
+      const userToSave = {
+        _id: userId,
+        user: usuarioEncontrado.user,
+        email: usuarioEncontrado.email || `${usuarioEncontrado.user}@correo.com`
+      };
+      localStorage.setItem('usuarioActual', JSON.stringify(userToSave));
 
       this.mostrarToast(
         this.translate.instant('LOGIN.SUCCESS_WELCOME'),
